@@ -54,38 +54,38 @@ export const ExpiringMembers: React.FC<ExpiringMembersProps> = ({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono font-bold text-[#F59E0B] uppercase tracking-widest flex items-center gap-1.5">
+          <span className="text-[10px] font-mono font-bold text-[#7fb6ac] uppercase tracking-widest flex items-center gap-1.5">
             <ClockAlert className="w-3.5 h-3.5" />
             48-HOUR RADAR
           </span>
-          <h2 className="text-xl font-black text-[#E2E8F0] tracking-tight">Expiring Passes</h2>
+          <h2 className="text-xl font-black text-[#9ba9c2] tracking-tight">Expiring Passes</h2>
         </div>
-        <span className="px-2.5 py-1 rounded-full bg-[#F59E0B]/15 text-[#FCD34D] border border-[#F59E0B]/40 text-xs font-mono font-bold">
+        <span className="px-2.5 py-1 rounded-full bg-[#7fb6ac]/15 text-[#7fb6ac] border border-[#7fb6ac]/40 text-xs font-mono font-bold">
           {expiringMembers.length} {expiringMembers.length === 1 ? 'MEMBER' : 'MEMBERS'} DUE
         </span>
       </div>
 
       {/* Priority Action Radar Banner */}
-      <div className="p-4 rounded-3xl bg-gradient-to-r from-[#1C150B] via-[#16120A] to-[#0F1522] border border-[#F59E0B]/40 text-xs text-[#94A3B8] space-y-1.5 shadow-xl">
-        <div className="flex items-center space-x-2 text-[#E2E8F0] font-bold text-xs">
-          <span className="w-2 h-2 rounded-full bg-[#F59E0B] animate-ping" />
+      <div className="p-4 rounded-3xl bg-[#182023] border border-[#7fb6ac]/40 text-xs text-[#9ba9c2] space-y-1.5 shadow-lg">
+        <div className="flex items-center space-x-2 text-[#7fb6ac] font-bold text-xs">
+          <span className="w-2 h-2 rounded-full bg-[#7fb6ac] animate-ping" />
           <span className="font-mono uppercase tracking-wider">Automated Dispatch Ready</span>
         </div>
-        <p className="leading-relaxed font-sans">
-          These members will expire within <strong>48 hours (Today or within 2 Days)</strong>.
+        <p className="leading-relaxed font-sans text-[#6c7674]">
+          These members expire within <strong>48 hours</strong>.
           Tap the WhatsApp button below to trigger Dastagir Kanth's personalized reminder message.
         </p>
       </div>
 
       {/* Empty State */}
       {expiringMembers.length === 0 ? (
-        <div className="text-center py-16 px-4 bg-[#0F1522] border border-[#1E2B3E] rounded-3xl space-y-3">
-          <div className="w-14 h-14 rounded-2xl bg-[#10B981]/15 text-[#10B981] flex items-center justify-center mx-auto border border-[#10B981]/30">
+        <div className="text-center py-16 px-4 bg-[#182023] border border-[#2a3639] rounded-3xl space-y-3">
+          <div className="w-14 h-14 rounded-2xl bg-[#7fb6ac]/15 text-[#7fb6ac] flex items-center justify-center mx-auto border border-[#7fb6ac]/30">
             <Sparkles className="w-7 h-7" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-[#E2E8F0]">All Passes Up to Date!</h3>
-            <p className="text-xs text-[#94A3B8] mt-1 max-w-xs mx-auto">
+            <h3 className="text-base font-bold text-[#9ba9c2]">All Passes Up to Date!</h3>
+            <p className="text-xs text-[#6c7674] mt-1 max-w-xs mx-auto">
               Zero members expiring in the next 48 hours. Excellent roster collection this cycle!
             </p>
           </div>
@@ -101,11 +101,11 @@ export const ExpiringMembers: React.FC<ExpiringMembersProps> = ({
                 key={member.id}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: idx * 0.05 }}
-                className="w-full bg-[#0F1522] border border-[#F59E0B]/40 hover:border-[#F59E0B] rounded-2xl p-4 shadow-xl shadow-amber-500/5 relative overflow-hidden group"
+                transition={{ duration: 0.3, delay: idx * 0.04 }}
+                className="w-full bg-[#182023] border border-[#7fb6ac]/40 hover:border-[#7fb6ac] rounded-2xl p-4 shadow-md relative overflow-hidden group"
               >
                 {/* Urgent Left Stripe */}
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#F59E0B]" />
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#7fb6ac]" />
 
                 <div className="pl-2 space-y-3">
                   {/* Top: Avatar + Name + Expiry badge */}
@@ -114,63 +114,63 @@ export const ExpiringMembers: React.FC<ExpiringMembersProps> = ({
                       onClick={() => onSelectMember(member)}
                       className="cursor-pointer flex items-center space-x-3"
                     >
-                      <div className="w-11 h-11 rounded-xl bg-[#1C150B] border border-[#F59E0B]/40 ring-2 ring-[#F59E0B]/20 flex items-center justify-center text-sm font-black text-[#E2E8F0]">
+                      <div className="w-11 h-11 rounded-xl bg-[#13191b] border border-[#7fb6ac]/40 ring-2 ring-[#7fb6ac]/20 flex items-center justify-center text-sm font-black text-[#9ba9c2]">
                         {member.full_name.charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <h3 className="text-sm font-bold text-[#E2E8F0] group-hover:text-[#FCD34D] transition-colors leading-tight">
+                        <h3 className="text-sm font-bold text-[#9ba9c2] group-hover:text-[#7fb6ac] transition-colors leading-tight">
                           {member.full_name}
                         </h3>
-                        <p className="text-xs text-[#94A3B8] font-mono tracking-wide mt-0.5">
+                        <p className="text-xs text-[#6c7674] font-mono tracking-wide mt-0.5">
                           {formatDisplayPhone(member.phone)}
                         </p>
                       </div>
                     </div>
 
                     <div className="flex flex-col items-end">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#F59E0B]/20 border border-[#F59E0B]/50 text-[#FCD34D] animate-pulse">
+                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#7fb6ac]/15 border border-[#7fb6ac]/40 text-[#7fb6ac]">
                         {countdownText}
                       </span>
-                      <span className="text-[10px] text-[#94A3B8] font-mono mt-1">
+                      <span className="text-[10px] text-[#6c7674] font-mono mt-1">
                         {formatDisplayDate(member.expiry_date)}
                       </span>
                     </div>
                   </div>
 
                   {member.notes && (
-                    <div className="text-[11px] text-[#94A3B8] bg-[#090D15] px-3 py-1.5 rounded-xl border border-[#1A2536]">
+                    <div className="text-[11px] text-[#67758d] bg-[#13191b] px-3 py-1.5 rounded-xl border border-[#2a3639]">
                       {member.notes}
                     </div>
                   )}
 
-                  {/* 1-Tap WhatsApp Reminder & Quick Renew Actions */}
+                  {/* Action Buttons */}
                   <div className="grid grid-cols-3 gap-2 pt-1 font-mono">
                     {/* Call Button */}
                     <button
                       onClick={() => (window.location.href = `tel:${member.phone}`)}
-                      className="py-2.5 px-2 rounded-xl bg-[#162032] hover:bg-[#1E2B3E] border border-[#223048] text-[#94A3B8] hover:text-[#E2E8F0] text-xs font-semibold flex items-center justify-center space-x-1 transition-all active:scale-95"
+                      className="py-2.5 px-2 rounded-xl bg-[#13191b] hover:bg-[#1f282c] border border-[#2a3639] text-[#9ba9c2] hover:text-[#7fb6ac] text-xs font-semibold flex items-center justify-center space-x-1 transition-all active:scale-95 cursor-pointer"
                     >
-                      <Phone className="w-3.5 h-3.5 text-[#10B981]" />
+                      <Phone className="w-3.5 h-3.5 text-[#7fb6ac]" />
                       <span>Call</span>
                     </button>
 
                     {/* WhatsApp Button */}
                     <button
                       onClick={() => handleSendReminder(member)}
-                      className={`py-2.5 px-2 rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 transition-all active:scale-95 border ${
+                      className={`py-2.5 px-2 rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 transition-all active:scale-95 border cursor-pointer ${
                         isSent
-                          ? 'bg-[#10B981]/15 border-[#10B981]/50 text-[#6EE7B7]'
-                          : 'bg-[#25D366]/20 hover:bg-[#25D366]/30 border-[#25D366]/50 text-[#E2E8F0] shadow-sm'
+                          ? 'bg-[#7fb6ac]/20 border-[#7fb6ac] text-[#7fb6ac]'
+                          : 'bg-[#7fb6ac]/15 hover:bg-[#7fb6ac]/25 border-[#7fb6ac]/40 text-[#7fb6ac]'
                       }`}
                     >
                       {isSent ? (
                         <>
-                          <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981]" />
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#7fb6ac]" />
                           <span>Sent</span>
                         </>
                       ) : (
                         <>
-                          <MessageSquare className="w-3.5 h-3.5 text-[#25D366]" />
+                          <MessageSquare className="w-3.5 h-3.5 text-[#7fb6ac]" />
                           <span>WhatsApp</span>
                         </>
                       )}
@@ -179,7 +179,7 @@ export const ExpiringMembers: React.FC<ExpiringMembersProps> = ({
                     {/* Quick Renew PKR 2,500 */}
                     <button
                       onClick={() => onLogFee(member)}
-                      className="py-2.5 px-2 rounded-xl bg-gradient-to-r from-[#10B981] to-[#059669] hover:from-[#059669] hover:to-[#047857] text-[#E2E8F0] font-black text-xs flex items-center justify-center space-x-1 transition-all active:scale-95 shadow-md shadow-emerald-500/20"
+                      className="py-2.5 px-2 rounded-xl bg-[#7fb6ac] hover:bg-[#70a59b] text-[#0c1012] font-black text-xs flex items-center justify-center space-x-1 transition-all active:scale-95 shadow-glow-mint cursor-pointer"
                     >
                       <CreditCard className="w-3.5 h-3.5" />
                       <span>Renew 2.5K</span>

@@ -137,10 +137,10 @@ https://wa.me/923001234567?text=Hey%20Hamza%20Tariq%2C%20your%20membership%20at%
 - 1-Tap WhatsApp button with visual "Sent" state confirmation.
 - Direct "Renew 2.5K" button opening the fee logger pre-filled.
 
-### 5. Add Member Form (`/members/new`)
-- Thumb-friendly single-handed layout for iPhone.
-- Automatic Month 1 Total calculation (`Admission Fee + PKR 2,500`).
-- Payment channel selector and Pakistani phone validation.
+### 5. Phased Member Registration & Celebration Wizard (`/members/new`)
+- **Phase 1 (Customer Details)**: Full name, Pakistani mobile number (with real-time validation), joining date, and optional notes/locker ID.
+- **Phase 2 (Amount & Channel)**: Strictly fixed monthly base fee of PKR 2,500 + variable admission fee with live Month 1 calculation (`Admission + PKR 2,500`), 30-day projection, and multi-channel selector.
+- **Celebration Phase**: Fluid spring animation upon enrollment featuring pulsing verification badge, confirmation card, one-tap WhatsApp welcome trigger, and direct roster navigation.
 
 ### 6. Quick Fee Renewal Sheet
 - Pre-selects member and displays current vs. new validity projection (`+30 Days`).
@@ -149,20 +149,19 @@ https://wa.me/923001234567?text=Hey%20Hamza%20Tariq%2C%20your%20membership%20at%
 
 ---
 
-## 🎨 Design System & Color Tokens
+## 🎨 Custom Design System & Color Palette
 
 ```
 ================================================================================
 | Token               | Hex Code    | Description                              |
 |---------------------|-------------|------------------------------------------|
-| Canvas Background   | #080B11     | Deep matte carbon for OLED displays      |
-| Surface Card        | #0F1522     | Elevated container background            |
-| Card Border         | #1E2B3E     | Subtle titanium divider                  |
-| Text Platinum       | #E2E8F0     | High-contrast soft platinum text         |
-| Text Slate          | #94A3B8     | Secondary metadata label grey            |
-| Accent Emerald      | #10B981     | Neon emerald for active states & inflows |
-| Amber Warning       | #F59E0B     | Warm champagne amber for 48h radar       |
-| Danger Crimson      | #EF4444     | Ruby red for expired & overdue records   |
+| Primary Mint Accent | #7fb6ac     | Primary brand highlight, CTA, active indicator |
+| Steel / Ice Text    | #9ba9c2     | Primary readable text, values, headings  |
+| Slate Indigo        | #67758d     | Secondary text, outlines, channel badges |
+| Muted Pewter Sage   | #6c7674     | Timestamps, labels, tertiary borders     |
+| Base Foundation     | #0c1012     | Deep glare-free dark canvas              |
+| Card Surface        | #182023     | Elevated card background                 |
+| Element Border      | #2a3639     | Subtle slate border divider              |
 ================================================================================
 ```
 

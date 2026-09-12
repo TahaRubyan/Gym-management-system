@@ -83,15 +83,15 @@ export const MembersList: React.FC<MembersListProps> = ({
       {/* Header & New Member Action */}
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono font-bold text-[#6EE7B7] uppercase tracking-widest">
+          <span className="text-[10px] font-mono font-bold text-[#7fb6ac] uppercase tracking-widest">
             MEMBER ROSTER
           </span>
-          <h2 className="text-xl font-black text-[#E2E8F0] tracking-tight">Active Directory</h2>
+          <h2 className="text-xl font-black text-[#9ba9c2] tracking-tight">Active Directory</h2>
         </div>
 
         <button
           onClick={onAddNew}
-          className="py-1.5 px-3 rounded-xl bg-[#10B981]/15 hover:bg-[#10B981]/25 border border-[#10B981]/40 text-[#6EE7B7] text-xs font-mono font-bold flex items-center space-x-1.5 transition-all active:scale-95 shadow-md shadow-emerald-500/10"
+          className="py-1.5 px-3 rounded-xl bg-[#7fb6ac]/15 hover:bg-[#7fb6ac]/25 border border-[#7fb6ac]/40 text-[#7fb6ac] text-xs font-mono font-bold flex items-center space-x-1.5 transition-all active:scale-95 shadow-sm"
         >
           <UserPlus className="w-3.5 h-3.5" />
           <span>Add Member</span>
@@ -105,13 +105,13 @@ export const MembersList: React.FC<MembersListProps> = ({
           placeholder="Search by full name or mobile phone..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full bg-[#0F1522] border border-[#1E2B3E] focus:border-[#10B981] rounded-2xl pl-10 pr-10 py-3 text-sm text-[#E2E8F0] placeholder-[#64748B] focus:outline-none transition-colors shadow-inner font-sans"
+          className="w-full bg-[#182023] border border-[#2a3639] focus:border-[#7fb6ac] rounded-2xl pl-10 pr-10 py-3 text-sm text-[#9ba9c2] placeholder-[#6c7674] focus:outline-none transition-colors shadow-inner font-sans"
         />
-        <Search className="w-4 h-4 text-[#64748B] absolute left-3.5 top-1/2 -translate-y-1/2" />
+        <Search className="w-4 h-4 text-[#6c7674] absolute left-3.5 top-1/2 -translate-y-1/2" />
         {searchQuery && (
           <button
             onClick={() => setSearchQuery('')}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#64748B] hover:text-[#E2E8F0]"
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#6c7674] hover:text-[#9ba9c2]"
           >
             <X className="w-4 h-4" />
           </button>
@@ -128,16 +128,16 @@ export const MembersList: React.FC<MembersListProps> = ({
               onClick={() => setActiveFilter(opt.id)}
               className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all flex items-center space-x-1.5 border active:scale-95 ${
                 isSelected
-                  ? 'bg-[#162032] border-[#10B981] text-[#E2E8F0] shadow-sm'
-                  : 'bg-[#0F1522] border-[#1E2B3E] text-[#94A3B8] hover:border-[#223048]'
+                  ? 'bg-[#1f282c] border-[#7fb6ac] text-[#9ba9c2] shadow-sm'
+                  : 'bg-[#182023] border-[#2a3639] text-[#67758d] hover:border-[#6c7674]'
               }`}
             >
               <span>{opt.label}</span>
               <span
                 className={`text-[10px] px-1.5 py-0.2 rounded-full ${
                   isSelected
-                    ? 'bg-[#10B981] text-[#080B11] font-black'
-                    : 'bg-[#162032] text-[#94A3B8]'
+                    ? 'bg-[#7fb6ac] text-[#0c1012] font-black'
+                    : 'bg-[#13191b] text-[#67758d]'
                 }`}
               >
                 {opt.count}
@@ -149,13 +149,13 @@ export const MembersList: React.FC<MembersListProps> = ({
 
       {/* Members List */}
       {filteredMembers.length === 0 ? (
-        <div className="text-center py-14 px-4 bg-[#0F1522] border border-[#1E2B3E] rounded-3xl space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-[#162032] text-[#64748B] flex items-center justify-center mx-auto border border-[#223048]">
+        <div className="text-center py-14 px-4 bg-[#182023] border border-[#2a3639] rounded-3xl space-y-3">
+          <div className="w-12 h-12 rounded-2xl bg-[#13191b] text-[#6c7674] flex items-center justify-center mx-auto border border-[#2a3639]">
             <Users className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-[#E2E8F0]">No members located</h3>
-            <p className="text-xs text-[#94A3B8] mt-1 max-w-xs mx-auto">
+            <h3 className="text-sm font-bold text-[#9ba9c2]">No members located</h3>
+            <p className="text-xs text-[#6c7674] mt-1 max-w-xs mx-auto">
               {searchQuery
                 ? `No roster records match "${searchQuery}".`
                 : 'No members currently match this filter criteria.'}
@@ -167,7 +167,7 @@ export const MembersList: React.FC<MembersListProps> = ({
                 setSearchQuery('');
                 setActiveFilter('ALL');
               }}
-              className="text-xs text-[#6EE7B7] font-bold font-mono underline underline-offset-4"
+              className="text-xs text-[#7fb6ac] font-bold font-mono underline underline-offset-4"
             >
               Clear Search & Filter
             </button>

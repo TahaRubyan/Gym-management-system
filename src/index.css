@@ -3,20 +3,21 @@
 @tailwind utilities;
 
 :root {
-  --color-base: #0B0E14;
-  --color-surface: #141923;
-  --color-card: #181F2C;
-  --color-border: #222B3D;
-  --color-emerald: #10B981;
-  --color-amber: #F59E0B;
-  --color-crimson: #EF4444;
+  --color-mint: #7fb6ac;
+  --color-steel: #9ba9c2;
+  --color-slate: #67758d;
+  --color-sage: #6c7674;
+  --color-base: #0c1012;
+  --color-surface: #13191b;
+  --color-card: #182023;
+  --color-border: #2a3639;
 
   color-scheme: dark;
 }
 
 html, body {
-  background-color: #0B0E14;
-  color: #F9FAFB;
+  background-color: #0c1012;
+  color: #9ba9c2;
   min-height: 100%;
   overscroll-behavior-y: none;
   -webkit-font-smoothing: antialiased;
@@ -42,16 +43,16 @@ html, body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0B0E14;
+  background: #0c1012;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #222B3D;
+  background: #2a3639;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #374151;
+  background: #6c7674;
 }
 
 /* Prevent auto-zoom on iOS inputs with font size >= 16px */
@@ -61,17 +62,17 @@ input, select, textarea {
 
 /* Glassmorphism utility */
 .glass-nav {
-  background: rgba(20, 25, 35, 0.88);
+  background: rgba(19, 25, 27, 0.92);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(34, 43, 61, 0.85);
+  border-top: 1px solid rgba(42, 54, 57, 0.85);
 }
 
 .glass-card {
-  background: rgba(20, 25, 35, 0.75);
+  background: rgba(24, 32, 35, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid #222B3D;
+  border: 1px solid #2a3639;
 }
 
 /* 3D Card Slider & Gleb K effects */
