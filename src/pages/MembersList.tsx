@@ -1,0 +1,198 @@
+import React, { useState, useMemo } from 'react';
+import { motion } from 'motion/react';
+import { Search, X, Users, UserPlus } from 'lucide-react';
+import { Member, MembershipFilter } from '../types/gym';
+import { checkMembershipStatus, normalizePakistaniPhone } from '../utils/dateAndPhone';
+import { MemberCard } from '../components/MemberCard';
+
+interface MembersListProps {
+  members: Member[];
+  onLogFee: (member: Member) => void;
+  onSelectMember: (member: Member) => void;
+  onAddNew: () => void;
+  onWhatsAppSent: (member: Member) => void;
+  sentReminderMemberIds: Set<string>;
+}
+
+export const MembersList: React.FC<MembersListProps> = ({
+  members,
+  onLogFee,
+  onSelectMember,
+  onAddNew,
+  onWhatsAppSent,
+  sentReminderMemberIds,
+}) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilter, setActiveFilter] = useState<MembershipFilter>('ALL');
+
+  // Filter & Search Logic
+  const filteredMembers = useMemo(() => {
+    const query = searchQuery.trim().toLowerCase();
+    const cleanQueryPhone = query.replace(/\D/g, '');
+
+    return members.filter((member) => {
+      // 1. Status Filter
+      const { status } = checkMembershipStatus(member.expiry_date);
+      if (activeFilter === 'ACTIVE' && status !== 'ACTIVE') return false;
+      if (activeFilter === 'EXPIRING_SOON' && status !== 'EXPIRING_SOON') return false;
+      if (activeFilter === 'EXPIRED' && status !== 'EXPIRED') return false;
+
+      // 2. Search Query (Name or Phone)
+      if (!query) return true;
+
+      const nameMatch = member.full_name.toLowerCase().includes(query);
+      const memberPhoneClean = normalizePakistaniPhone(member.phone);
+      const phoneMatch =
+        cleanQueryPhone.length > 0 &&
+        (member.phone.includes(query) || memberPhoneClean.includes(cleanQueryPhone));
+
+      return nameMatch || phoneMatch;
+    });
+  }, [members, searchQuery, activeFilter]);
+
+  // Status Counts for Pill Badges
+  const counts = useMemo(() => {
+    let active = 0;
+    let expiring = 0;
+    let expired = 0;
+
+    for (const m of members) {
+      const { status } = checkMembershipStatus(m.expiry_date);
+      if (status === 'ACTIVE') active++;
+      else if (status === 'EXPIRING_SOON') expiring++;
+      else if (status === 'EXPIRED') expired++;
+    }
+
+    return {
+      all: members.length,
+      active,
+      expiring,
+      expired,
+    };
+  }, [members]);
+
+  const filterOptions: { id: MembershipFilter; label: string; count: number }[] = [
+    { id: 'ALL', label: 'All Roster', count: counts.all },
+    { id: 'ACTIVE', label: 'Active', count: counts.active },
+    { id: 'EXPIRING_SOON', label: 'Expiring', count: counts.expiring },
+    { id: 'EXPIRED', label: 'Expired', count: counts.expired },
+  ];
+
+  return (
+    <div className="space-y-4 pb-28 px-4 pt-2 max-w-md mx-auto select-none">
+      {/* Header & New Member Action */}
+      <div className="flex items-center justify-between">
+        <div>
+          <span className="text-[10px] font-mono font-bold text-[#6EE7B7] uppercase tracking-widest">
+            MEMBER ROSTER
+          </span>
+          <h2 className="text-xl font-black text-[#E2E8F0] tracking-tight">Active Directory</h2>
+        </div>
+
+        <button
+          onClick={onAddNew}
+          className="py-1.5 px-3 rounded-xl bg-[#10B981]/15 hover:bg-[#10B981]/25 border border-[#10B981]/40 text-[#6EE7B7] text-xs font-mono font-bold flex items-center space-x-1.5 transition-all active:scale-95 shadow-md shadow-emerald-500/10"
+        >
+          <UserPlus className="w-3.5 h-3.5" />
+          <span>Add Member</span>
+        </button>
+      </div>
+
+      {/* Search Bar */}
+      <div className="relative">
+        <input
+          type="text"
+          placeholder="Search by full name or mobile phone..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full bg-[#0F1522] border border-[#1E2B3E] focus:border-[#10B981] rounded-2xl pl-10 pr-10 py-3 text-sm text-[#E2E8F0] placeholder-[#64748B] focus:outline-none transition-colors shadow-inner font-sans"
+        />
+        <Search className="w-4 h-4 text-[#64748B] absolute left-3.5 top-1/2 -translate-y-1/2" />
+        {searchQuery && (
+          <button
+            onClick={() => setSearchQuery('')}
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#64748B] hover:text-[#E2E8F0]"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
+      </div>
+
+      {/* Status Filter Pills */}
+      <div className="flex space-x-1.5 overflow-x-auto pb-1 no-scrollbar">
+        {filterOptions.map((opt) => {
+          const isSelected = activeFilter === opt.id;
+          return (
+            <button
+              key={opt.id}
+              onClick={() => setActiveFilter(opt.id)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all flex items-center space-x-1.5 border active:scale-95 ${
+                isSelected
+                  ? 'bg-[#162032] border-[#10B981] text-[#E2E8F0] shadow-sm'
+                  : 'bg-[#0F1522] border-[#1E2B3E] text-[#94A3B8] hover:border-[#223048]'
+              }`}
+            >
+              <span>{opt.label}</span>
+              <span
+                className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                  isSelected
+                    ? 'bg-[#10B981] text-[#080B11] font-black'
+                    : 'bg-[#162032] text-[#94A3B8]'
+                }`}
+              >
+                {opt.count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Members List */}
+      {filteredMembers.length === 0 ? (
+        <div className="text-center py-14 px-4 bg-[#0F1522] border border-[#1E2B3E] rounded-3xl space-y-3">
+          <div className="w-12 h-12 rounded-2xl bg-[#162032] text-[#64748B] flex items-center justify-center mx-auto border border-[#223048]">
+            <Users className="w-6 h-6" />
+          </div>
+          <div>
+            <h3 className="text-sm font-bold text-[#E2E8F0]">No members located</h3>
+            <p className="text-xs text-[#94A3B8] mt-1 max-w-xs mx-auto">
+              {searchQuery
+                ? `No roster records match "${searchQuery}".`
+                : 'No members currently match this filter criteria.'}
+            </p>
+          </div>
+          {searchQuery && (
+            <button
+              onClick={() => {
+                setSearchQuery('');
+                setActiveFilter('ALL');
+              }}
+              className="text-xs text-[#6EE7B7] font-bold font-mono underline underline-offset-4"
+            >
+              Clear Search & Filter
+            </button>
+          )}
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {filteredMembers.map((member, idx) => (
+            <motion.div
+              key={member.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.25, delay: idx * 0.03 }}
+            >
+              <MemberCard
+                member={member}
+                onLogFee={onLogFee}
+                onSelectMember={onSelectMember}
+                onWhatsAppSent={onWhatsAppSent}
+                reminderSent={sentReminderMemberIds.has(member.id)}
+              />
+            </motion.div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
