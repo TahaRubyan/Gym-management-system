@@ -7,35 +7,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Monster Gym Strict Custom Palette
+        // Monster Gym ColorHunt Apple Light Theme Palette
         mg: {
-          sage: '#6c7674',
-          mint: '#7fb6ac',
-          slate: '#67758d',
-          steel: '#9ba9c2',
-          base: '#0c1012',
-          surface: '#13191b',
-          card: '#182023',
-          elevated: '#1f282c',
-          border: '#2a3639',
-          borderLight: '#37464a',
-        },
-        crm: {
-          base: '#0c1012',
-          surface: '#13191b',
-          card: '#182023',
-          elevated: '#1f282c',
-          border: '#2a3639',
-          borderLight: '#37464a',
-          emerald: '#7fb6ac',
-          'emerald-glow': 'rgba(127, 182, 172, 0.25)',
-          amber: '#9ba9c2',
-          'amber-glow': 'rgba(155, 169, 194, 0.25)',
-          crimson: '#67758d',
-          'crimson-glow': 'rgba(103, 117, 141, 0.25)',
-          text: '#9ba9c2',
-          textMuted: '#67758d',
-          textSubtle: '#6c7674',
+          sage: '#8B9A6E',        // Primary olive sage accent
+          cream: '#F7F2EB',       // Primary warm canvas background
+          almond: '#EAE2D6',      // Almond card border and warm surface
+          gray: '#EEEEEE',        // Light gray controls and subtle fills
+          card: '#FFFFFF',        // Pristine Apple card surface
+          dark: '#1C221D',        // Deep forest charcoal primary text
+          muted: '#5B675E',       // Muted slate taupe secondary text
+          subtle: '#8E9A90',      // Soft tertiary text and placeholders
+          border: '#EAE2D6',      // Hairline 1px border
         },
       },
       fontFamily: {
@@ -49,10 +31,10 @@ export default {
         ],
       },
       boxShadow: {
-        'glow-mint': '0 0 20px -3px rgba(127, 182, 172, 0.35)',
-        'glow-steel': '0 0 20px -3px rgba(155, 169, 194, 0.35)',
-        'glow-slate': '0 0 20px -3px rgba(103, 117, 141, 0.35)',
-        'floating-nav': '0 -8px 32px 0 rgba(0, 0, 0, 0.55)',
+        'apple-card': '0 2px 10px -2px rgba(28, 34, 29, 0.05), 0 1px 2px rgba(28, 34, 29, 0.03)',
+        'apple-modal': '0 24px 48px -12px rgba(28, 34, 29, 0.14), 0 1px 4px rgba(28, 34, 29, 0.04)',
+        'apple-nav': '0 -4px 24px 0 rgba(28, 34, 29, 0.06)',
+        'glow-sage': '0 4px 16px -2px rgba(139, 154, 110, 0.35)',
       },
       aspectRatio: {
         'card': '1.586',

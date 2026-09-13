@@ -149,19 +149,22 @@ https://wa.me/923001234567?text=Hey%20Hamza%20Tariq%2C%20your%20membership%20at%
 
 ---
 
-## 🎨 Custom Design System & Color Palette
+## 🎨 Custom Design System & Color Palette (Apple iOS HIG)
+
+Crafted according to **Apple Human Interface Guidelines (HIG)** with frosted glass vibrancy, 50px input ergonomics, 48px touch targets, and the official [ColorHunt Palette](https://colorhunt.co/palette/8b9a6ef7f2ebeae2d6eeeeee):
 
 ```
 ================================================================================
 | Token               | Hex Code    | Description                              |
 |---------------------|-------------|------------------------------------------|
-| Primary Mint Accent | #7fb6ac     | Primary brand highlight, CTA, active indicator |
-| Steel / Ice Text    | #9ba9c2     | Primary readable text, values, headings  |
-| Slate Indigo        | #67758d     | Secondary text, outlines, channel badges |
-| Muted Pewter Sage   | #6c7674     | Timestamps, labels, tertiary borders     |
-| Base Foundation     | #0c1012     | Deep glare-free dark canvas              |
-| Card Surface        | #182023     | Elevated card background                 |
-| Element Border      | #2a3639     | Subtle slate border divider              |
+| Primary Sage Accent | #8B9A6E     | Primary brand accent, active tabs, CTAs  |
+| Warm Cream Canvas   | #F7F2EB     | System background & page canvas          |
+| Almond Surface/Edge | #EAE2D6     | Borders, card outlines, subtle dividers  |
+| Gray Controls/Pill  | #EEEEEE     | Filter pills, read-only inputs, badges   |
+| Pure White Card     | #FFFFFF     | Elevated Apple card surfaces & sheets    |
+| Primary Slate Text  | #1C221D     | High-contrast headings, names, totals    |
+| Muted Taupe Text    | #5B675E     | Secondary metadata, subtitles, labels    |
+| Subtle Hint / Gray  | #8E9A90     | Placeholders, tertiary captions, hints    |
 ================================================================================
 ```
 

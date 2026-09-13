@@ -83,42 +83,42 @@ export const MembersList: React.FC<MembersListProps> = ({
       {/* Header & Quick Add */}
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono font-bold text-[#7fb6ac] uppercase tracking-wider">
+          <span className="text-[10px] font-mono font-bold text-[#5E6D45] uppercase tracking-wider">
             ROSTER DIRECTORY
           </span>
-          <h2 className="text-xl font-bold text-[#9ba9c2] tracking-tight">Members</h2>
+          <h2 className="text-xl font-black text-[#1C221D] tracking-tight font-sans">Members</h2>
         </div>
 
         <button
           onClick={onAddNew}
-          className="h-10 px-3.5 rounded-xl bg-[#7fb6ac] hover:bg-[#70a59b] text-[#0c1012] text-xs font-mono font-bold flex items-center space-x-1.5 transition-all active:scale-95 shadow-glow-mint cursor-pointer"
+          className="h-10 px-3.5 rounded-2xl bg-[#8B9A6E] hover:bg-[#7D8C61] text-white text-xs font-mono font-bold flex items-center space-x-1.5 transition-all active:scale-95 shadow-glow-sage cursor-pointer"
         >
           <UserPlus className="w-4 h-4 stroke-[2.5]" />
           <span>Add Member</span>
         </button>
       </div>
 
-      {/* 50px Search Bar (Figma Prototyping Kit Spec) */}
+      {/* 50px Search Bar (Apple & Figma Spec) */}
       <div className="relative">
         <input
           type="text"
           placeholder="Search by full name or mobile phone..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full h-[50px] bg-[#182023] border border-[#2a3639] focus:border-[#7fb6ac] rounded-2xl pl-11 pr-10 text-sm text-[#9ba9c2] placeholder-[#6c7674] focus:outline-none transition-colors shadow-sm font-sans"
+          className="w-full h-[50px] bg-white border border-[#EAE2D6] focus:border-[#8B9A6E] rounded-2xl pl-11 pr-10 text-sm text-[#1C221D] placeholder-[#8E9A90] focus:outline-none transition-colors shadow-apple-card font-sans"
         />
-        <Search className="w-4 h-4 text-[#6c7674] absolute left-4 top-1/2 -translate-y-1/2" />
+        <Search className="w-4 h-4 text-[#8E9A90] absolute left-4 top-1/2 -translate-y-1/2" />
         {searchQuery && (
           <button
             onClick={() => setSearchQuery('')}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-[#6c7674] hover:text-[#9ba9c2] cursor-pointer"
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-[#8E9A90] hover:text-[#1C221D] cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
         )}
       </div>
 
-      {/* Segmented Filter Pills (Figma Prototyping Kit Spec) */}
+      {/* Segmented Filter Pills (Apple HIG Pill Design) */}
       <div className="flex space-x-1.5 overflow-x-auto pb-1 no-scrollbar">
         {filterOptions.map((opt) => {
           const isSelected = activeFilter === opt.id;
@@ -128,16 +128,16 @@ export const MembersList: React.FC<MembersListProps> = ({
               onClick={() => setActiveFilter(opt.id)}
               className={`h-9 px-3.5 rounded-xl text-xs font-mono font-semibold whitespace-nowrap transition-all flex items-center space-x-1.5 border active:scale-95 cursor-pointer ${
                 isSelected
-                  ? 'bg-[#1f282c] border-[#7fb6ac] text-[#9ba9c2] shadow-sm'
-                  : 'bg-[#182023] border-[#2a3639] text-[#67758d] hover:border-[#6c7674]'
+                  ? 'bg-[#8B9A6E] border-[#8B9A6E] text-white shadow-apple-card'
+                  : 'bg-[#EEEEEE] border-[#EAE2D6] text-[#5B675E] hover:border-[#8B9A6E]/40'
               }`}
             >
               <span>{opt.label}</span>
               <span
                 className={`text-[10px] px-1.5 py-0.2 rounded-full ${
                   isSelected
-                    ? 'bg-[#7fb6ac] text-[#0c1012] font-black'
-                    : 'bg-[#13191b] text-[#67758d]'
+                    ? 'bg-white text-[#5E6D45] font-black'
+                    : 'bg-white/80 text-[#8E9A90]'
                 }`}
               >
                 {opt.count}
@@ -149,13 +149,13 @@ export const MembersList: React.FC<MembersListProps> = ({
 
       {/* Members Streamlined Roster List */}
       {filteredMembers.length === 0 ? (
-        <div className="text-center py-14 px-4 bg-[#182023] border border-[#2a3639] rounded-2xl space-y-2.5">
-          <div className="w-12 h-12 rounded-xl bg-[#13191b] text-[#6c7674] flex items-center justify-center mx-auto border border-[#2a3639]">
+        <div className="text-center py-14 px-4 bg-white border border-[#EAE2D6] rounded-3xl shadow-apple-card space-y-2.5">
+          <div className="w-12 h-12 rounded-2xl bg-[#F7F2EB] text-[#8E9A90] flex items-center justify-center mx-auto border border-[#EAE2D6]">
             <Users className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-[#9ba9c2]">No members found</h3>
-            <p className="text-xs text-[#6c7674] mt-1 max-w-xs mx-auto">
+            <h3 className="text-sm font-bold text-[#1C221D]">No members found</h3>
+            <p className="text-xs text-[#5B675E] mt-1 max-w-xs mx-auto">
               {searchQuery
                 ? `No roster records match "${searchQuery}".`
                 : 'No members match this filter criteria.'}
@@ -167,7 +167,7 @@ export const MembersList: React.FC<MembersListProps> = ({
                 setSearchQuery('');
                 setActiveFilter('ALL');
               }}
-              className="text-xs text-[#7fb6ac] font-bold font-mono underline underline-offset-4 cursor-pointer"
+              className="text-xs text-[#8B9A6E] font-bold font-mono underline underline-offset-4 cursor-pointer"
             >
               Clear Search & Filter
             </button>

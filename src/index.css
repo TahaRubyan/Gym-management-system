@@ -3,21 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --color-mint: #7fb6ac;
-  --color-steel: #9ba9c2;
-  --color-slate: #67758d;
-  --color-sage: #6c7674;
-  --color-base: #0c1012;
-  --color-surface: #13191b;
-  --color-card: #182023;
-  --color-border: #2a3639;
+  --color-sage: #8B9A6E;
+  --color-cream: #F7F2EB;
+  --color-almond: #EAE2D6;
+  --color-gray: #EEEEEE;
+  --color-card: #FFFFFF;
+  --color-dark: #1C221D;
+  --color-muted: #5B675E;
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html, body {
-  background-color: #0c1012;
-  color: #9ba9c2;
+  background-color: #F7F2EB;
+  color: #1C221D;
   min-height: 100%;
   overscroll-behavior-y: none;
   -webkit-font-smoothing: antialiased;
@@ -36,23 +35,23 @@ html, body {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* Custom WebKit Scrollbar for dark theme */
+/* Custom WebKit Scrollbar for light theme */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0c1012;
+  background: #F7F2EB;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a3639;
+  background: #EAE2D6;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6c7674;
+  background: #8B9A6E;
 }
 
 /* Prevent auto-zoom on iOS inputs with font size >= 16px */
@@ -60,19 +59,19 @@ input, select, textarea {
   font-size: 16px !important;
 }
 
-/* Glassmorphism utility */
+/* Apple Frosted Glass Utilities */
 .glass-nav {
-  background: rgba(19, 25, 27, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(42, 54, 57, 0.85);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(234, 226, 214, 0.85);
 }
 
 .glass-card {
-  background: rgba(24, 32, 35, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid #2a3639;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid #EAE2D6;
 }
 
 /* 3D Card Slider & Gleb K effects */
