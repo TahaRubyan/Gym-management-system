@@ -53,26 +53,26 @@ export const ExpiringMembers: React.FC<ExpiringMembersProps> = ({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono font-bold text-[#5E6D45] uppercase tracking-wider flex items-center gap-1.5">
-            <ClockAlert className="w-3.5 h-3.5 text-[#8B9A6E]" />
+          <span className="text-[10px] font-bold text-[#1A3EEA] uppercase tracking-wider flex items-center gap-1.5">
+            <ClockAlert className="w-3.5 h-3.5 text-[#1A3EEA]" />
             48-HOUR RADAR
           </span>
-          <h2 className="text-xl font-black text-[#1C221D] tracking-tight font-sans">Expiring Soon</h2>
+          <h2 className="text-xl font-black text-[#0F172A] tracking-tight">Expiring Soon</h2>
         </div>
-        <span className="px-2.5 py-1 rounded-full bg-[#8B9A6E]/15 text-[#5E6D45] border border-[#8B9A6E]/30 text-xs font-mono font-bold">
+        <span className="px-2.5 py-1 rounded-full bg-[#EBF1FF] text-[#1A3EEA] text-xs font-bold">
           {expiringMembers.length} DUE
         </span>
       </div>
 
       {/* Empty State */}
       {expiringMembers.length === 0 ? (
-        <div className="text-center py-16 px-4 bg-white border border-[#EAE2D6] rounded-3xl shadow-apple-card space-y-2.5">
-          <div className="w-12 h-12 rounded-2xl bg-[#8B9A6E]/15 text-[#8B9A6E] flex items-center justify-center mx-auto border border-[#8B9A6E]/30">
+        <div className="text-center py-16 px-4 bg-white border border-[#E9ECEF] rounded-[28px] shadow-apple-card space-y-2.5">
+          <div className="w-12 h-12 rounded-2xl bg-[#EBF1FF] text-[#1A3EEA] flex items-center justify-center mx-auto">
             <Sparkles className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-[#1C221D]">All Passes Up to Date!</h3>
-            <p className="text-xs text-[#5B675E] mt-1 max-w-xs mx-auto">
+            <h3 className="text-sm font-bold text-[#0F172A]">All Passes Up to Date!</h3>
+            <p className="text-xs text-[#64748B] mt-1 max-w-xs mx-auto">
               Zero memberships expiring in the next 48 hours.
             </p>
           </div>
@@ -82,6 +82,7 @@ export const ExpiringMembers: React.FC<ExpiringMembersProps> = ({
           {expiringMembers.map((member, idx) => {
             const countdownText = getRelativeCountdownText(member.expiry_date);
             const isSent = sentReminderMemberIds.has(member.id);
+            const isPriorityTest = member.phone === '03481488937' || member.phone === '03177769001';
 
             return (
               <motion.div
@@ -90,48 +91,57 @@ export const ExpiringMembers: React.FC<ExpiringMembersProps> = ({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.25, delay: idx * 0.03 }}
                 onClick={() => onSelectMember(member)}
-                className="w-full bg-white border border-[#8B9A6E]/40 hover:border-[#8B9A6E] rounded-2xl p-4 shadow-apple-card cursor-pointer active:scale-[0.98] transition-all relative overflow-hidden group"
+                className={`w-full bg-white border rounded-[24px] p-4 shadow-apple-card cursor-pointer active:scale-[0.98] transition-all relative overflow-hidden group ${
+                  isPriorityTest ? 'border-[#1A3EEA] ring-1 ring-[#1A3EEA]/20' : 'border-[#E9ECEF] hover:border-[#1A3EEA]/40'
+                }`}
               >
                 {/* Urgent indicator stripe */}
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#8B9A6E]" />
+                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#1A3EEA]" />
 
                 <div className="pl-2 space-y-3">
                   {/* Top: Avatar + Name + Expiry badge */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 rounded-2xl bg-[#EEEEEE] border border-[#EAE2D6] flex items-center justify-center text-sm font-black text-[#5B675E] shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-[#EBF1FF] text-[#1A3EEA] flex items-center justify-center text-sm font-black shrink-0">
                         {member.full_name.charAt(0).toUpperCase()}
                       </div>
                       <div>
-                        <h3 className="text-sm font-bold text-[#1C221D] group-hover:text-[#8B9A6E] transition-colors leading-tight font-sans">
-                          {member.full_name}
-                        </h3>
-                        <p className="text-xs text-[#5B675E] font-mono mt-0.5">
+                        <div className="flex items-center space-x-1.5">
+                          <h3 className="text-sm font-bold text-[#0F172A] group-hover:text-[#1A3EEA] transition-colors leading-tight">
+                            {member.full_name}
+                          </h3>
+                          {isPriorityTest && (
+                            <span className="px-1.5 py-0.2 rounded-full text-[9px] font-bold bg-[#1A3EEA] text-white">
+                              TEST
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-xs text-[#64748B] mt-0.5 font-medium">
                           {formatDisplayPhone(member.phone)}
                         </p>
                       </div>
                     </div>
 
                     <div className="flex items-center space-x-1.5">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#EAE2D6] border border-[#D6C7B2] text-[#7A6648]">
+                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#EBF1FF] text-[#1A3EEA]">
                         {countdownText}
                       </span>
-                      <ChevronRight className="w-4 h-4 text-[#8E9A90] group-hover:text-[#8B9A6E] transition-colors" />
+                      <ChevronRight className="w-4 h-4 text-[#94A3B8] group-hover:text-[#1A3EEA] transition-colors" />
                     </div>
                   </div>
 
-                  {/* Single Focused Action: 1-Tap WhatsApp Reminder (Figma Thumb-friendly) */}
-                  <div className="flex items-center justify-between pt-1 border-t border-[#EAE2D6]">
-                    <span className="text-[11px] font-mono text-[#8E9A90]">
-                      Valid until {formatDisplayDate(member.expiry_date)}
+                  {/* Single Focused Action: 1-Tap WhatsApp Reminder */}
+                  <div className="flex items-center justify-between pt-2 border-t border-[#E9ECEF]">
+                    <span className="text-[11px] text-[#64748B]">
+                      Expires {formatDisplayDate(member.expiry_date)}
                     </span>
 
                     <button
                       onClick={(e) => handleSendReminder(e, member)}
-                      className={`h-9 px-3 rounded-xl text-xs font-mono font-bold flex items-center space-x-1.5 transition-all active:scale-95 border cursor-pointer ${
+                      className={`h-9 px-3.5 rounded-xl text-xs font-bold flex items-center space-x-1.5 transition-all active:scale-95 border cursor-pointer ${
                         isSent
-                          ? 'bg-[#8B9A6E]/15 border-[#8B9A6E] text-[#5E6D45]'
-                          : 'bg-[#8B9A6E] hover:bg-[#7D8C61] text-white border-[#8B9A6E] shadow-glow-sage'
+                          ? 'bg-[#EBF1FF] border-[#1A3EEA]/30 text-[#1A3EEA]'
+                          : 'bg-[#1A3EEA] hover:bg-[#1534D8] text-white border-[#1A3EEA] shadow-glow-blue'
                       }`}
                     >
                       {isSent ? (
@@ -142,7 +152,7 @@ export const ExpiringMembers: React.FC<ExpiringMembersProps> = ({
                       ) : (
                         <>
                           <MessageSquare className="w-3.5 h-3.5" />
-                          <span>WhatsApp</span>
+                          <span>WhatsApp Reminder</span>
                         </>
                       )}
                     </button>

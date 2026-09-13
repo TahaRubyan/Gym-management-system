@@ -65,6 +65,23 @@ export async function initializeDatabase(): Promise<void> {
       await db.reminders.bulkAdd(seed.reminders);
     });
   } else {
+    // Ensure test members TAHA RUBYAN & FARHAN BUTT exist even in existing installations
+    const tahaExists = await db.members.where('phone').equals('03481488937').first();
+    const farhanExists = await db.members.where('phone').equals('03177769001').first();
+    if (!tahaExists || !farhanExists) {
+      const freshSeed = generateInitialSeedData();
+      const testMembers = freshSeed.members.filter(m => m.id === 'mem-taha' || m.id === 'mem-farhan');
+      const testPayments = freshSeed.payments.filter(p => p.id === 'pay-taha' || p.id === 'pay-farhan');
+      await db.transaction('rw', db.members, db.payments, async () => {
+        for (const tm of testMembers) {
+          await db.members.put(tm);
+        }
+        for (const tp of testPayments) {
+          await db.payments.put(tp);
+        }
+      });
+    }
+
     // Re-verify statuses for all members relative to current date
     const allMembers = await db.members.toArray();
     const updates: Member[] = [];

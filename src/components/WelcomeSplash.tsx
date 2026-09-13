@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Dumbbell, ArrowRight, Shield } from 'lucide-react';
+import { Dumbbell, ArrowRight, UserCheck } from 'lucide-react';
 import RotatingText from './RotatingText';
 
 interface WelcomeSplashProps {
@@ -9,127 +9,111 @@ interface WelcomeSplashProps {
 
 export const WelcomeSplash: React.FC<WelcomeSplashProps> = ({ onContinue }) => {
   return (
-    <div className="fixed inset-0 z-50 bg-[#F7F2EB] text-[#1C221D] flex flex-col justify-between p-6 overflow-hidden safe-top safe-bottom select-none">
-      {/* Ambient Palette Glows */}
-      <div className="absolute top-[-10%] left-[-10%] w-[360px] h-[360px] bg-[#8B9A6E]/12 rounded-full blur-[110px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] right-[-10%] w-[360px] h-[360px] bg-[#EAE2D6]/70 rounded-full blur-[110px] pointer-events-none" />
+    <div className="fixed inset-0 z-50 bg-[#F4F6F9] text-[#0F172A] flex flex-col justify-between p-5 sm:p-6 overflow-y-auto min-h-[100dvh] h-[100dvh] max-h-[100dvh] safe-top safe-bottom select-none">
+      {/* Ambient Fintech Palette Glows */}
+      <div className="absolute top-[-10%] left-[-10%] w-[320px] h-[320px] bg-[#1A3EEA]/8 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[320px] h-[320px] bg-[#EBF1FF] rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Top Brand Micro Badge */}
+      {/* Top Brand Micro Pill */}
       <motion.div
-        initial={{ opacity: 0, y: -15 }}
+        initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-full max-w-sm mx-auto flex items-center justify-between pt-2"
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-sm mx-auto flex items-center justify-between pt-1 shrink-0"
       >
-        <div className="flex items-center space-x-2 px-3 py-1 rounded-full bg-white border border-[#EAE2D6] shadow-apple-card">
-          <span className="w-2 h-2 rounded-full bg-[#8B9A6E] animate-pulse" />
-          <span className="text-[11px] font-mono font-bold tracking-widest text-[#1C221D] uppercase">
-            MONSTER GYM OS
+        <div className="flex items-center space-x-2 px-3 py-1 rounded-full bg-white border border-[#E9ECEF] shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-[#1A3EEA] animate-pulse" />
+          <span className="text-[11px] font-bold tracking-wider text-[#0F172A] uppercase font-mono">
+            MONSTER GYM
           </span>
         </div>
 
-        <span className="text-[11px] font-mono text-[#5B675E]">
-          OFFLINE READY
+        <span className="text-[11px] font-semibold text-[#64748B]">
+          Owner Portal
         </span>
       </motion.div>
 
-      {/* Center Hero: Gym Name & Owner Name */}
-      <div className="w-full max-w-sm mx-auto my-auto flex flex-col items-center text-center space-y-6">
-        {/* Animated Brand Emblem */}
+      {/* Center Section: Gym Name & Owner with React Bits Animation */}
+      <div className="w-full max-w-sm mx-auto my-auto flex flex-col items-center text-center space-y-5 py-4">
+        {/* Modern Circular Icon Emblem */}
         <motion.div
           initial={{ scale: 0.85, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="relative flex items-center justify-center"
         >
-          {/* Subtle Orbit Ring */}
-          <div className="absolute w-24 h-24 rounded-full border border-dashed border-[#8B9A6E]/35 animate-spin" style={{ animationDuration: '30s' }} />
-
-          {/* Core Emblem Badge */}
-          <div className="w-20 h-20 rounded-3xl bg-white border border-[#EAE2D6] flex items-center justify-center shadow-apple-modal relative z-10">
-            <Dumbbell className="w-9 h-9 text-[#8B9A6E] transform -rotate-45" />
+          <div className="w-20 h-20 rounded-[24px] bg-[#1A3EEA] text-white flex items-center justify-center shadow-glow-blue relative z-10">
+            <Dumbbell className="w-10 h-10 transform -rotate-45 stroke-[2.2]" />
           </div>
         </motion.div>
 
         {/* 1. GYM NAME */}
-        <div className="space-y-2">
+        <div className="space-y-1">
           <motion.h1
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="text-3xl sm:text-4xl font-black tracking-[0.18em] uppercase text-[#1C221D] font-sans"
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-3xl sm:text-4xl font-black tracking-tight text-[#0F172A]"
           >
-            MONSTER GYM
+            Monster Gym
           </motion.h1>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="flex items-center justify-center"
-          >
-            <RotatingText
-              texts={[
-                'HIGH-PERFORMANCE CLUB',
-                'EXECUTIVE MANAGEMENT',
-                'TELEMETRY & DISPATCH',
-                'OFFLINE PERSISTENCE',
-              ]}
-              mainClassName="px-3.5 py-1 bg-white text-[#5E6D45] border border-[#8B9A6E]/30 shadow-apple-card rounded-full text-xs font-mono font-bold tracking-wider justify-center"
-              staggerFrom="last"
-              initial={{ y: '100%', opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: '-120%', opacity: 0 }}
-              staggerDuration={0.02}
-              transition={{ type: 'spring', damping: 28, stiffness: 350 }}
-              rotationInterval={2600}
-            />
-          </motion.div>
+          <p className="text-xs text-[#64748B] font-medium">
+            Management & Membership System
+          </p>
         </div>
 
-        {/* 2. OWNER NAME */}
+        {/* 2. OWNER NAME WITH REACT BITS TRANSITION */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.45 }}
-          className="w-full p-4 rounded-2xl bg-white border border-[#EAE2D6] shadow-apple-card relative overflow-hidden"
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="w-full p-4 rounded-[24px] bg-white border border-[#E9ECEF] shadow-apple-card space-y-2.5"
         >
-          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#8B9A6E] to-transparent" />
-
-          <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-[#8E9A90] block">
-            OWNER & ADMINISTRATOR
-          </span>
-
-          <div className="flex items-center justify-center space-x-2 my-1.5">
-            <Shield className="w-5 h-5 text-[#8B9A6E]" />
-            <h2 className="text-xl font-black tracking-wider uppercase text-[#1C221D]">
-              DASTAGIR KANTH
-            </h2>
+          <div className="flex items-center justify-center space-x-1.5 text-xs text-[#64748B] font-semibold">
+            <UserCheck className="w-3.5 h-3.5 text-[#1A3EEA]" />
+            <span>Gym Owner</span>
           </div>
 
-          <p className="text-xs text-[#5B675E] font-mono">
-            Authorized Master Control • Monster Gym
+          {/* React Bits RotatingText applied directly to Dastagir Kanth */}
+          <div className="flex items-center justify-center py-1">
+            <RotatingText
+              texts={[
+                'DASTAGIR KANTH',
+                'GYM OWNER',
+                'DASTAGIR KANTH',
+                'MONSTER GYM',
+              ]}
+              mainClassName="px-4 py-1.5 bg-[#EBF1FF] text-[#1A3EEA] border border-[#1A3EEA]/20 rounded-2xl text-base sm:text-lg font-black tracking-wide justify-center shadow-sm"
+              staggerFrom="first"
+              initial={{ y: '100%', opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: '-100%', opacity: 0 }}
+              staggerDuration={0.02}
+              transition={{ type: 'spring', damping: 25, stiffness: 320 }}
+              rotationInterval={2600}
+            />
+          </div>
+
+          <p className="text-[11px] text-[#94A3B8]">
+            Tap continue below to enter the dashboard
           </p>
         </motion.div>
       </div>
 
-      {/* 3. CONTINUE BUTTON */}
+      {/* 3. PROMINENT MOBILE CONTINUE BUTTON (ALWAYS VISIBLE & PINNED) */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.6 }}
-        className="w-full max-w-sm mx-auto pb-4"
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="w-full max-w-sm mx-auto pb-4 pt-2 shrink-0 safe-bottom"
       >
         <button
           onClick={onContinue}
-          className="group w-full h-12 px-6 rounded-2xl bg-[#8B9A6E] hover:bg-[#7D8C61] active:scale-[0.98] transition-all duration-200 text-white font-black text-sm tracking-wider uppercase flex items-center justify-center space-x-2.5 shadow-glow-sage cursor-pointer"
+          className="w-full h-[52px] rounded-2xl bg-[#1A3EEA] hover:bg-[#1534D8] active:scale-[0.98] transition-all text-white font-bold text-sm tracking-wide flex items-center justify-center space-x-2.5 shadow-glow-blue cursor-pointer"
         >
-          <span>Continue</span>
-          <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1 stroke-[2.5]" />
+          <span>CONTINUE</span>
+          <ArrowRight className="w-4 h-4 stroke-[2.5]" />
         </button>
-        <p className="text-[11px] text-[#8E9A90] text-center mt-2.5 font-mono">
-          Touch Continue to enter management console
-        </p>
       </motion.div>
     </div>
   );

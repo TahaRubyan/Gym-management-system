@@ -55,13 +55,12 @@ export function isValidPakistaniPhone(phone: string): boolean {
 }
 
 /**
- * Generates the WhatsApp deep-link URL with the strict required message template:
- * "Hey [Member Name], your membership at Monster Gym is about to expire on [YYYY-MM-DD]. Make sure to pay your fee at a time. Regards, Dastagir Kanth (Monster Gym)."
+ * Generates the WhatsApp deep-link URL with enriched reminder details:
  * Target: https://wa.me/[CLEAN_PHONE]?text=[ENCODED_MESSAGE]
  */
 export function buildWhatsAppReminderUrl(fullName: string, phone: string, expiryDate: string): string {
   const cleanPhone = normalizePakistaniPhone(phone);
-  const message = `Hey ${fullName.trim()}, your membership at Monster Gym is about to expire on ${expiryDate}. Make sure to pay your fee at a time. Regards, Dastagir Kanth (Monster Gym).`;
+  const message = `Hey ${fullName.trim()}, this is a gentle reminder that your gym membership pass at Monster Gym is expiring on ${expiryDate}. Kindly renew your monthly fee (PKR 2,500) on time via Cash, EasyPaisa, or JazzCash to maintain uninterrupted gym and locker access. Thank you! Regards, Dastagir Kanth (Monster Gym).`;
   return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 }
 

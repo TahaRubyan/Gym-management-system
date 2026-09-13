@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dumbbell, Shield, RefreshCw, Sparkles } from 'lucide-react';
+import { Dumbbell, RefreshCw, Sparkles } from 'lucide-react';
 import { resetDatabaseToSeed } from '../services/storage';
 
 interface HeaderProps {
@@ -23,54 +23,50 @@ export const Header: React.FC<HeaderProps> = ({ onResetSeed, onOpenSplash }) => 
   };
 
   return (
-    <header className="sticky top-0 z-30 w-full bg-[#F7F2EB]/85 backdrop-blur-xl border-b border-[#EAE2D6] safe-top select-none">
-      <div className="max-w-md mx-auto px-4 py-2.5 flex items-center justify-between">
+    <header className="sticky top-0 z-30 w-full bg-[#F4F6F9]/90 backdrop-blur-xl border-b border-[#E9ECEF] safe-top select-none">
+      <div className="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
         <div
           onClick={onOpenSplash}
           className="flex items-center space-x-3 cursor-pointer group"
-          title="Open Executive Entrance"
+          title="Open Portal Entrance"
         >
-          <div className="w-10 h-10 rounded-2xl bg-[#FFFFFF] flex items-center justify-center shadow-apple-card border border-[#EAE2D6] group-hover:scale-105 transition-transform">
-            <Dumbbell className="w-5 h-5 text-[#8B9A6E] transform -rotate-45" />
+          <div className="w-10 h-10 rounded-2xl bg-[#1A3EEA] flex items-center justify-center shadow-sm text-white group-hover:scale-105 transition-transform">
+            <Dumbbell className="w-5 h-5 transform -rotate-45" />
           </div>
           <div>
-            <div className="flex items-center space-x-2">
-              <h1 className="text-sm font-black tracking-[0.14em] uppercase text-[#1C221D] leading-none">
+            <div className="flex items-center space-x-1.5">
+              <h1 className="text-base font-extrabold tracking-tight text-[#0F172A] leading-none">
                 Monster Gym
               </h1>
-              <span className="inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-mono font-bold bg-[#8B9A6E]/15 text-[#5E6D45] border border-[#8B9A6E]/30">
+              <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-[#EBF1FF] text-[#1A3EEA]">
                 PRO
               </span>
             </div>
-            <div className="flex items-center space-x-1 mt-0.5">
-              <Shield className="w-3.5 h-3.5 text-[#8B9A6E]" />
-              <p className="text-xs font-mono font-medium text-[#5B675E] group-hover:text-[#1C221D] transition-colors">
-                Dastagir Kanth <span className="text-[#8E9A90]">• Owner</span>
-              </p>
-            </div>
+            <p className="text-xs font-medium text-[#64748B] mt-0.5 group-hover:text-[#0F172A] transition-colors">
+              Dastagir Kanth <span className="text-[#94A3B8]">• Owner</span>
+            </p>
           </div>
         </div>
 
         <div className="flex items-center space-x-2">
-          {onOpenSplash && (
-            <button
-              onClick={onOpenSplash}
-              title="Show Entrance Intro"
-              className="p-2 rounded-xl bg-[#FFFFFF] border border-[#EAE2D6] text-[#5B675E] hover:text-[#1C221D] hover:border-[#8B9A6E]/40 active:scale-95 transition-all text-xs flex items-center gap-1 font-mono shadow-apple-card cursor-pointer"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#8B9A6E]" />
-            </button>
-          )}
-
           <button
             onClick={handleReset}
             disabled={isResetting}
             title="Reset to sample data"
-            className="p-2 rounded-xl bg-[#FFFFFF] border border-[#EAE2D6] text-[#5B675E] hover:text-[#1C221D] hover:border-[#8B9A6E]/40 active:scale-95 transition-all text-xs flex items-center gap-1 font-mono shadow-apple-card cursor-pointer"
+            className="w-9 h-9 rounded-full bg-white border border-[#E9ECEF] text-[#64748B] hover:text-[#0F172A] active:scale-95 transition-all flex items-center justify-center shadow-sm cursor-pointer"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${isResetting ? 'animate-spin text-[#8B9A6E]' : 'text-[#8B9A6E]'}`} />
-            <span className="hidden sm:inline">Reset</span>
+            <RefreshCw className={`w-4 h-4 ${isResetting ? 'animate-spin text-[#1A3EEA]' : 'text-[#64748B]'}`} />
           </button>
+
+          {onOpenSplash && (
+            <button
+              onClick={onOpenSplash}
+              title="Show Entrance Intro"
+              className="w-9 h-9 rounded-full bg-[#111827] text-white hover:bg-black active:scale-95 transition-all flex items-center justify-center shadow-sm cursor-pointer"
+            >
+              <Sparkles className="w-4 h-4 text-white" />
+            </button>
+          )}
         </div>
       </div>
     </header>

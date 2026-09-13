@@ -24,7 +24,31 @@ export function generateInitialSeedData(): {
   const nowIso = new Date().toISOString();
 
   const members: Member[] = [
-    // 48-Hour Expiring Window
+    // 48-Hour Expiring Window (Priority Testing Members)
+    {
+      id: 'mem-taha',
+      full_name: 'TAHA RUBYAN',
+      phone: '03481488937',
+      joined_date: createDateWithOffset(-30),
+      admission_fee: 1500,
+      monthly_fee: 2500,
+      expiry_date: today, // Expires TODAY
+      status: 'EXPIRING_SOON',
+      notes: 'Priority Test Member • Direct WhatsApp Verification',
+      created_at: createDateWithOffset(-30) + 'T09:00:00.000Z',
+    },
+    {
+      id: 'mem-farhan',
+      full_name: 'Farhan Butt',
+      phone: '03177769001',
+      joined_date: createDateWithOffset(-29),
+      admission_fee: 1000,
+      monthly_fee: 2500,
+      expiry_date: createDateWithOffset(1), // Expires Tomorrow
+      status: 'EXPIRING_SOON',
+      notes: 'Priority Test Member • 48h Urgency Testing',
+      created_at: createDateWithOffset(-29) + 'T09:30:00.000Z',
+    },
     {
       id: 'mem-001',
       full_name: 'Bilal Ahmed',
@@ -200,6 +224,26 @@ export function generateInitialSeedData(): {
   ];
 
   const payments: Payment[] = [
+    {
+      id: 'pay-taha',
+      member_id: 'mem-taha',
+      amount: 4000, // 1500 Admission + 2500 First Month
+      fee_type: 'FIRST_MONTH_PACKAGE',
+      channel: 'JAZZCASH',
+      transaction_ref: 'JC-77890123',
+      paid_at: createDateWithOffset(-30) + 'T09:05:00.000Z',
+      valid_until: today,
+    },
+    {
+      id: 'pay-farhan',
+      member_id: 'mem-farhan',
+      amount: 3500, // 1000 Admission + 2500 First Month
+      fee_type: 'FIRST_MONTH_PACKAGE',
+      channel: 'EASYPAISA',
+      transaction_ref: 'EP-55410982',
+      paid_at: createDateWithOffset(-29) + 'T09:35:00.000Z',
+      valid_until: createDateWithOffset(1),
+    },
     {
       id: 'pay-001',
       member_id: 'mem-001',

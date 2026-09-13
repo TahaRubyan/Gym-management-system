@@ -83,42 +83,42 @@ export const MembersList: React.FC<MembersListProps> = ({
       {/* Header & Quick Add */}
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono font-bold text-[#5E6D45] uppercase tracking-wider">
+          <span className="text-[10px] font-bold text-[#1A3EEA] uppercase tracking-wider">
             ROSTER DIRECTORY
           </span>
-          <h2 className="text-xl font-black text-[#1C221D] tracking-tight font-sans">Members</h2>
+          <h2 className="text-xl font-black text-[#0F172A] tracking-tight">Members</h2>
         </div>
 
         <button
           onClick={onAddNew}
-          className="h-10 px-3.5 rounded-2xl bg-[#8B9A6E] hover:bg-[#7D8C61] text-white text-xs font-mono font-bold flex items-center space-x-1.5 transition-all active:scale-95 shadow-glow-sage cursor-pointer"
+          className="h-10 px-4 rounded-2xl bg-[#1A3EEA] hover:bg-[#1534D8] text-white text-xs font-bold flex items-center space-x-1.5 transition-all active:scale-95 shadow-glow-blue cursor-pointer"
         >
           <UserPlus className="w-4 h-4 stroke-[2.5]" />
           <span>Add Member</span>
         </button>
       </div>
 
-      {/* 50px Search Bar (Apple & Figma Spec) */}
+      {/* 50px Search Bar */}
       <div className="relative">
         <input
           type="text"
-          placeholder="Search by full name or mobile phone..."
+          placeholder="Search by name or mobile number..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full h-[50px] bg-white border border-[#EAE2D6] focus:border-[#8B9A6E] rounded-2xl pl-11 pr-10 text-sm text-[#1C221D] placeholder-[#8E9A90] focus:outline-none transition-colors shadow-apple-card font-sans"
+          className="w-full h-[50px] bg-white border border-[#E9ECEF] focus:border-[#1A3EEA] rounded-2xl pl-11 pr-10 text-sm text-[#0F172A] placeholder-[#94A3B8] focus:outline-none transition-colors shadow-apple-card font-sans"
         />
-        <Search className="w-4 h-4 text-[#8E9A90] absolute left-4 top-1/2 -translate-y-1/2" />
+        <Search className="w-4 h-4 text-[#94A3B8] absolute left-4 top-1/2 -translate-y-1/2" />
         {searchQuery && (
           <button
             onClick={() => setSearchQuery('')}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-[#8E9A90] hover:text-[#1C221D] cursor-pointer"
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-[#94A3B8] hover:text-[#0F172A] cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
         )}
       </div>
 
-      {/* Segmented Filter Pills (Apple HIG Pill Design) */}
+      {/* Segmented Filter Pills */}
       <div className="flex space-x-1.5 overflow-x-auto pb-1 no-scrollbar">
         {filterOptions.map((opt) => {
           const isSelected = activeFilter === opt.id;
@@ -126,18 +126,18 @@ export const MembersList: React.FC<MembersListProps> = ({
             <button
               key={opt.id}
               onClick={() => setActiveFilter(opt.id)}
-              className={`h-9 px-3.5 rounded-xl text-xs font-mono font-semibold whitespace-nowrap transition-all flex items-center space-x-1.5 border active:scale-95 cursor-pointer ${
+              className={`h-9 px-3.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center space-x-1.5 border active:scale-95 cursor-pointer ${
                 isSelected
-                  ? 'bg-[#8B9A6E] border-[#8B9A6E] text-white shadow-apple-card'
-                  : 'bg-[#EEEEEE] border-[#EAE2D6] text-[#5B675E] hover:border-[#8B9A6E]/40'
+                  ? 'bg-[#1A3EEA] border-[#1A3EEA] text-white shadow-sm'
+                  : 'bg-[#F1F5F9] border-[#E2E8F0] text-[#64748B] hover:border-[#1A3EEA]/30'
               }`}
             >
               <span>{opt.label}</span>
               <span
                 className={`text-[10px] px-1.5 py-0.2 rounded-full ${
                   isSelected
-                    ? 'bg-white text-[#5E6D45] font-black'
-                    : 'bg-white/80 text-[#8E9A90]'
+                    ? 'bg-white text-[#1A3EEA] font-black'
+                    : 'bg-white text-[#94A3B8]'
                 }`}
               >
                 {opt.count}
@@ -149,13 +149,13 @@ export const MembersList: React.FC<MembersListProps> = ({
 
       {/* Members Streamlined Roster List */}
       {filteredMembers.length === 0 ? (
-        <div className="text-center py-14 px-4 bg-white border border-[#EAE2D6] rounded-3xl shadow-apple-card space-y-2.5">
-          <div className="w-12 h-12 rounded-2xl bg-[#F7F2EB] text-[#8E9A90] flex items-center justify-center mx-auto border border-[#EAE2D6]">
+        <div className="text-center py-14 px-4 bg-white border border-[#E9ECEF] rounded-3xl shadow-apple-card space-y-2.5">
+          <div className="w-12 h-12 rounded-2xl bg-[#EBF1FF] text-[#1A3EEA] flex items-center justify-center mx-auto">
             <Users className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-[#1C221D]">No members found</h3>
-            <p className="text-xs text-[#5B675E] mt-1 max-w-xs mx-auto">
+            <h3 className="text-sm font-bold text-[#0F172A]">No members found</h3>
+            <p className="text-xs text-[#64748B] mt-1 max-w-xs mx-auto">
               {searchQuery
                 ? `No roster records match "${searchQuery}".`
                 : 'No members match this filter criteria.'}
@@ -167,7 +167,7 @@ export const MembersList: React.FC<MembersListProps> = ({
                 setSearchQuery('');
                 setActiveFilter('ALL');
               }}
-              className="text-xs text-[#8B9A6E] font-bold font-mono underline underline-offset-4 cursor-pointer"
+              className="text-xs text-[#1A3EEA] font-bold underline underline-offset-4 cursor-pointer"
             >
               Clear Search & Filter
             </button>

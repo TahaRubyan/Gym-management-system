@@ -3,20 +3,21 @@
 @tailwind utilities;
 
 :root {
-  --color-sage: #8B9A6E;
-  --color-cream: #F7F2EB;
-  --color-almond: #EAE2D6;
-  --color-gray: #EEEEEE;
+  --color-blue: #1A3EEA;
+  --color-sky: #EBF1FF;
+  --color-canvas: #F4F6F9;
   --color-card: #FFFFFF;
-  --color-dark: #1C221D;
-  --color-muted: #5B675E;
+  --color-dark: #0F172A;
+  --color-muted: #64748B;
+  --color-border: #E9ECEF;
+  --color-black: #111827;
 
   color-scheme: light;
 }
 
 html, body {
-  background-color: #F7F2EB;
-  color: #1C221D;
+  background-color: #F4F6F9;
+  color: #0F172A;
   min-height: 100%;
   overscroll-behavior-y: none;
   -webkit-font-smoothing: antialiased;
@@ -24,6 +25,7 @@ html, body {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   -webkit-user-select: none;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
 /* iOS Safe Areas */
@@ -42,16 +44,16 @@ html, body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #F7F2EB;
+  background: #F4F6F9;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #EAE2D6;
+  background: #E9ECEF;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #8B9A6E;
+  background: #1A3EEA;
 }
 
 /* Prevent auto-zoom on iOS inputs with font size >= 16px */
@@ -61,17 +63,17 @@ input, select, textarea {
 
 /* Apple Frosted Glass Utilities */
 .glass-nav {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(234, 226, 214, 0.85);
+  border-top: 1px solid #E9ECEF;
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid #EAE2D6;
+  border: 1px solid #E9ECEF;
 }
 
 /* 3D Card Slider & Gleb K effects */

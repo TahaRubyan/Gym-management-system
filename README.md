@@ -33,10 +33,12 @@
 
 ### 🌟 Key Highlights
 - **100% Offline-First Persistence**: Powered by **Dexie.js (IndexedDB)** with `navigator.storage.persist()`. Data is saved permanently on the device and never evicted until the owner explicitly deletes records.
-- **Cinematic Welcome Splash Screen**: Executive intro featuring **MONSTER GYM**, owner credential plate for **DASTAGIR KANTH**, and the dynamic React Bits `<RotatingText />` component.
+- **Cinematic Welcome Splash Screen**: Executive intro featuring **MONSTER GYM**, dynamic React Bits `<RotatingText />` transition on **DASTAGIR KANTH**, and a pinned, high-contrast mobile **CONTINUE** button optimized for iOS Safari viewports.
+- **Eye-Friendly Professional Typography**: Powered by **Plus Jakarta Sans** with high legibility, clean numeral metrics, and 50px input ergonomics.
+- **Instant Test Members in 48-Hour Radar**: Pre-seeded with **TAHA RUBYAN** (`03481488937`) and **FARHAN BUTT** (`03177769001`) with automatic synchronization so the owner can test 1-tap WhatsApp notifications immediately.
 - **Zero-Lag State Synchronicity**: Dexie reactive queries automatically refresh metrics, countdowns, and roster badges upon every mutation with zero hallucination.
 - **iOS WebKit Standalone Optimization**: Native iPhone app feel with safe-area padding (`env(safe-area-inset-top)` / `env(safe-area-inset-bottom)`), `overscroll-behavior-y: none`, and numeric/tel keypads.
-- **Automated WhatsApp Dispatch**: Automatically normalizes Pakistani mobile numbers (`0300...` → `92300...`) and generates pre-filled official fee collection alerts.
+- **Enriched Automated WhatsApp Dispatch**: Automatically normalizes Pakistani mobile numbers (`0300...` → `92300...`) and generates pre-filled official fee collection alerts with payment channels (Cash, EasyPaisa, JazzCash).
 
 ---
 
@@ -46,10 +48,10 @@
 flowchart TD
     subgraph Client["📱 iOS Safari / PWA Standalone"]
         UI["Executive UI Layer (React 19 + Motion)"]
-        Splash["Welcome Splash (React Bits RotatingText)"]
-        Dashboard["Revenue Telemetry Console"]
+        Splash["Welcome Splash (React Bits RotatingText on Dastagir Kanth)"]
+        Dashboard["Fintech Revenue Telemetry Console"]
         Members["Active Roster & Search"]
-        Expiring["48-Hour Urgency Radar"]
+        Expiring["48-Hour Urgency Radar (Taha Rubyan & Farhan Butt)"]
         WA["1-Tap WhatsApp Reminder Engine"]
     end
 
@@ -88,23 +90,33 @@ flowchart TD
 
 ---
 
-## 📲 WhatsApp Automation Dispatch
+## 📲 WhatsApp Automation Dispatch & Test Members
 
 The system formats Pakistani telephone numbers and generates instant deep-links compliant with iOS Safari:
 
-### Phone Normalization
-- Converts local numbers `03001234567` → `923001234567`.
-- Removes non-numeric artifacts (`+`, `-`, spaces).
-- Validates 11–12 digit mobile networks.
+### Pre-Configured Test Members for Immediate Verification:
+1. **TAHA RUBYAN** — `03481488937` *(Expires Today — High Priority Radar)*
+2. **FARHAN BUTT** — `03177769001` *(Expires Tomorrow — Urgent Radar)*
 
 ### Official Message Template
 ```text
-Hey [Member Name], your membership at Monster Gym is about to expire on [YYYY-MM-DD]. Make sure to pay your fee at a time. Regards, Dastagir Kanth (Monster Gym).
+Assalam-o-Alaikum [Member Name],
+This is a gentle reminder from Monster Gym regarding your monthly gym membership renewal.
+
+📅 Expiry Date: [YYYY-MM-DD]
+💰 Membership Fee: PKR 2,500
+
+Please clear your dues by your expiry date to maintain uninterrupted gym, trainer & locker access.
+Payment options: Cash at Front Desk, EasyPaisa, or JazzCash.
+
+Regards,
+Dastagir Kanth
+Owner, Monster Gym
 ```
 
-### Generated Deep Link
+### Generated Deep Link Example
 ```
-https://wa.me/923001234567?text=Hey%20Hamza%20Tariq%2C%20your%20membership%20at%20Monster%20Gym%20is%20about%20to%20expire%20on%202026-09-14.%20Make%20sure%20to%20pay%20your%20fee%20at%20a%20time.%20Regards%2C%20Dastagir%20Kanth%20(Monster%20Gym).
+https://wa.me/923481488937?text=Assalam-o-Alaikum%20Taha%20Rubyan%2C%0AThis%20is%20a%20gentle%20reminder%20from%20Monster%20Gym%20regarding%20your%20monthly%20gym%20membership%20renewal.%0A%0A%F0%9F%93%85%20Expiry%20Date%3A%202026-09-13%0A%F0%9F%92%B0%20Membership%20Fee%3A%20PKR%202%2C500%0A%0APlease%20clear%20your%20dues%20by%20your%20expiry%20date%20to%20maintain%20uninterrupted%20gym%2C%20trainer%20%26%20locker%20access.%0APayment%20options%3A%20Cash%20at%20Front%20Desk%2C%20EasyPaisa%2C%20or%20JazzCash.%0A%0ARegards%2C%0ADastagir%20Kanth%0AOwner%2C%20Monster%20Gym
 ```
 
 ---
@@ -112,35 +124,34 @@ https://wa.me/923001234567?text=Hey%20Hamza%20Tariq%2C%20your%20membership%20at%
 ## 🖥️ Screen-by-Screen Breakdown
 
 ### 1. Cinematic Welcome Splash
-- Animated brand emblem with glowing orbital aura.
-- **MONSTER GYM** soft platinum typography with **React Bits `<RotatingText />`** cycling:
-  `['EXCLUSIVE ATHLETIC CLUB', 'HIGH-PERFORMANCE SYSTEM', 'REVENUE & TELEMETRY ENGINE', 'DASTAGIR KANTH EDITION']`
-- Verified Owner Credential Badge for **DASTAGIR KANTH**.
-- **"ENTER MANAGEMENT CONSOLE"** transition trigger.
+- Animated brand emblem with glowing electric blue orb.
+- **MONSTER GYM** typography paired with **React Bits `<RotatingText />`** transition rotating across:
+  `['DASTAGIR KANTH', 'THE FOUNDER', 'EXECUTIVE OWNER', 'CHIEF TRAINER']`
+- **Prominent Mobile "CONTINUE TO DASHBOARD →" Button** pinned dynamically to the viewport bottom (`safe-bottom`), guaranteeing visibility across all mobile screens and iOS Safari URL bar states.
 
-### 2. Executive Revenue Console (`/dashboard`)
-- **Monthly Capital Inflow Hero Card**: High-precision gross revenue total with live sync status.
-- **Admission vs. Renewal Split**: Breakout of Month 1 one-offs vs. recurring PKR 2,500 renewals.
-- **Active Roster Health Gauge**: Ratio and cyber-bar tracking health of active passes.
-- **48-Hour Expiry Radar**: Amber glowing alert badge linking directly to urgent renewals.
-- **Multi-Channel Allocation**: Real-time breakdown of Cash, EasyPaisa, JazzCash, and Bank / Raast.
-- **Recent Ledger Feed**: Institutional timestamped payment transactions.
+### 2. Modern Fintech Revenue Console (`/dashboard`)
+- **"You are on Top of your Gym Finances"** hero headline matching fintech design aesthetics.
+- **Total Inflow Card**: Elevated pure white card (`bg-white rounded-[28px]`) with smooth SVG sparkline curve, live collection count, and real-time offline sync indicator.
+- **Renewals & Admissions Split**: Side-by-side metric tiles with ↗ trend chips.
+- **48-Hour Urgency Radar Card**: Displays urgent count with instant navigation to 1-tap WhatsApp notifications.
+- **Recent Inflows Feed**: Timestamped payment ledger with circular member avatar pills and payment channel badges.
 
 ### 3. Active Roster Directory (`/members`)
 - Instant client-side search by full name or mobile number.
-- Filter pills (`All`, `Active`, `Expiring`, `Expired`) with real-time count chips.
-- Titanium glass member cards with status indicator lines, countdown pills, and 1-tap Call, WhatsApp, and Log Fee actions.
+- 50px rounded search bar and electric blue filter pills (`All`, `Active`, `Expiring`, `Expired`).
+- Clean white member cards (`rounded-[22px]`) with active status pill badges, countdown tags, and 1-tap Call, WhatsApp, and Log Fee actions.
 - Slide-over detail drawer for complete payment history and profile editing.
 
 ### 4. 48-Hour Expirations Radar (`/expiring`)
 - Filtered strictly to members expiring within the 48-hour window.
-- 1-Tap WhatsApp button with visual "Sent" state confirmation.
+- Pre-populated with **TAHA RUBYAN** and **FARHAN BUTT** featuring prominent `TEST` tags.
+- 1-Tap WhatsApp button with visual "Sent" confirmation indicator.
 - Direct "Renew 2.5K" button opening the fee logger pre-filled.
 
 ### 5. Phased Member Registration & Celebration Wizard (`/members/new`)
 - **Phase 1 (Customer Details)**: Full name, Pakistani mobile number (with real-time validation), joining date, and optional notes/locker ID.
 - **Phase 2 (Amount & Channel)**: Strictly fixed monthly base fee of PKR 2,500 + variable admission fee with live Month 1 calculation (`Admission + PKR 2,500`), 30-day projection, and multi-channel selector.
-- **Celebration Phase**: Fluid spring animation upon enrollment featuring pulsing verification badge, confirmation card, one-tap WhatsApp welcome trigger, and direct roster navigation.
+- **Celebration Phase**: Fluid spring animation upon enrollment featuring pulsing verification badge in electric blue, confirmation card, one-tap WhatsApp welcome trigger, and direct roster navigation.
 
 ### 6. Quick Fee Renewal Sheet
 - Pre-selects member and displays current vs. new validity projection (`+30 Days`).
@@ -149,22 +160,23 @@ https://wa.me/923001234567?text=Hey%20Hamza%20Tariq%2C%20your%20membership%20at%
 
 ---
 
-## 🎨 Custom Design System & Color Palette (Apple iOS HIG)
+## 🎨 Custom Modern Fintech Design System
 
-Crafted according to **Apple Human Interface Guidelines (HIG)** with frosted glass vibrancy, 50px input ergonomics, 48px touch targets, and the official [ColorHunt Palette](https://colorhunt.co/palette/8b9a6ef7f2ebeae2d6eeeeee):
+Crafted with high-contrast legibility, **Plus Jakarta Sans** eyesight-friendly typography, 50px input ergonomics, 48px touch targets, and modern fintech palette tokens:
 
 ```
 ================================================================================
 | Token               | Hex Code    | Description                              |
 |---------------------|-------------|------------------------------------------|
-| Primary Sage Accent | #8B9A6E     | Primary brand accent, active tabs, CTAs  |
-| Warm Cream Canvas   | #F7F2EB     | System background & page canvas          |
-| Almond Surface/Edge | #EAE2D6     | Borders, card outlines, subtle dividers  |
-| Gray Controls/Pill  | #EEEEEE     | Filter pills, read-only inputs, badges   |
-| Pure White Card     | #FFFFFF     | Elevated Apple card surfaces & sheets    |
-| Primary Slate Text  | #1C221D     | High-contrast headings, names, totals    |
-| Muted Taupe Text    | #5B675E     | Secondary metadata, subtitles, labels    |
-| Subtle Hint / Gray  | #8E9A90     | Placeholders, tertiary captions, hints    |
+| Primary Brand Blue  | #1A3EEA     | Primary buttons, active tabs, CTAs       |
+| Blue Hover State    | #1534D8     | Button hover & active interaction states |
+| Soft Sky Tint       | #EBF1FF     | Active pill backgrounds, subtle tags     |
+| Canvas Background   | #F4F6F9     | Clean, modern off-white page canvas      |
+| Pure White Card     | #FFFFFF     | Elevated rounded-[24px]/[28px] cards      |
+| High-Contrast Dark  | #0F172A     | Headings, primary text, prominent figures|
+| Secondary Slate     | #64748B     | Subtitles, timestamps, field labels       |
+| Light Slate Border  | #E9ECEF     | Subtle dividers, card borders             |
+| Deep Black Control  | #111827     | Header quick action button                |
 ================================================================================
 ```
 

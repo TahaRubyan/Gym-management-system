@@ -128,20 +128,20 @@ export const App: React.FC = () => {
 
   if (!isInitialized) {
     return (
-      <div className="min-h-screen bg-[#F7F2EB] flex flex-col items-center justify-center p-4">
-        <div className="w-12 h-12 rounded-2xl bg-[#8B9A6E]/15 border border-[#8B9A6E]/30 flex items-center justify-center animate-pulse mb-4">
-          <div className="w-6 h-6 rounded-full border-2 border-[#8B9A6E] border-t-transparent animate-spin" />
+      <div className="min-h-screen bg-[#F4F6F9] flex flex-col items-center justify-center p-4">
+        <div className="w-12 h-12 rounded-2xl bg-[#EBF1FF] flex items-center justify-center animate-pulse mb-4">
+          <div className="w-6 h-6 rounded-full border-2 border-[#1A3EEA] border-t-transparent animate-spin" />
         </div>
-        <h1 className="text-sm font-bold text-[#1C221D] tracking-widest uppercase font-sans">
-          MONSTER GYM
+        <h1 className="text-base font-extrabold text-[#0F172A] tracking-tight">
+          Monster Gym
         </h1>
-        <p className="text-xs text-[#5B675E] mt-1 font-mono">Initializing offline engine...</p>
+        <p className="text-xs text-[#64748B] mt-1 font-medium">Loading system...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F2EB] text-[#1C221D] flex flex-col selection:bg-[#8B9A6E] selection:text-white relative">
+    <div className="min-h-screen bg-[#F4F6F9] text-[#0F172A] flex flex-col selection:bg-[#1A3EEA] selection:text-white relative">
       {/* Toast Alert Notifications */}
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
 

@@ -41,7 +41,7 @@ assert(!isValidPakistaniPhone('02134567890'), 'Landline prefix (021) rejected fo
 console.log('\n=== TEST 2: WhatsApp Deep-Link Builder & Exact Message Format ===');
 const sampleUrl = buildWhatsAppReminderUrl('Hamza Tariq', '03001234567', '2026-09-12');
 assert(sampleUrl.startsWith('https://wa.me/923001234567?text='), 'Target URL prefix is correct');
-const expectedMessage = 'Hey Hamza Tariq, your membership at Monster Gym is about to expire on 2026-09-12. Make sure to pay your fee at a time. Regards, Dastagir Kanth (Monster Gym).';
+const expectedMessage = 'Hey Hamza Tariq, this is a gentle reminder that your gym membership pass at Monster Gym is expiring on 2026-09-12. Kindly renew your monthly fee (PKR 2,500) on time via Cash, EasyPaisa, or JazzCash to maintain uninterrupted gym and locker access. Thank you! Regards, Dastagir Kanth (Monster Gym).';
 assert(sampleUrl.includes(encodeURIComponent(expectedMessage)), 'Message text matches required spec verbatim');
 
 console.log('\n=== TEST 3: Fixed Fee & First Month Calculation ===');
