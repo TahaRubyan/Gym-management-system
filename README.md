@@ -98,26 +98,64 @@ The system formats Pakistani telephone numbers and generates instant deep-links 
 1. **TAHA RUBYAN** — `03481488937` *(Expires Today — High Priority Radar)*
 2. **FARHAN BUTT** — `03177769001` *(Expires Tomorrow — Urgent Radar)*
 
-### Official Message Template
+### Official WhatsApp Renewal Message Template (With Spacing & Emojis)
 ```text
-Assalam-o-Alaikum [Member Name],
-This is a gentle reminder from Monster Gym regarding your monthly gym membership renewal.
+Assalam-o-Alaikum [Member Name]! 🏋️‍♂️
 
-📅 Expiry Date: [YYYY-MM-DD]
-💰 Membership Fee: PKR 2,500
+This is an official renewal reminder from *MONSTER GYM*.
 
-Please clear your dues by your expiry date to maintain uninterrupted gym, trainer & locker access.
-Payment options: Cash at Front Desk, EasyPaisa, or JazzCash.
+📅 *Membership Expiry:* [Formatted Date] ([YYYY-MM-DD])
+💰 *Monthly Fee:* PKR 2,500
 
-Regards,
-Dastagir Kanth
-Owner, Monster Gym
+✨ *Important Note:*
+Kindly renew your membership by your expiry date to enjoy uninterrupted gym floor, professional equipment, and locker access.
+
+💳 *Accepted Payment Methods:*
+• 💵 Cash at Front Desk
+• 📱 EasyPaisa
+• 📲 JazzCash
+
+If you have already paid or have questions, feel free to reply to this message.
+
+Stay fit, stay strong! 💪🔥
+
+Warm Regards,
+*Dastagir Kanth*
+Owner & Founder, Monster Gym 👑
 ```
 
-### Generated Deep Link Example
+### Official WhatsApp Welcome Message Template
+```text
+Assalam-o-Alaikum [Member Name]! 🏋️‍♂️🎉
+
+Welcome to the *MONSTER GYM* family! Your membership has been successfully registered.
+
+📋 *Membership Pass Details:*
+• 👤 *Member Name:* [Member Name]
+• 📅 *Pass Valid Until:* [Formatted Date]
+• 💰 *Monthly Renewal Fee:* PKR 2,500
+
+✨ *Gym Facilities & Guidelines:*
+• 🏋️ Full access to gym floor & heavy workout stations
+• 🔒 Safe locker facility available
+• ⏱️ Training hours: Monday to Saturday
+
+We are excited to partner with you on your fitness transformation. Let's crush your goals together! 💪🔥
+
+Warm Regards,
+*Dastagir Kanth*
+Owner & Head Coach, Monster Gym 👑
 ```
-https://wa.me/923481488937?text=Assalam-o-Alaikum%20Taha%20Rubyan%2C%0AThis%20is%20a%20gentle%20reminder%20from%20Monster%20Gym%20regarding%20your%20monthly%20gym%20membership%20renewal.%0A%0A%F0%9F%93%85%20Expiry%20Date%3A%202026-09-13%0A%F0%9F%92%B0%20Membership%20Fee%3A%20PKR%202%2C500%0A%0APlease%20clear%20your%20dues%20by%20your%20expiry%20date%20to%20maintain%20uninterrupted%20gym%2C%20trainer%20%26%20locker%20access.%0APayment%20options%3A%20Cash%20at%20Front%20Desk%2C%20EasyPaisa%2C%20or%20JazzCash.%0A%0ARegards%2C%0ADastagir%20Kanth%0AOwner%2C%20Monster%20Gym
-```
+
+---
+
+## 🌊 Scroll Effects & System Interactions
+
+- **Dynamic Interactive Header Scroll**: Listens to scroll position, compacting padding and transitioning from transparent glass to elevated frosted backdrop (`backdrop-blur-2xl bg-white/95 border-b border-[#E9ECEF] shadow-[0_4px_24px_-4px_rgba(15,23,42,0.08)]`).
+- **Floating Spring Scroll-to-Top Button**: Smoothly animates in when the user scrolls beyond 200px down any page, allowing single-tap smooth glide back to the top.
+- **Card Viewport Reveal Animations**: Cards on the Dashboard, Roster, and Expiring feeds smoothly fade in and glide up as the user scrolls into view (`whileInView`).
+- **Automatic Scroll Reset on Navigation**: Smoothly resets scroll to top whenever changing bottom navigation tabs.
+- **iOS WebKit Momentum Scrolling**: Full `-webkit-overflow-scrolling: touch` with `scroll-behavior: smooth`.
 
 ---
 
@@ -125,7 +163,7 @@ https://wa.me/923481488937?text=Assalam-o-Alaikum%20Taha%20Rubyan%2C%0AThis%20is
 
 ### 1. Cinematic Welcome Splash
 - Animated brand emblem with glowing electric blue orb.
-- **MONSTER GYM** typography paired with **React Bits `<RotatingText />`** transition rotating across:
+- **MONSTER GYM** typography with balanced letter spacing, paired with **React Bits `<RotatingText />`** transition rotating across:
   `['DASTAGIR KANTH', 'THE FOUNDER', 'EXECUTIVE OWNER', 'CHIEF TRAINER']`
 - **Prominent Mobile "CONTINUE TO DASHBOARD →" Button** pinned dynamically to the viewport bottom (`safe-bottom`), guaranteeing visibility across all mobile screens and iOS Safari URL bar states.
 

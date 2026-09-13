@@ -53,17 +53,17 @@ export const RevenueConsole: React.FC<RevenueConsoleProps> = ({
         transition={{ duration: 0.4 }}
         className="p-5 sm:p-6 rounded-[28px] bg-white border border-[#E9ECEF] shadow-apple-card relative overflow-hidden"
       >
-        <div className="flex items-center justify-between mb-1">
-          <span className="text-xs font-semibold text-[#64748B]">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-xs font-bold text-[#64748B] uppercase tracking-wider">
             Total Inflow
           </span>
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[#EBF1FF] text-[#1A3EEA] text-[11px] font-bold">
+          <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#EBF1FF] text-[#1A3EEA] text-xs font-bold tracking-wide">
             {currentMonthName}
           </span>
         </div>
 
         {/* Big Gross Revenue Figure */}
-        <div className="text-3xl sm:text-4xl font-black tracking-tight text-[#0F172A] mt-1 mb-4">
+        <div className="text-3xl sm:text-4xl font-black tracking-normal text-[#0F172A] my-3 leading-tight">
           {formatPKR(metrics.totalMonthlyRevenue)}
         </div>
 
@@ -201,13 +201,13 @@ export const RevenueConsole: React.FC<RevenueConsoleProps> = ({
           transition={{ duration: 0.4, delay: 0.1 }}
           className="p-4 rounded-[24px] bg-white border border-[#E9ECEF] shadow-apple-card flex flex-col justify-between"
         >
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-semibold text-[#64748B]">Renewals</span>
-            <div className="w-6 h-6 rounded-full bg-[#EBF1FF] text-[#1A3EEA] flex items-center justify-center">
-              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-bold text-[#64748B] tracking-wide uppercase">Renewals</span>
+            <div className="w-7 h-7 rounded-full bg-[#EBF1FF] text-[#1A3EEA] flex items-center justify-center">
+              <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
-          <div className="text-lg sm:text-xl font-black text-[#0F172A]">
+          <div className="text-xl sm:text-2xl font-black text-[#0F172A] tracking-normal">
             {formatPKR(metrics.renewalRevenue)}
           </div>
         </motion.div>
@@ -217,15 +217,15 @@ export const RevenueConsole: React.FC<RevenueConsoleProps> = ({
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.15 }}
-          className="p-4 rounded-[24px] bg-white border border-[#E9ECEF] shadow-apple-card flex flex-col justify-between"
+          className="p-4 sm:p-5 rounded-[24px] bg-white border border-[#E9ECEF] shadow-apple-card flex flex-col justify-between"
         >
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-semibold text-[#64748B]">Admissions</span>
-            <div className="w-6 h-6 rounded-full bg-[#EBF1FF] text-[#1A3EEA] flex items-center justify-center">
-              <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-bold text-[#64748B] tracking-wide uppercase">Admissions</span>
+            <div className="w-7 h-7 rounded-full bg-[#EBF1FF] text-[#1A3EEA] flex items-center justify-center">
+              <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
             </div>
           </div>
-          <div className="text-lg sm:text-xl font-black text-[#0F172A]">
+          <div className="text-xl sm:text-2xl font-black text-[#0F172A] tracking-normal">
             {formatPKR(metrics.admissionRevenue)}
           </div>
         </motion.div>

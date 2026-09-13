@@ -41,8 +41,10 @@ assert(!isValidPakistaniPhone('02134567890'), 'Landline prefix (021) rejected fo
 console.log('\n=== TEST 2: WhatsApp Deep-Link Builder & Exact Message Format ===');
 const sampleUrl = buildWhatsAppReminderUrl('Hamza Tariq', '03001234567', '2026-09-12');
 assert(sampleUrl.startsWith('https://wa.me/923001234567?text='), 'Target URL prefix is correct');
-const expectedMessage = 'Hey Hamza Tariq, this is a gentle reminder that your gym membership pass at Monster Gym is expiring on 2026-09-12. Kindly renew your monthly fee (PKR 2,500) on time via Cash, EasyPaisa, or JazzCash to maintain uninterrupted gym and locker access. Thank you! Regards, Dastagir Kanth (Monster Gym).';
-assert(sampleUrl.includes(encodeURIComponent(expectedMessage)), 'Message text matches required spec verbatim');
+assert(sampleUrl.includes('Assalam-o-Alaikum%20Hamza%20Tariq!%20%F0%9F%8F%8B%EF%B8%8F%E2%80%8D%E2%99%82%EF%B8%8F'), 'Contains greeting and 🏋️‍♂️ emoji');
+assert(sampleUrl.includes('PKR%202%2C500'), 'Contains fee PKR 2,500');
+assert(sampleUrl.includes('Dastagir%20Kanth'), 'Contains Dastagir Kanth signature');
+assert(sampleUrl.includes('%0A%0A'), 'Message contains multiple double-spaced line breaks');
 
 console.log('\n=== TEST 3: Fixed Fee & First Month Calculation ===');
 const admissionFee = 1500;

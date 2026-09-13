@@ -34,17 +34,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
     <div className="space-y-4 pb-28 px-4 pt-2 max-w-md mx-auto select-none">
       {/* Top Header Headline from Reference Image */}
       <div className="pt-1 flex items-start justify-between">
-        <div>
-          <h2 className="text-2xl sm:text-3xl font-black text-[#0F172A] tracking-tight">
+        <div className="space-y-1">
+          <h2 className="text-2xl sm:text-3xl font-black text-[#0F172A] tracking-normal leading-tight">
             You are on Top
           </h2>
-          <p className="text-xl sm:text-2xl font-semibold text-[#64748B] tracking-tight -mt-1">
+          <p className="text-base sm:text-lg font-medium text-[#64748B] tracking-wide">
             of your Gym Finances
           </p>
         </div>
         <div className="text-right pt-1">
-          <span className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-wider block">ROSTER</span>
-          <span className="text-xs font-bold text-[#1A3EEA] bg-[#EBF1FF] px-2 py-0.5 rounded-full">
+          <span className="text-[10px] font-bold text-[#94A3B8] uppercase tracking-wider block mb-1">ROSTER</span>
+          <span className="text-xs font-bold text-[#1A3EEA] bg-[#EBF1FF] px-2.5 py-1 rounded-full tracking-wide">
             {metrics.activeMembersCount}/{metrics.totalMembersCount} Active
           </span>
         </div>
@@ -58,10 +58,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
       />
 
       {/* Primary Actions — Thumb-friendly 48px CTAs */}
-      <div className="grid grid-cols-2 gap-3 pt-1">
+      <div className="grid grid-cols-2 gap-3 pt-2">
         <button
           onClick={() => onNavigate('add-member')}
-          className="h-12 rounded-2xl bg-[#1A3EEA] hover:bg-[#1534D8] active:scale-[0.98] transition-all flex items-center justify-center space-x-2 text-xs font-bold text-white shadow-glow-blue cursor-pointer"
+          className="h-12 rounded-2xl bg-[#1A3EEA] hover:bg-[#1534D8] active:scale-[0.98] transition-all flex items-center justify-center space-x-2 text-xs font-bold text-white shadow-glow-blue tracking-wider cursor-pointer"
         >
           <UserPlus className="w-4 h-4 stroke-[2.5]" />
           <span>+ ADD MEMBER</span>
@@ -69,7 +69,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
         <button
           onClick={onOpenLogFee}
-          className="h-12 rounded-2xl bg-white hover:bg-[#F8FAFC] border border-[#E9ECEF] hover:border-[#1A3EEA]/40 active:scale-[0.98] transition-all flex items-center justify-center space-x-2 text-xs font-bold text-[#0F172A] cursor-pointer shadow-apple-card"
+          className="h-12 rounded-2xl bg-white hover:bg-[#F8FAFC] border border-[#E9ECEF] hover:border-[#1A3EEA]/40 active:scale-[0.98] transition-all flex items-center justify-center space-x-2 text-xs font-bold text-[#0F172A] tracking-wider cursor-pointer shadow-apple-card"
         >
           <CreditCard className="w-4 h-4 text-[#1A3EEA]" />
           <span>COLLECT PKR 2.5K</span>
@@ -77,7 +77,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Recent Activity Feed — Styled like Reference Image "Recent Transaction" */}
-      <div className="space-y-2.5 pt-2">
+      <div className="space-y-3 pt-3">
         <div className="flex items-center justify-between">
           <h3 className="text-xs font-bold uppercase tracking-wider text-[#0F172A] flex items-center space-x-1.5">
             <Receipt className="w-3.5 h-3.5 text-[#1A3EEA]" />
@@ -85,7 +85,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </h3>
           <button
             onClick={() => onNavigate('members')}
-            className="text-xs font-bold text-[#1A3EEA] hover:text-[#1534D8] flex items-center gap-1 cursor-pointer"
+            className="text-xs font-bold text-[#1A3EEA] hover:text-[#1534D8] flex items-center gap-1 cursor-pointer tracking-wide"
           >
             <span>See all</span>
             <ArrowRight className="w-3 h-3" />
@@ -97,8 +97,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
             No payments recorded yet.
           </div>
         ) : (
-          <div className="space-y-2">
-            {metrics.recentPayments.slice(0, 3).map((p, idx) => {
+          <div className="space-y-2.5">
+            {metrics.recentPayments.slice(0, 4).map((p, idx) => {
               const initials = p.member_name
                 .split(' ')
                 .map((n) => n[0])
@@ -109,32 +109,33 @@ export const Dashboard: React.FC<DashboardProps> = ({
               return (
                 <motion.div
                   key={p.id}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.25, delay: idx * 0.04 }}
-                  className="p-3.5 bg-white border border-[#E9ECEF] rounded-[22px] flex items-center justify-between shadow-apple-card"
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35, delay: idx * 0.05 }}
+                  className="p-4 bg-white border border-[#E9ECEF] rounded-[24px] flex items-center justify-between shadow-apple-card hover:border-[#1A3EEA]/30 transition-colors"
                 >
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-3.5">
                     {/* Circle Avatar like "WJ" in reference image */}
-                    <div className="w-9 h-9 rounded-full bg-[#EBF1FF] text-[#1A3EEA] font-bold text-xs flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-[#EBF1FF] text-[#1A3EEA] font-extrabold text-xs flex items-center justify-center shrink-0 tracking-wider">
                       {initials}
                     </div>
-                    <div>
+                    <div className="space-y-0.5">
                       <div className="flex items-center space-x-2">
-                        <span className="text-xs font-bold text-[#0F172A]">{p.member_name}</span>
-                        <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-[#F1F5F9] text-[#64748B] font-semibold">
+                        <span className="text-sm font-bold text-[#0F172A] tracking-normal">{p.member_name}</span>
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#F1F5F9] text-[#64748B] font-semibold tracking-wide">
                           {p.channel}
                         </span>
                       </div>
-                      <p className="text-[11px] text-[#94A3B8] mt-0.5">
-                        {p.fee_type === 'FIRST_MONTH_PACKAGE' ? 'Month 1' : 'Renewal'}{' '}
+                      <p className="text-xs text-[#94A3B8] tracking-wide">
+                        {p.fee_type === 'FIRST_MONTH_PACKAGE' ? 'Month 1 Package' : 'Monthly Renewal'}{' '}
                         • {formatDateTime(p.paid_at)}
                       </p>
                     </div>
                   </div>
 
-                  <div className="text-right">
-                    <span className="text-xs font-black text-[#1A3EEA]">
+                  <div className="text-right pl-2">
+                    <span className="text-sm font-black text-[#1A3EEA] tracking-wide">
                       +{formatPKR(p.amount)}
                     </span>
                   </div>

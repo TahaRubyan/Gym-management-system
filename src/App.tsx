@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { ArrowUp } from 'lucide-react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db, initializeDatabase, calculateDashboardMetrics, logWhatsAppReminder } from './services/storage';
 import { Member, DashboardMetrics } from './types/gym';
@@ -20,6 +21,7 @@ export const App: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<NavTab>('dashboard');
   const [isInitialized, setIsInitialized] = useState(false);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+  const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
 
   // Modals & Drawers state
   const [isLogFeeOpen, setIsLogFeeOpen] = useState(false);
@@ -36,6 +38,20 @@ export const App: React.FC = () => {
       .catch((err) => console.error('Database initialization error:', err))
       .finally(() => setIsInitialized(true));
   }, []);
+
+  // System scroll listener for floating scroll-to-top button
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 200);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Auto-scroll to top smoothly whenever current tab changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentTab]);
 
   // Reactive live query for all members
   const members = useLiveQuery(
@@ -170,7 +186,7 @@ export const App: React.FC = () => {
       />
 
       {/* Screen Views with Fluid Transitions */}
-      <main className="flex-1 w-full max-w-md mx-auto relative overflow-hidden">
+      <main className="flex-1 w-full max-w-md mx-auto relative">
         <AnimatePresence mode="wait">
           {currentTab === 'dashboard' && (
             <motion.div
@@ -241,6 +257,23 @@ export const App: React.FC = () => {
           )}
         </AnimatePresence>
       </main>
+
+      {/* Floating Scroll-to-Top Action Button */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 15 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            title="Scroll to Top"
+            className="fixed bottom-24 right-4 sm:right-6 z-40 w-11 h-11 rounded-full bg-white/95 backdrop-blur-xl border border-[#E9ECEF] text-[#1A3EEA] shadow-[0_8px_30px_rgba(0,0,0,0.12)] hover:bg-[#EBF1FF] active:scale-90 transition-transform flex items-center justify-center cursor-pointer"
+          >
+            <ArrowUp className="w-5 h-5 stroke-[2.5]" />
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* Bottom Frosted Navigation */}
       <BottomNav

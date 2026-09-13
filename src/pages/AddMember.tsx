@@ -26,7 +26,7 @@ import {
   getTodayIso,
   isValidPakistaniPhone,
   normalizePakistaniPhone,
-  buildWhatsAppReminderUrl,
+  buildWhatsAppWelcomeUrl,
 } from '../utils/dateAndPhone';
 import { registerMemberWithPayment } from '../services/storage';
 
@@ -197,11 +197,11 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
             exit={{ opacity: 0, x: -15 }}
             transition={{ duration: 0.25 }}
             onSubmit={handleProceedToPhase2}
-            className="space-y-4"
+            className="space-y-4 sm:space-y-5"
           >
             {/* Full Name */}
             <div>
-              <label className="block text-xs font-bold text-[#64748B] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-[#64748B] uppercase tracking-wider mb-2">
                 Full Name <span className="text-[#1A3EEA]">*</span>
               </label>
               <div className="relative">
@@ -211,7 +211,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                   placeholder="e.g. Hamza Tariq"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full h-[50px] bg-white border border-[#E9ECEF] focus:border-[#1A3EEA] rounded-2xl pl-11 pr-4 text-sm text-[#0F172A] placeholder-[#94A3B8] focus:outline-none transition-colors shadow-apple-card font-sans"
+                  className="w-full h-[52px] bg-white border border-[#E9ECEF] focus:border-[#1A3EEA] rounded-2xl pl-12 pr-4 text-sm text-[#0F172A] placeholder-[#94A3B8] focus:outline-none transition-colors shadow-apple-card font-sans tracking-wide"
                 />
                 <User className="w-4 h-4 text-[#94A3B8] absolute left-4 top-1/2 -translate-y-1/2" />
               </div>
@@ -219,13 +219,13 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
 
             {/* Mobile Phone (Pakistani Format) */}
             <div>
-              <div className="flex items-center justify-between mb-1.5">
+              <div className="flex items-center justify-between mb-2">
                 <label className="block text-xs font-bold text-[#64748B] uppercase tracking-wider">
                   Mobile Phone <span className="text-[#1A3EEA]">*</span>
                 </label>
                 {phone.length > 0 && (
                   <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                    className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full tracking-wide ${
                       isPhoneValid
                         ? 'bg-[#EBF1FF] text-[#1A3EEA]'
                         : 'bg-red-50 text-red-600 border border-red-200'
@@ -243,7 +243,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                   placeholder="0300 1234567"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className={`w-full h-[50px] bg-white border rounded-2xl pl-11 pr-4 text-sm text-[#0F172A] placeholder-[#94A3B8] focus:outline-none transition-colors shadow-apple-card font-mono ${
+                  className={`w-full h-[52px] bg-white border rounded-2xl pl-12 pr-4 text-sm text-[#0F172A] placeholder-[#94A3B8] focus:outline-none transition-colors shadow-apple-card font-mono tracking-wider ${
                     phone.length > 0 && !isPhoneValid
                       ? 'border-red-300 focus:border-red-400'
                       : 'border-[#E9ECEF] focus:border-[#1A3EEA]'
@@ -251,14 +251,14 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                 />
                 <Phone className="w-4 h-4 text-[#94A3B8] absolute left-4 top-1/2 -translate-y-1/2" />
               </div>
-              <p className="text-[11px] text-[#94A3B8] mt-1 pl-1">
+              <p className="text-xs text-[#94A3B8] mt-1.5 pl-1 tracking-wide">
                 Accepts 03001234567 or 923001234567. Auto-formatted for WhatsApp.
               </p>
             </div>
 
             {/* Joining Date */}
             <div>
-              <label className="block text-xs font-bold text-[#64748B] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-[#64748B] uppercase tracking-wider mb-2">
                 Joining Date
               </label>
               <div className="relative">
@@ -266,7 +266,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                   type="date"
                   value={joiningDate}
                   onChange={(e) => setJoiningDate(e.target.value)}
-                  className="w-full h-[50px] bg-white border border-[#E9ECEF] focus:border-[#1A3EEA] rounded-2xl pl-11 pr-4 text-sm text-[#0F172A] focus:outline-none transition-colors shadow-apple-card font-sans"
+                  className="w-full h-[52px] bg-white border border-[#E9ECEF] focus:border-[#1A3EEA] rounded-2xl pl-12 pr-4 text-sm text-[#0F172A] focus:outline-none transition-colors shadow-apple-card font-sans tracking-wide"
                 />
                 <Calendar className="w-4 h-4 text-[#94A3B8] absolute left-4 top-1/2 -translate-y-1/2" />
               </div>
@@ -274,7 +274,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
 
             {/* Notes / Locker ID */}
             <div>
-              <label className="block text-xs font-bold text-[#64748B] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-bold text-[#64748B] uppercase tracking-wider mb-2">
                 Notes / Locker ID <span className="text-[#94A3B8] font-normal">(Optional)</span>
               </label>
               <div className="relative">
@@ -283,17 +283,17 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                   placeholder="e.g. Locker #18 • Morning schedule"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full h-[50px] bg-white border border-[#E9ECEF] focus:border-[#1A3EEA] rounded-2xl pl-11 pr-4 text-sm text-[#0F172A] placeholder-[#94A3B8] focus:outline-none shadow-apple-card font-sans"
+                  className="w-full h-[52px] bg-white border border-[#E9ECEF] focus:border-[#1A3EEA] rounded-2xl pl-12 pr-4 text-sm text-[#0F172A] placeholder-[#94A3B8] focus:outline-none shadow-apple-card font-sans tracking-wide"
                 />
                 <FileText className="w-4 h-4 text-[#94A3B8] absolute left-4 top-1/2 -translate-y-1/2" />
               </div>
             </div>
 
             {/* Next Step Button */}
-            <div className="pt-2">
+            <div className="pt-3">
               <button
                 type="submit"
-                className="w-full h-12 px-6 bg-[#1A3EEA] hover:bg-[#1534D8] active:scale-[0.98] transition-all text-white font-bold rounded-2xl shadow-glow-blue flex items-center justify-center space-x-2 text-sm tracking-wide cursor-pointer"
+                className="w-full h-[52px] px-6 bg-[#1A3EEA] hover:bg-[#1534D8] active:scale-[0.98] transition-all text-white font-bold rounded-2xl shadow-glow-blue flex items-center justify-center space-x-2.5 text-sm tracking-wider cursor-pointer"
               >
                 <span>NEXT: AMOUNT & PAYMENT</span>
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -384,24 +384,24 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
               </div>
 
               {/* Total Due Inflow */}
-              <div className="p-4 bg-[#F8FAFC] border border-[#1A3EEA]/20 rounded-2xl flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono uppercase font-bold text-[#64748B] block">
+              <div className="p-4 sm:p-5 bg-[#F8FAFC] border border-[#1A3EEA]/20 rounded-2xl flex items-center justify-between">
+                <div className="space-y-1">
+                  <span className="text-[11px] font-mono uppercase font-bold text-[#64748B] block tracking-wide">
                     TOTAL AMOUNT DUE
                   </span>
-                  <span className="text-xs text-[#64748B] font-mono">
+                  <span className="text-xs text-[#64748B] font-mono tracking-wide">
                     Admission ({formatPKR(numericAdmissionFee)}) + Monthly (PKR 2,500)
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-xl font-mono font-black text-[#1A3EEA] block">
+                  <span className="text-2xl font-mono font-black text-[#1A3EEA] block">
                     {formatPKR(totalMonth1Fee)}
                   </span>
                 </div>
               </div>
 
               {/* Initial Expiry Date Preview */}
-              <div className="text-xs text-[#64748B] flex items-center justify-between pt-1 font-mono">
+              <div className="text-xs text-[#64748B] flex items-center justify-between pt-1 font-mono tracking-wide">
                 <span>Pass Valid Until (+30 Days):</span>
                 <span className="font-bold text-[#0F172A]">{formatDisplayDate(initialExpiryDate)}</span>
               </div>
@@ -427,7 +427,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                       }`}
                     >
                       <div className="flex items-center justify-between w-full">
-                        <span className="text-xs font-bold text-[#0F172A]">{ch.label}</span>
+                        <span className="text-xs font-bold text-[#0F172A] tracking-wide">{ch.label}</span>
                         {isSelected && <Check className="w-4 h-4 text-[#1A3EEA] stroke-[2.5]" />}
                       </div>
                       <span className="text-[10px] text-[#64748B] mt-1 font-mono">{ch.desc}</span>
@@ -439,7 +439,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
 
             {/* Transaction Reference (Optional) */}
             <div>
-              <label className="block text-xs font-mono font-bold text-[#64748B] uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-mono font-bold text-[#64748B] uppercase tracking-wider mb-2">
                 Transaction Ref / Receipt No. <span className="text-[#94A3B8] font-normal">(Optional)</span>
               </label>
               <input
@@ -447,16 +447,16 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                 placeholder="e.g. CASH-101 or TRX-092812"
                 value={transactionRef}
                 onChange={(e) => setTransactionRef(e.target.value)}
-                className="w-full h-[50px] bg-white border border-[#E9ECEF] focus:border-[#1A3EEA] rounded-2xl px-4 text-sm text-[#0F172A] placeholder-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#1A3EEA]/20 font-mono shadow-apple-card"
+                className="w-full h-[52px] bg-white border border-[#E9ECEF] focus:border-[#1A3EEA] rounded-2xl px-4 text-sm text-[#0F172A] placeholder-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#1A3EEA]/20 font-mono shadow-apple-card tracking-wide"
               />
             </div>
 
             {/* Action Buttons: Back + Submit */}
-            <div className="grid grid-cols-3 gap-2.5 pt-2">
+            <div className="grid grid-cols-3 gap-3 pt-3">
               <button
                 type="button"
                 onClick={() => setPhase(1)}
-                className="h-12 px-4 bg-white hover:bg-[#F8FAFC] border border-[#E9ECEF] text-[#0F172A] font-mono text-xs font-bold rounded-2xl flex items-center justify-center space-x-1.5 transition-all cursor-pointer shadow-apple-card"
+                className="h-[52px] px-4 bg-white hover:bg-[#F8FAFC] border border-[#E9ECEF] text-[#0F172A] font-mono text-xs font-bold rounded-2xl flex items-center justify-center space-x-1.5 transition-all cursor-pointer shadow-apple-card tracking-wider"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>BACK</span>
@@ -465,7 +465,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="col-span-2 h-12 px-4 bg-[#1A3EEA] hover:bg-[#1534D8] active:scale-[0.98] transition-all text-white font-black rounded-2xl shadow-glow-blue flex items-center justify-center space-x-2 text-xs disabled:opacity-50 font-mono tracking-wide cursor-pointer"
+                className="col-span-2 h-[52px] px-4 bg-[#1A3EEA] hover:bg-[#1534D8] active:scale-[0.98] transition-all text-white font-black rounded-2xl shadow-glow-blue flex items-center justify-center space-x-2 text-xs disabled:opacity-50 font-mono tracking-wider cursor-pointer"
               >
                 <Check className="w-4 h-4 stroke-[3]" />
                 <span>
@@ -508,15 +508,15 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
             </div>
 
             {/* Success Headline */}
-            <div className="space-y-1">
-              <span className="text-[11px] font-mono font-bold text-[#1A3EEA] uppercase tracking-widest flex items-center justify-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-[#1A3EEA]" />
+            <div className="space-y-2">
+              <span className="text-xs font-bold text-[#1A3EEA] uppercase tracking-widest flex items-center justify-center gap-1.5">
+                <Sparkles className="w-4 h-4 text-[#1A3EEA]" />
                 ENROLLMENT COMPLETE
               </span>
-              <h2 className="text-2xl font-black text-[#0F172A] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#0F172A] tracking-normal">
                 New Member Added!
               </h2>
-              <p className="text-xs text-[#64748B] font-mono">
+              <p className="text-sm text-[#64748B] font-medium tracking-wide">
                 {createdMember.full_name} has been enrolled in Monster Gym.
               </p>
             </div>
@@ -526,36 +526,36 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2 }}
-              className="p-5 bg-white border border-[#E9ECEF] rounded-3xl text-left space-y-3 shadow-apple-card"
+              className="p-5 sm:p-6 bg-white border border-[#E9ECEF] rounded-[28px] text-left space-y-3.5 shadow-apple-card"
             >
-              <div className="flex items-center justify-between pb-3 border-b border-[#E9ECEF]">
+              <div className="flex items-center justify-between pb-3.5 border-b border-[#E9ECEF]">
                 <div>
-                  <h3 className="text-base font-bold text-[#0F172A]">{createdMember.full_name}</h3>
-                  <p className="text-xs font-mono text-[#64748B]">
+                  <h3 className="text-base font-bold text-[#0F172A] tracking-normal">{createdMember.full_name}</h3>
+                  <p className="text-xs font-mono text-[#64748B] mt-0.5 tracking-wider">
                     {formatDisplayPhone(createdMember.phone)}
                   </p>
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full bg-[#EBF1FF] text-[#1A3EEA] border border-[#1A3EEA]/30 text-[10px] font-mono font-bold">
+                <span className="px-3 py-1 rounded-full bg-[#EBF1FF] text-[#1A3EEA] border border-[#1A3EEA]/30 text-xs font-bold tracking-wide">
                   ACTIVE
                 </span>
               </div>
 
               <div className="grid grid-cols-2 gap-3 text-xs font-mono pt-1">
                 <div>
-                  <span className="text-[#64748B] text-[10px] block font-bold">MONTH 1 COLLECTION</span>
-                  <span className="text-sm font-extrabold text-[#1A3EEA]">
+                  <span className="text-[#64748B] text-[10px] block font-bold tracking-wider">MONTH 1 COLLECTION</span>
+                  <span className="text-base font-black text-[#1A3EEA] tracking-wide">
                     {formatPKR(totalCollected)}
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-[#64748B] text-[10px] block font-bold">PASS VALID UNTIL</span>
-                  <span className="text-sm font-extrabold text-[#0F172A]">
+                  <span className="text-[#64748B] text-[10px] block font-bold tracking-wider">PASS VALID UNTIL</span>
+                  <span className="text-base font-black text-[#0F172A] tracking-wide">
                     {formatDisplayDate(createdMember.expiry_date)}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-[11px] font-mono text-[#64748B] pt-2 border-t border-[#E9ECEF]">
+              <div className="flex items-center justify-between text-xs font-mono text-[#64748B] pt-2.5 border-t border-[#E9ECEF] tracking-wide">
                 <span>Channel: {channel}</span>
                 <span>Base Fee: PKR 2,500</span>
               </div>
@@ -566,29 +566,29 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.3 }}
-              className="space-y-2.5 pt-2"
+              className="space-y-3 pt-2"
             >
               {/* WhatsApp Welcome Button */}
               <button
                 onClick={() => {
-                  const url = buildWhatsAppReminderUrl(
+                  const url = buildWhatsAppWelcomeUrl(
                     createdMember.full_name,
                     createdMember.phone,
                     createdMember.expiry_date
                   );
                   window.open(url, '_blank');
                 }}
-                className="w-full h-12 px-4 rounded-2xl bg-[#EBF1FF] hover:bg-[#EBF1FF]/80 border border-[#1A3EEA]/30 text-[#1A3EEA] font-mono font-bold text-xs flex items-center justify-center space-x-2 transition-all active:scale-95 cursor-pointer shadow-sm"
+                className="w-full h-[52px] px-4 rounded-2xl bg-[#EBF1FF] hover:bg-[#EBF1FF]/80 border border-[#1A3EEA]/30 text-[#1A3EEA] font-bold text-xs flex items-center justify-center space-x-2 transition-all active:scale-95 cursor-pointer shadow-sm tracking-wider"
               >
                 <MessageSquare className="w-4 h-4 text-[#1A3EEA]" />
                 <span>SEND WHATSAPP WELCOME</span>
               </button>
 
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-3 pt-1">
                 {/* View in Roster */}
                 <button
                   onClick={() => onSuccess(createdMember.full_name, totalCollected)}
-                  className="h-12 px-3 rounded-2xl bg-[#1A3EEA] hover:bg-[#1534D8] text-white font-mono font-bold text-xs flex items-center justify-center space-x-1.5 transition-all active:scale-95 shadow-glow-blue cursor-pointer"
+                  className="h-[50px] px-3 rounded-2xl bg-[#1A3EEA] hover:bg-[#1534D8] text-white font-bold text-xs flex items-center justify-center space-x-2 transition-all active:scale-95 shadow-glow-blue cursor-pointer tracking-wider"
                 >
                   <Users className="w-4 h-4" />
                   <span>VIEW ROSTER</span>
@@ -597,7 +597,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                 {/* Add Another Member */}
                 <button
                   onClick={handleResetForm}
-                  className="h-12 px-3 rounded-2xl bg-white hover:bg-[#F8FAFC] border border-[#E9ECEF] text-[#0F172A] font-mono font-bold text-xs flex items-center justify-center space-x-1.5 transition-all active:scale-95 cursor-pointer shadow-apple-card"
+                  className="h-[50px] px-3 rounded-2xl bg-white hover:bg-[#F8FAFC] border border-[#E9ECEF] text-[#0F172A] font-bold text-xs flex items-center justify-center space-x-2 transition-all active:scale-95 cursor-pointer shadow-apple-card tracking-wider"
                 >
                   <PlusCircle className="w-4 h-4 text-[#1A3EEA]" />
                   <span>ADD ANOTHER</span>

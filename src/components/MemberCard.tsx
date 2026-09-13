@@ -67,15 +67,15 @@ export const MemberCard: React.FC<MemberCardProps> = ({
           <div className="w-10 h-10 rounded-full bg-[#EBF1FF] text-[#1A3EEA] flex items-center justify-center text-sm font-black shrink-0">
             {member.full_name.charAt(0).toUpperCase()}
           </div>
-          <div>
-            <h3 className="text-sm font-bold text-[#0F172A] group-hover:text-[#1A3EEA] transition-colors leading-tight">
+          <div className="space-y-0.5">
+            <h3 className="text-base font-bold text-[#0F172A] group-hover:text-[#1A3EEA] transition-colors leading-snug tracking-normal">
               {member.full_name}
             </h3>
-            <p className="text-xs text-[#64748B] tracking-wide mt-0.5 font-medium">
+            <p className="text-xs text-[#64748B] tracking-wider mt-1 font-medium">
               {formattedPhone}
             </p>
-            <p className="text-[11px] text-[#94A3B8] mt-0.5">
-              Valid until {formatDisplayDate(member.expiry_date)} • {countdownText}
+            <p className="text-xs text-[#94A3B8] tracking-wide mt-1">
+              Valid until <span className="font-semibold text-[#0F172A]">{formatDisplayDate(member.expiry_date)}</span> • {countdownText}
             </p>
           </div>
         </div>

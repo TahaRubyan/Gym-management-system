@@ -81,37 +81,37 @@ export const MembersList: React.FC<MembersListProps> = ({
   return (
     <div className="space-y-3.5 pb-28 px-4 pt-2 max-w-md mx-auto select-none">
       {/* Header & Quick Add */}
-      <div className="flex items-center justify-between">
-        <div>
-          <span className="text-[10px] font-bold text-[#1A3EEA] uppercase tracking-wider">
+      <div className="flex items-center justify-between pt-1">
+        <div className="space-y-0.5">
+          <span className="text-[11px] font-bold text-[#1A3EEA] uppercase tracking-wider block">
             ROSTER DIRECTORY
           </span>
-          <h2 className="text-xl font-black text-[#0F172A] tracking-tight">Members</h2>
+          <h2 className="text-2xl font-black text-[#0F172A] tracking-normal">Members</h2>
         </div>
 
         <button
           onClick={onAddNew}
-          className="h-10 px-4 rounded-2xl bg-[#1A3EEA] hover:bg-[#1534D8] text-white text-xs font-bold flex items-center space-x-1.5 transition-all active:scale-95 shadow-glow-blue cursor-pointer"
+          className="h-11 px-4 rounded-2xl bg-[#1A3EEA] hover:bg-[#1534D8] text-white text-xs font-bold flex items-center space-x-2 transition-all active:scale-95 shadow-glow-blue tracking-wide cursor-pointer"
         >
           <UserPlus className="w-4 h-4 stroke-[2.5]" />
           <span>Add Member</span>
         </button>
       </div>
 
-      {/* 50px Search Bar */}
+      {/* 52px Search Bar */}
       <div className="relative">
         <input
           type="text"
           placeholder="Search by name or mobile number..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full h-[50px] bg-white border border-[#E9ECEF] focus:border-[#1A3EEA] rounded-2xl pl-11 pr-10 text-sm text-[#0F172A] placeholder-[#94A3B8] focus:outline-none transition-colors shadow-apple-card font-sans"
+          className="w-full h-[52px] bg-white border border-[#E9ECEF] focus:border-[#1A3EEA] rounded-2xl pl-12 pr-10 text-sm text-[#0F172A] placeholder-[#94A3B8] focus:outline-none transition-colors shadow-apple-card font-sans tracking-wide"
         />
         <Search className="w-4 h-4 text-[#94A3B8] absolute left-4 top-1/2 -translate-y-1/2" />
         {searchQuery && (
           <button
             onClick={() => setSearchQuery('')}
-            className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-[#94A3B8] hover:text-[#0F172A] cursor-pointer"
+            className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1.5 text-[#94A3B8] hover:text-[#0F172A] cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -119,25 +119,25 @@ export const MembersList: React.FC<MembersListProps> = ({
       </div>
 
       {/* Segmented Filter Pills */}
-      <div className="flex space-x-1.5 overflow-x-auto pb-1 no-scrollbar">
+      <div className="flex space-x-2 overflow-x-auto pb-1 no-scrollbar">
         {filterOptions.map((opt) => {
           const isSelected = activeFilter === opt.id;
           return (
             <button
               key={opt.id}
               onClick={() => setActiveFilter(opt.id)}
-              className={`h-9 px-3.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center space-x-1.5 border active:scale-95 cursor-pointer ${
+              className={`h-9 px-4 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center space-x-2 border active:scale-95 cursor-pointer tracking-wide ${
                 isSelected
-                  ? 'bg-[#1A3EEA] border-[#1A3EEA] text-white shadow-sm'
+                  ? 'bg-[#1A3EEA] border-[#1A3EEA] text-white shadow-sm font-bold'
                   : 'bg-[#F1F5F9] border-[#E2E8F0] text-[#64748B] hover:border-[#1A3EEA]/30'
               }`}
             >
               <span>{opt.label}</span>
               <span
-                className={`text-[10px] px-1.5 py-0.2 rounded-full ${
+                className={`text-[10px] px-2 py-0.5 rounded-full ${
                   isSelected
                     ? 'bg-white text-[#1A3EEA] font-black'
-                    : 'bg-white text-[#94A3B8]'
+                    : 'bg-white text-[#64748B] font-semibold'
                 }`}
               >
                 {opt.count}
@@ -174,13 +174,14 @@ export const MembersList: React.FC<MembersListProps> = ({
           )}
         </div>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-2.5">
           {filteredMembers.map((member, idx) => (
             <motion.div
               key={member.id}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.2, delay: idx * 0.02 }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10px' }}
+              transition={{ duration: 0.25, delay: Math.min(idx * 0.03, 0.3) }}
             >
               <MemberCard
                 member={member}

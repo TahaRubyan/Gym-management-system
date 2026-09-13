@@ -48,16 +48,16 @@ export const WelcomeSplash: React.FC<WelcomeSplashProps> = ({ onContinue }) => {
         </motion.div>
 
         {/* 1. GYM NAME */}
-        <div className="space-y-1">
+        <div className="space-y-2">
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-3xl sm:text-4xl font-black tracking-tight text-[#0F172A]"
+            className="text-3xl sm:text-4xl font-black tracking-normal text-[#0F172A] leading-tight"
           >
             Monster Gym
           </motion.h1>
-          <p className="text-xs text-[#64748B] font-medium">
+          <p className="text-sm text-[#64748B] font-medium tracking-wide">
             Management & Membership System
           </p>
         </div>
@@ -67,15 +67,15 @@ export const WelcomeSplash: React.FC<WelcomeSplashProps> = ({ onContinue }) => {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.25 }}
-          className="w-full p-4 rounded-[24px] bg-white border border-[#E9ECEF] shadow-apple-card space-y-2.5"
+          className="w-full p-5 rounded-[28px] bg-white border border-[#E9ECEF] shadow-apple-card space-y-3"
         >
-          <div className="flex items-center justify-center space-x-1.5 text-xs text-[#64748B] font-semibold">
-            <UserCheck className="w-3.5 h-3.5 text-[#1A3EEA]" />
-            <span>Gym Owner</span>
+          <div className="flex items-center justify-center space-x-2 text-xs text-[#64748B] font-semibold tracking-wider uppercase">
+            <UserCheck className="w-4 h-4 text-[#1A3EEA]" />
+            <span>Gym Owner & Founder</span>
           </div>
 
           {/* React Bits RotatingText applied directly to Dastagir Kanth */}
-          <div className="flex items-center justify-center py-1">
+          <div className="flex items-center justify-center py-1.5">
             <RotatingText
               texts={[
                 'DASTAGIR KANTH',
@@ -94,7 +94,7 @@ export const WelcomeSplash: React.FC<WelcomeSplashProps> = ({ onContinue }) => {
             />
           </div>
 
-          <p className="text-[11px] text-[#94A3B8]">
+          <p className="text-xs text-[#94A3B8] tracking-wide">
             Tap continue below to enter the dashboard
           </p>
         </motion.div>
@@ -109,9 +109,9 @@ export const WelcomeSplash: React.FC<WelcomeSplashProps> = ({ onContinue }) => {
       >
         <button
           onClick={onContinue}
-          className="w-full h-[52px] rounded-2xl bg-[#1A3EEA] hover:bg-[#1534D8] active:scale-[0.98] transition-all text-white font-bold text-sm tracking-wide flex items-center justify-center space-x-2.5 shadow-glow-blue cursor-pointer"
+          className="w-full h-[54px] rounded-2xl bg-[#1A3EEA] hover:bg-[#1534D8] active:scale-[0.98] transition-all text-white font-bold text-sm tracking-wider flex items-center justify-center space-x-2.5 shadow-glow-blue cursor-pointer"
         >
-          <span>CONTINUE</span>
+          <span>CONTINUE TO DASHBOARD</span>
           <ArrowRight className="w-4 h-4 stroke-[2.5]" />
         </button>
       </motion.div>

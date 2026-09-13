@@ -37,7 +37,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
               <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1 bg-[#1A3EEA] rounded-full shadow-sm" />
             )}
           </div>
-          <span className="text-[10px] font-semibold mt-1 tracking-tight">Revenue</span>
+          <span className="text-[10px] font-bold mt-1 tracking-wide">Revenue</span>
         </button>
 
         {/* Tab 2: Members Directory */}
@@ -60,7 +60,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
               <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1 bg-[#1A3EEA] rounded-full shadow-sm" />
             )}
           </div>
-          <span className="text-[10px] font-semibold mt-1 tracking-tight">Members</span>
+          <span className="text-[10px] font-bold mt-1 tracking-wide">Members</span>
         </button>
 
         {/* Tab 3: Center Elevated Add Member Button */}
@@ -107,7 +107,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
               <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1 bg-[#1A3EEA] rounded-full shadow-sm" />
             )}
           </div>
-          <span className="text-[10px] font-semibold mt-1 tracking-tight">Expiring</span>
+          <span className="text-[10px] font-bold mt-1 tracking-wide">Expiring</span>
         </button>
       </nav>
     </div>

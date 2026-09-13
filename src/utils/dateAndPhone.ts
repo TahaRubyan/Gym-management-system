@@ -55,12 +55,64 @@ export function isValidPakistaniPhone(phone: string): boolean {
 }
 
 /**
- * Generates the WhatsApp deep-link URL with enriched reminder details:
+ * Generates the WhatsApp renewal reminder URL with clear spacing and emojis:
  * Target: https://wa.me/[CLEAN_PHONE]?text=[ENCODED_MESSAGE]
  */
 export function buildWhatsAppReminderUrl(fullName: string, phone: string, expiryDate: string): string {
   const cleanPhone = normalizePakistaniPhone(phone);
-  const message = `Hey ${fullName.trim()}, this is a gentle reminder that your gym membership pass at Monster Gym is expiring on ${expiryDate}. Kindly renew your monthly fee (PKR 2,500) on time via Cash, EasyPaisa, or JazzCash to maintain uninterrupted gym and locker access. Thank you! Regards, Dastagir Kanth (Monster Gym).`;
+  const formattedExpiry = formatDisplayDate(expiryDate);
+  const message = `Assalam-o-Alaikum ${fullName.trim()}! 🏋️‍♂️
+
+This is an official renewal reminder from *MONSTER GYM*.
+
+📅 *Membership Expiry:* ${formattedExpiry} (${expiryDate})
+💰 *Monthly Fee:* PKR 2,500
+
+✨ *Important Note:*
+Kindly renew your membership by your expiry date to enjoy uninterrupted gym floor, professional equipment, and locker access.
+
+💳 *Accepted Payment Methods:*
+• 💵 Cash at Front Desk
+• 📱 EasyPaisa
+• 📲 JazzCash
+
+If you have already paid or have questions, feel free to reply to this message.
+
+Stay fit, stay strong! 💪🔥
+
+Warm Regards,
+*Dastagir Kanth*
+Owner & Founder, Monster Gym 👑`;
+
+  return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+}
+
+/**
+ * Generates the WhatsApp welcome URL for newly enrolled members with clear spacing and emojis:
+ */
+export function buildWhatsAppWelcomeUrl(fullName: string, phone: string, expiryDate: string): string {
+  const cleanPhone = normalizePakistaniPhone(phone);
+  const formattedExpiry = formatDisplayDate(expiryDate);
+  const message = `Assalam-o-Alaikum ${fullName.trim()}! 🏋️‍♂️🎉
+
+Welcome to the *MONSTER GYM* family! Your membership has been successfully registered.
+
+📋 *Membership Pass Details:*
+• 👤 *Member Name:* ${fullName.trim()}
+• 📅 *Pass Valid Until:* ${formattedExpiry}
+• 💰 *Monthly Renewal Fee:* PKR 2,500
+
+✨ *Gym Facilities & Guidelines:*
+• 🏋️ Full access to gym floor & heavy workout stations
+• 🔒 Safe locker facility available
+• ⏱️ Training hours: Monday to Saturday
+
+We are excited to partner with you on your fitness transformation. Let's crush your goals together! 💪🔥
+
+Warm Regards,
+*Dastagir Kanth*
+Owner & Head Coach, Monster Gym 👑`;
+
   return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 }
 

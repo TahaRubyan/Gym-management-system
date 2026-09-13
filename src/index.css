@@ -15,17 +15,23 @@
   color-scheme: light;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
 html, body {
   background-color: #F4F6F9;
   color: #0F172A;
   min-height: 100%;
-  overscroll-behavior-y: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   -webkit-user-select: none;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.012em;
+  line-height: 1.5;
 }
 
 /* iOS Safe Areas */
