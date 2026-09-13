@@ -211,7 +211,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                   placeholder="e.g. Hamza Tariq"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full bg-[#182023] border border-[#2a3639] focus:border-[#7fb6ac] rounded-2xl pl-11 pr-4 py-3 text-sm text-[#9ba9c2] placeholder-[#6c7674] focus:outline-none transition-colors"
+                  className="w-full h-[50px] bg-[#182023] border border-[#2a3639] focus:border-[#7fb6ac] rounded-2xl pl-11 pr-4 text-sm text-[#9ba9c2] placeholder-[#6c7674] focus:outline-none transition-colors"
                 />
                 <User className="w-4 h-4 text-[#6c7674] absolute left-4 top-1/2 -translate-y-1/2" />
               </div>
@@ -243,7 +243,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                   placeholder="0300 1234567"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className={`w-full bg-[#182023] border rounded-2xl pl-11 pr-4 py-3 text-sm text-[#9ba9c2] placeholder-[#6c7674] focus:outline-none transition-colors ${
+                  className={`w-full h-[50px] bg-[#182023] border rounded-2xl pl-11 pr-4 text-sm text-[#9ba9c2] placeholder-[#6c7674] focus:outline-none transition-colors ${
                     phone.length > 0 && !isPhoneValid
                       ? 'border-[#67758d] focus:border-[#7fb6ac]'
                       : 'border-[#2a3639] focus:border-[#7fb6ac]'
@@ -266,7 +266,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                   type="date"
                   value={joiningDate}
                   onChange={(e) => setJoiningDate(e.target.value)}
-                  className="w-full bg-[#182023] border border-[#2a3639] focus:border-[#7fb6ac] rounded-2xl pl-11 pr-4 py-3 text-sm text-[#9ba9c2] focus:outline-none transition-colors font-mono"
+                  className="w-full h-[50px] bg-[#182023] border border-[#2a3639] focus:border-[#7fb6ac] rounded-2xl pl-11 pr-4 text-sm text-[#9ba9c2] focus:outline-none transition-colors font-mono"
                 />
                 <Calendar className="w-4 h-4 text-[#6c7674] absolute left-4 top-1/2 -translate-y-1/2" />
               </div>
@@ -283,7 +283,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                   placeholder="e.g. Locker #18 • Morning schedule"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full bg-[#182023] border border-[#2a3639] focus:border-[#7fb6ac] rounded-2xl pl-11 pr-4 py-3 text-sm text-[#9ba9c2] placeholder-[#6c7674] focus:outline-none"
+                  className="w-full h-[50px] bg-[#182023] border border-[#2a3639] focus:border-[#7fb6ac] rounded-2xl pl-11 pr-4 text-sm text-[#9ba9c2] placeholder-[#6c7674] focus:outline-none"
                 />
                 <FileText className="w-4 h-4 text-[#6c7674] absolute left-4 top-1/2 -translate-y-1/2" />
               </div>
@@ -293,7 +293,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full py-4 px-6 bg-[#7fb6ac] hover:bg-[#70a59b] active:scale-[0.98] transition-all text-[#0c1012] font-black rounded-2xl shadow-glow-mint flex items-center justify-center space-x-2 text-sm font-mono tracking-wide cursor-pointer"
+                className="w-full h-12 px-6 bg-[#7fb6ac] hover:bg-[#70a59b] active:scale-[0.98] transition-all text-[#0c1012] font-black rounded-2xl shadow-glow-mint flex items-center justify-center space-x-2 text-sm font-mono tracking-wide cursor-pointer"
               >
                 <span>NEXT: AMOUNT & PAYMENT</span>
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />
@@ -348,7 +348,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                         setAdmissionFee(val);
                       }}
                       placeholder="0"
-                      className="w-full bg-[#13191b] border border-[#2a3639] focus:border-[#7fb6ac] rounded-xl px-3 py-2 text-sm font-mono font-bold text-[#9ba9c2] focus:outline-none"
+                      className="w-full h-[50px] bg-[#13191b] border border-[#2a3639] focus:border-[#7fb6ac] rounded-xl px-3 text-sm font-mono font-bold text-[#9ba9c2] focus:outline-none"
                     />
                     <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-[#6c7674] font-mono">
                       PKR
@@ -367,7 +367,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                       type="text"
                       readOnly
                       value="2,500"
-                      className="w-full bg-[#13191b] border border-[#2a3639] rounded-xl px-3 py-2 text-sm font-mono font-bold text-[#7fb6ac] cursor-not-allowed"
+                      className="w-full h-[50px] bg-[#13191b] border border-[#2a3639] rounded-xl px-3 text-sm font-mono font-bold text-[#7fb6ac] cursor-not-allowed"
                     />
                     <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-[#7fb6ac] font-mono">
                       PKR
@@ -441,7 +441,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                 placeholder="e.g. CASH-101 or TRX-092812"
                 value={transactionRef}
                 onChange={(e) => setTransactionRef(e.target.value)}
-                className="w-full bg-[#182023] border border-[#2a3639] focus:border-[#7fb6ac] rounded-2xl px-4 py-2.5 text-sm text-[#9ba9c2] placeholder-[#6c7674] focus:outline-none font-mono"
+                className="w-full h-[50px] bg-[#182023] border border-[#2a3639] focus:border-[#7fb6ac] rounded-2xl px-4 text-sm text-[#9ba9c2] placeholder-[#6c7674] focus:outline-none font-mono"
               />
             </div>
 
@@ -450,7 +450,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
               <button
                 type="button"
                 onClick={() => setPhase(1)}
-                className="py-4 px-4 bg-[#182023] hover:bg-[#1f282c] border border-[#2a3639] text-[#9ba9c2] font-mono text-xs font-bold rounded-2xl flex items-center justify-center space-x-1.5 transition-all"
+                className="h-12 px-4 bg-[#182023] hover:bg-[#1f282c] border border-[#2a3639] text-[#9ba9c2] font-mono text-xs font-bold rounded-2xl flex items-center justify-center space-x-1.5 transition-all cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>BACK</span>
@@ -459,7 +459,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="col-span-2 py-4 px-4 bg-[#7fb6ac] hover:bg-[#70a59b] active:scale-[0.98] transition-all text-[#0c1012] font-black rounded-2xl shadow-glow-mint flex items-center justify-center space-x-2 text-xs disabled:opacity-50 font-mono tracking-wide cursor-pointer"
+                className="col-span-2 h-12 px-4 bg-[#7fb6ac] hover:bg-[#70a59b] active:scale-[0.98] transition-all text-[#0c1012] font-black rounded-2xl shadow-glow-mint flex items-center justify-center space-x-2 text-xs disabled:opacity-50 font-mono tracking-wide cursor-pointer"
               >
                 <Check className="w-4 h-4 stroke-[3]" />
                 <span>
@@ -572,7 +572,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                   );
                   window.open(url, '_blank');
                 }}
-                className="w-full py-3.5 px-4 rounded-2xl bg-[#7fb6ac]/15 hover:bg-[#7fb6ac]/25 border border-[#7fb6ac]/40 text-[#7fb6ac] font-mono font-bold text-xs flex items-center justify-center space-x-2 transition-all active:scale-95 cursor-pointer shadow-sm"
+                className="w-full h-12 px-4 rounded-2xl bg-[#7fb6ac]/15 hover:bg-[#7fb6ac]/25 border border-[#7fb6ac]/40 text-[#7fb6ac] font-mono font-bold text-xs flex items-center justify-center space-x-2 transition-all active:scale-95 cursor-pointer shadow-sm"
               >
                 <MessageSquare className="w-4 h-4" />
                 <span>SEND WHATSAPP WELCOME</span>
@@ -582,7 +582,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                 {/* View in Roster */}
                 <button
                   onClick={() => onSuccess(createdMember.full_name, totalCollected)}
-                  className="py-3 px-3 rounded-2xl bg-[#7fb6ac] hover:bg-[#70a59b] text-[#0c1012] font-mono font-bold text-xs flex items-center justify-center space-x-1.5 transition-all active:scale-95 shadow-glow-mint cursor-pointer"
+                  className="h-12 px-3 rounded-2xl bg-[#7fb6ac] hover:bg-[#70a59b] text-[#0c1012] font-mono font-bold text-xs flex items-center justify-center space-x-1.5 transition-all active:scale-95 shadow-glow-mint cursor-pointer"
                 >
                   <Users className="w-4 h-4" />
                   <span>VIEW ROSTER</span>
@@ -591,7 +591,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                 {/* Add Another Member */}
                 <button
                   onClick={handleResetForm}
-                  className="py-3 px-3 rounded-2xl bg-[#182023] hover:bg-[#1f282c] border border-[#2a3639] text-[#9ba9c2] font-mono font-bold text-xs flex items-center justify-center space-x-1.5 transition-all active:scale-95 cursor-pointer"
+                  className="h-12 px-3 rounded-2xl bg-[#182023] hover:bg-[#1f282c] border border-[#2a3639] text-[#9ba9c2] font-mono font-bold text-xs flex items-center justify-center space-x-1.5 transition-all active:scale-95 cursor-pointer"
                 >
                   <PlusCircle className="w-4 h-4 text-[#7fb6ac]" />
                   <span>ADD ANOTHER</span>

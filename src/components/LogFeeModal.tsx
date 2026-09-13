@@ -90,8 +90,13 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
         className="w-full max-w-md bg-[#182023] border-t sm:border border-[#2a3639] rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col pb-[env(safe-area-inset-bottom,16px)]"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Drag handle indicator (Figma spec: 36px x 4px, radius 2px, centered) */}
+        <div className="pt-2.5 pb-1 flex justify-center bg-[#13191b]">
+          <div className="w-9 h-1 rounded-full bg-[#2a3639]" />
+        </div>
+
         {/* Modal Header */}
-        <div className="px-5 py-4 border-b border-[#2a3639] flex items-center justify-between bg-[#13191b]">
+        <div className="px-5 py-3.5 border-b border-[#2a3639] flex items-center justify-between bg-[#13191b]">
           <div className="flex items-center space-x-2.5">
             <div className="w-8 h-8 rounded-xl bg-[#7fb6ac]/15 text-[#7fb6ac] flex items-center justify-center border border-[#7fb6ac]/30">
               <CreditCard className="w-4 h-4" />
@@ -145,7 +150,7 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
                 <select
                   value={selectedMemberId}
                   onChange={(e) => setSelectedMemberId(e.target.value)}
-                  className="w-full bg-[#13191b] border border-[#2a3639] rounded-xl px-3.5 py-3 text-sm text-[#9ba9c2] focus:outline-none focus:border-[#7fb6ac] transition-colors appearance-none font-sans"
+                  className="w-full h-[50px] bg-[#13191b] border border-[#2a3639] rounded-xl px-3.5 text-sm text-[#9ba9c2] focus:outline-none focus:border-[#7fb6ac] transition-colors appearance-none font-sans"
                 >
                   {members.map((m) => (
                     <option key={m.id} value={m.id} className="bg-[#13191b] text-[#9ba9c2]">
@@ -197,7 +202,7 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
                 type="text"
                 readOnly
                 value={formatPKR(BASE_MONTHLY_FEE)}
-                className="w-full bg-[#0c1012] border border-[#2a3639] rounded-xl px-3.5 py-3 text-base font-mono font-black text-[#7fb6ac] tracking-wide cursor-not-allowed"
+                className="w-full h-[50px] bg-[#0c1012] border border-[#2a3639] rounded-xl px-3.5 text-base font-mono font-black text-[#7fb6ac] tracking-wide cursor-not-allowed flex items-center"
               />
               <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-mono font-medium text-[#6c7674] bg-[#182023] px-2 py-0.5 rounded border border-[#2a3639]">
                 Fixed Rate
@@ -215,7 +220,7 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
                 type="date"
                 value={paymentDate}
                 onChange={(e) => setPaymentDate(e.target.value)}
-                className="w-full bg-[#13191b] border border-[#2a3639] rounded-xl px-3.5 py-2.5 text-sm text-[#9ba9c2] focus:outline-none focus:border-[#7fb6ac] font-mono"
+                className="w-full h-[50px] bg-[#13191b] border border-[#2a3639] rounded-xl px-3.5 text-sm text-[#9ba9c2] focus:outline-none focus:border-[#7fb6ac] font-mono"
               />
               <Calendar className="w-4 h-4 text-[#6c7674] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
             </div>
@@ -261,7 +266,7 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
               placeholder="e.g., TRX-98231 or Cash Rec #12"
               value={transactionRef}
               onChange={(e) => setTransactionRef(e.target.value)}
-              className="w-full bg-[#13191b] border border-[#2a3639] rounded-xl px-3.5 py-2.5 text-sm text-[#9ba9c2] placeholder-[#6c7674] focus:outline-none focus:border-[#7fb6ac] font-mono"
+              className="w-full h-[50px] bg-[#13191b] border border-[#2a3639] rounded-xl px-3.5 text-sm text-[#9ba9c2] placeholder-[#6c7674] focus:outline-none focus:border-[#7fb6ac] font-mono"
             />
           </div>
 
@@ -270,7 +275,7 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
             <button
               type="submit"
               disabled={isSubmitting || !currentMember}
-              className="w-full py-3.5 px-4 bg-[#7fb6ac] hover:bg-[#70a59b] active:scale-[0.98] transition-all text-[#0c1012] font-mono font-black rounded-2xl shadow-glow-mint flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm uppercase tracking-wide cursor-pointer"
+              className="w-full h-12 px-4 bg-[#7fb6ac] hover:bg-[#70a59b] active:scale-[0.98] transition-all text-[#0c1012] font-mono font-black rounded-2xl shadow-glow-mint flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm uppercase tracking-wide cursor-pointer"
             >
               <Check className="w-4 h-4 stroke-[3]" />
               <span>

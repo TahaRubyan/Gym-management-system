@@ -4,7 +4,7 @@ import {
   CreditCard,
   UserPlus,
   Receipt,
-  Sparkles,
+  ArrowRight,
 } from 'lucide-react';
 import { DashboardMetrics } from '../types/gym';
 import { formatDateTime, formatPKR } from '../utils/dateAndPhone';
@@ -37,59 +37,64 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <div className="space-y-4 pb-28 px-4 pt-2 max-w-md mx-auto select-none">
-      {/* Executive Header */}
+      {/* Top Header — Clean & Accessible */}
       <div className="flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-mono font-bold text-[#7fb6ac] uppercase tracking-widest flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-[#7fb6ac]" />
-            EXECUTIVE CONSOLE
+          <span className="text-[10px] font-mono font-bold text-[#7fb6ac] uppercase tracking-wider">
+            DASTAGIR KANTH • MONSTER GYM
           </span>
-          <h2 className="text-xl font-black text-[#9ba9c2] tracking-tight font-sans">
+          <h2 className="text-xl font-bold text-[#9ba9c2] tracking-tight">
             {currentMonthName}
           </h2>
         </div>
         <div className="text-right">
-          <span className="text-[10px] font-mono text-[#6c7674] block">ACTIVE ROSTER</span>
-          <span className="text-sm font-extrabold text-[#9ba9c2]">
-            {metrics.activeMembersCount} Active / {metrics.totalMembersCount}
+          <span className="text-[10px] font-mono text-[#6c7674] block">ROSTER</span>
+          <span className="text-sm font-bold text-[#9ba9c2]">
+            {metrics.activeMembersCount} / {metrics.totalMembersCount} Active
           </span>
         </div>
       </div>
 
-      {/* Main Revenue Telemetry Console */}
+      {/* Main Revenue Telemetry with Progressive Disclosure */}
       <RevenueConsole
         metrics={metrics}
         onNavigateExpiring={() => onNavigate('expiring')}
         onNavigateMembers={() => onNavigate('members')}
       />
 
-      {/* Quick Launch Action Buttons */}
-      <div className="grid grid-cols-2 gap-2.5">
+      {/* Primary Actions — Thumb-friendly 48px CTAs (Figma Spec) */}
+      <div className="grid grid-cols-2 gap-3 pt-1">
         <button
           onClick={() => onNavigate('add-member')}
-          className="p-3.5 rounded-2xl bg-[#182023] hover:bg-[#1f282c] border border-[#2a3639] hover:border-[#7fb6ac]/40 flex items-center justify-center space-x-2 text-xs font-mono font-bold text-[#9ba9c2] transition-all active:scale-95 shadow-md"
+          className="h-12 rounded-xl bg-[#7fb6ac] hover:bg-[#70a59b] active:scale-[0.98] transition-all flex items-center justify-center space-x-2 text-xs font-mono font-black text-[#0c1012] shadow-glow-mint cursor-pointer"
         >
-          <UserPlus className="w-4 h-4 text-[#7fb6ac]" />
-          <span>ADD MEMBER</span>
+          <UserPlus className="w-4 h-4 stroke-[2.5]" />
+          <span>+ ADD MEMBER</span>
         </button>
 
         <button
           onClick={onOpenLogFee}
-          className="p-3.5 rounded-2xl bg-[#7fb6ac]/15 hover:bg-[#7fb6ac]/25 border border-[#7fb6ac]/40 flex items-center justify-center space-x-2 text-xs font-mono font-bold text-[#7fb6ac] transition-all active:scale-95 shadow-sm shadow-[#7fb6ac]/10"
+          className="h-12 rounded-xl bg-[#182023] hover:bg-[#1f282c] border border-[#2a3639] hover:border-[#7fb6ac]/40 active:scale-[0.98] transition-all flex items-center justify-center space-x-2 text-xs font-mono font-bold text-[#9ba9c2] cursor-pointer shadow-sm"
         >
-          <CreditCard className="w-4 h-4" />
+          <CreditCard className="w-4 h-4 text-[#7fb6ac]" />
           <span>COLLECT PKR 2.5K</span>
         </button>
       </div>
 
-      {/* Recent Ledger Activity Feed */}
-      <div className="space-y-3 pt-1">
+      {/* Recent Activity Feed — Minimalist (Last 3 Items) */}
+      <div className="space-y-2.5 pt-2">
         <div className="flex items-center justify-between">
-          <h3 className="text-xs font-mono font-bold uppercase tracking-widest text-[#9ba9c2] flex items-center space-x-1.5">
+          <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-[#9ba9c2] flex items-center space-x-1.5">
             <Receipt className="w-3.5 h-3.5 text-[#7fb6ac]" />
-            <span>RECENT LEDGER FEED</span>
+            <span>RECENT ACTIVITY</span>
           </h3>
-          <span className="text-[10px] font-mono text-[#6c7674]">Real-Time Sync</span>
+          <button
+            onClick={() => onNavigate('members')}
+            className="text-[11px] font-mono text-[#7fb6ac] hover:text-[#9ba9c2] flex items-center gap-1 cursor-pointer"
+          >
+            <span>View All</span>
+            <ArrowRight className="w-3 h-3" />
+          </button>
         </div>
 
         {metrics.recentPayments.length === 0 ? (
@@ -98,13 +103,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </div>
         ) : (
           <div className="space-y-2">
-            {metrics.recentPayments.map((p, idx) => (
+            {metrics.recentPayments.slice(0, 3).map((p, idx) => (
               <motion.div
                 key={p.id}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: idx * 0.04 }}
-                className="p-3.5 bg-[#182023] border border-[#2a3639] hover:border-[#67758d] rounded-xl flex items-center justify-between shadow-md"
+                transition={{ duration: 0.25, delay: idx * 0.04 }}
+                className="p-3.5 bg-[#182023] border border-[#2a3639] rounded-xl flex items-center justify-between shadow-sm"
               >
                 <div>
                   <div className="flex items-center space-x-2">
@@ -114,7 +119,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                     </span>
                   </div>
                   <p className="text-[11px] text-[#6c7674] mt-0.5 font-mono">
-                    {p.fee_type === 'FIRST_MONTH_PACKAGE' ? 'Admission + Month 1' : 'Renewal'}{' '}
+                    {p.fee_type === 'FIRST_MONTH_PACKAGE' ? 'Month 1' : 'Renewal'}{' '}
                     • {formatDateTime(p.paid_at)}
                   </p>
                 </div>

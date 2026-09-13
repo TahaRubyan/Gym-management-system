@@ -109,8 +109,13 @@ export const MemberDetailDrawer: React.FC<MemberDetailDrawerProps> = ({
         className="w-full max-w-lg bg-[#182023] border-t sm:border border-[#2a3639] rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col pb-[env(safe-area-inset-bottom,16px)]"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Drag handle indicator (Figma spec: 36px x 4px, radius 2px, centered) */}
+        <div className="pt-2.5 pb-1 flex justify-center bg-[#13191b]">
+          <div className="w-9 h-1 rounded-full bg-[#2a3639]" />
+        </div>
+
         {/* Header */}
-        <div className="px-5 py-4 border-b border-[#2a3639] flex items-center justify-between bg-[#13191b]">
+        <div className="px-5 py-3.5 border-b border-[#2a3639] flex items-center justify-between bg-[#13191b]">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-xl bg-[#7fb6ac]/15 text-[#7fb6ac] border border-[#7fb6ac]/30 font-black text-base flex items-center justify-center">
               {member.full_name.charAt(0).toUpperCase()}
@@ -345,7 +350,7 @@ export const MemberDetailDrawer: React.FC<MemberDetailDrawerProps> = ({
           <div className="pt-2 border-t border-[#2a3639]">
             <button
               onClick={handleDelete}
-              className="w-full py-2.5 px-3 rounded-xl border border-[#67758d]/40 bg-[#67758d]/15 text-[#9ba9c2] hover:bg-[#67758d]/25 transition-colors text-xs font-mono font-bold flex items-center justify-center space-x-1.5 cursor-pointer"
+              className="w-full h-11 px-3 rounded-xl border border-[#67758d]/40 bg-[#67758d]/15 text-[#9ba9c2] hover:bg-[#67758d]/25 transition-colors text-xs font-mono font-bold flex items-center justify-center space-x-1.5 cursor-pointer"
             >
               <Trash2 className="w-3.5 h-3.5" />
               <span>DELETE MEMBER RECORD</span>
