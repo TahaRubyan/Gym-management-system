@@ -62,11 +62,19 @@ export const MemberCard: React.FC<MemberCardProps> = ({
       <div className={`absolute left-0 top-0 bottom-0 w-1 ${statusConfig.leftStripe}`} />
 
       <div className="pl-2 flex items-center justify-between">
-        {/* Leading: 40px Avatar + Name + Metadata */}
+        {/* Leading: Live Photo / Avatar + Name + Metadata */}
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-full bg-[#EBF1FF] text-[#1A3EEA] flex items-center justify-center text-sm font-black shrink-0">
-            {member.full_name.charAt(0).toUpperCase()}
-          </div>
+          {member.photo_url ? (
+            <img
+              src={member.photo_url}
+              alt={member.full_name}
+              className="w-11 h-11 rounded-2xl object-cover border border-[#E9ECEF] shadow-sm shrink-0"
+            />
+          ) : (
+            <div className="w-11 h-11 rounded-2xl bg-[#EBF1FF] text-[#1A3EEA] flex items-center justify-center text-sm font-black shrink-0">
+              {member.full_name.charAt(0).toUpperCase()}
+            </div>
+          )}
           <div className="space-y-0.5">
             <h3 className="text-base font-bold text-[#0F172A] group-hover:text-[#1A3EEA] transition-colors leading-snug tracking-normal">
               {member.full_name}

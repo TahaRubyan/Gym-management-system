@@ -1,6 +1,6 @@
 /**
- * Monster Gym Management System — Persistent Database Layer (Dexie.js / IndexedDB)
- * Owner: Dastagir Kanth
+ * MONSTER'S GYM Management System — Persistent Database Layer (Dexie.js / IndexedDB)
+ * Owner: DASTGIR KANTH
  * Complete offline-first synchronization, zero lag, and instant reactive updates.
  */
 
@@ -15,6 +15,7 @@ import {
   PaymentChannel,
   ChannelStat,
   EnrichedPayment,
+  GymSettings,
 } from '../types/gym';
 import {
   BASE_MONTHLY_FEE,
@@ -24,6 +25,77 @@ import {
   getTodayIso,
 } from '../utils/dateAndPhone';
 import { generateInitialSeedData } from './seedData';
+
+export const DEFAULT_SETTINGS: GymSettings = {
+  gymName: "MONSTER'S GYM",
+  ownerName: 'DASTGIR KANTH',
+  securityPin: '1234',
+  monthlyFee: 2500,
+  defaultAdmissionFee: 1000,
+  reminderTemplate: `Assalam-o-Alaikum {name}! 🏋️‍♂️
+
+This is an official renewal reminder from *{gymName}*.
+
+📅 *Membership Expiry:* {expiry}
+💰 *Monthly Fee:* PKR {fee}
+
+✨ *Important Note:*
+Kindly renew your membership by your expiry date to enjoy uninterrupted gym floor, professional equipment, and locker access.
+
+💳 *Accepted Payment Methods:*
+• 💵 Cash at Front Desk
+• 📱 EasyPaisa
+• 📲 JazzCash
+
+If you have already paid or have questions, feel free to reply to this message.
+
+Stay fit, stay strong! 💪🔥
+
+Warm Regards,
+*{ownerName}*
+Owner & Founder, {gymName} 👑`,
+  welcomeTemplate: `Assalam-o-Alaikum {name}! 🏋️‍♂️🎉
+
+Welcome to the *{gymName}* family! Your membership has been successfully registered.
+
+📋 *Membership Pass Details:*
+• 👤 *Member Name:* {name}
+• 📅 *Pass Valid Until:* {expiry}
+• 💰 *Monthly Renewal Fee:* PKR {fee}
+
+✨ *Gym Facilities & Guidelines:*
+• 🏋️ Full access to gym floor & heavy workout stations
+• 🔒 Safe locker facility available
+• ⏱️ Training hours: Monday to Saturday
+
+We are excited to partner with you on your fitness transformation. Let's crush your goals together! 💪🔥
+
+Warm Regards,
+*{ownerName}*
+Owner & Head Coach, {gymName} 👑`,
+};
+
+const SETTINGS_STORAGE_KEY = 'monsters_gym_settings_v1';
+
+export function getGymSettings(): GymSettings {
+  try {
+    const raw = localStorage.getItem(SETTINGS_STORAGE_KEY);
+    if (raw) {
+      return { ...DEFAULT_SETTINGS, ...JSON.parse(raw) };
+    }
+  } catch {
+    // Ignore error and return defaults
+  }
+  return DEFAULT_SETTINGS;
+}
+
+export function saveGymSettings(settings: GymSettings): void {
+  try {
+    localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
+  } catch (err) {
+    console.error('Failed to save gym settings:', err);
+  }
+}
 
 class MonsterGymDatabase extends Dexie {
   members!: EntityTable<Member, 'id'>;
@@ -44,10 +116,9 @@ export const db = new MonsterGymDatabase();
 
 /**
  * Initializes database and seeds sample data if empty.
- * Runs on application startup.
+ * Preserves all user data and ensures priority testing members exist.
  */
 export async function initializeDatabase(): Promise<void> {
-  // Request persistent storage so the browser never evicts data automatically
   if (typeof navigator !== 'undefined' && navigator.storage && navigator.storage.persist) {
     try {
       await navigator.storage.persist();
@@ -98,31 +169,63 @@ export async function initializeDatabase(): Promise<void> {
 }
 
 /**
- * Resets database back to fresh initial seed data (useful for gym owner testing).
+ * Merges initial seed data into the existing database without removing user-entered members.
  */
-export async function resetDatabaseToSeed(): Promise<void> {
+export async function mergeSeedData(): Promise<number> {
+  const seed = generateInitialSeedData();
+  let mergedCount = 0;
   await db.transaction('rw', db.members, db.payments, db.reminders, async () => {
-    await db.members.clear();
-    await db.payments.clear();
-    await db.reminders.clear();
-
-    const seed = generateInitialSeedData();
-    await db.members.bulkAdd(seed.members);
-    await db.payments.bulkAdd(seed.payments);
-    await db.reminders.bulkAdd(seed.reminders);
+    for (const member of seed.members) {
+      const existing = await db.members.where('phone').equals(member.phone).first();
+      if (!existing) {
+        await db.members.put(member);
+        mergedCount++;
+      }
+    }
+    for (const payment of seed.payments) {
+      const exists = await db.payments.get(payment.id);
+      if (!exists) {
+        await db.payments.put(payment);
+      }
+    }
   });
+  return mergedCount;
+}
+
+/**
+ * Restores demo database with option to preserve or overwrite.
+ * Default keeps user-created custom members intact.
+ */
+export async function resetDatabaseToSeed(preserveCustom: boolean = true): Promise<void> {
+  if (!preserveCustom) {
+    await db.transaction('rw', db.members, db.payments, db.reminders, async () => {
+      await db.members.clear();
+      await db.payments.clear();
+      await db.reminders.clear();
+
+      const seed = generateInitialSeedData();
+      await db.members.bulkAdd(seed.members);
+      await db.payments.bulkAdd(seed.payments);
+      await db.reminders.bulkAdd(seed.reminders);
+    });
+  } else {
+    // Preserve custom members and merge demo data
+    await mergeSeedData();
+  }
 }
 
 /**
  * Atomic Registration:
- * 1. Creates Member record.
- * 2. Calculates Month 1 Total = Admission Fee (>= 0) + PKR 2,500.
+ * 1. Creates Member record with optional photo_url.
+ * 2. Calculates Month 1 Total = Admission Fee (>= 0) + Monthly Fee.
  * 3. Sets expiry_date = Joined Date + 30 calendar days.
  * 4. Inserts FIRST_MONTH_PACKAGE payment record.
  */
 export async function registerMemberWithPayment(input: NewMemberInput): Promise<Member> {
+  const settings = getGymSettings();
+  const monthlyFee = settings.monthlyFee || BASE_MONTHLY_FEE;
   const admissionFee = Math.max(0, Number(input.admission_fee) || 0);
-  const totalAmount = admissionFee + BASE_MONTHLY_FEE;
+  const totalAmount = admissionFee + monthlyFee;
   const expiryDate = calculateInitialExpiry(input.joined_date);
   const { status } = checkMembershipStatus(expiryDate);
   const nowIso = new Date().toISOString();
@@ -136,10 +239,11 @@ export async function registerMemberWithPayment(input: NewMemberInput): Promise<
     phone: input.phone.trim(),
     joined_date: input.joined_date,
     admission_fee: admissionFee,
-    monthly_fee: BASE_MONTHLY_FEE,
+    monthly_fee: monthlyFee,
     expiry_date: expiryDate,
     status,
     notes: input.notes?.trim() || undefined,
+    photo_url: input.photo_url || undefined,
     created_at: nowIso,
   };
 
@@ -165,9 +269,10 @@ export async function registerMemberWithPayment(input: NewMemberInput): Promise<
 /**
  * Atomic Renewal:
  * 1. Extends membership by strictly 30 calendar days.
- *    - If already expired, new expiry = Today + 30 days.
+ *    - If already expired, anchorMode controls whether renewal anchors to payment date ('CURRENT_DATE')
+ *      or extends from original expiry ('PREVIOUS_EXPIRY').
  *    - If active/expiring, new expiry = Current Expiry + 30 days.
- * 2. Inserts MONTHLY_RENEWAL payment of strictly PKR 2,500.
+ * 2. Inserts MONTHLY_RENEWAL payment record.
  * 3. Updates member's expiry_date and recomputed status.
  */
 export async function renewMembership(input: RenewalInput): Promise<{ member: Member; payment: Payment }> {
@@ -176,14 +281,16 @@ export async function renewMembership(input: RenewalInput): Promise<{ member: Me
     throw new Error(`Member with ID ${input.member_id} not found.`);
   }
 
+  const settings = getGymSettings();
+  const renewalAmount = input.amount || settings.monthlyFee || BASE_MONTHLY_FEE;
   const todayIso = getTodayIso();
   const renewalDateIso = input.paid_at || todayIso;
-  const newExpiryDate = calculateRenewalExpiry(member.expiry_date, renewalDateIso);
+  const anchorMode = input.anchorMode || 'CURRENT_DATE';
+  const newExpiryDate = calculateRenewalExpiry(member.expiry_date, renewalDateIso, anchorMode);
   const { status: newStatus } = checkMembershipStatus(newExpiryDate);
   const nowIso = new Date().toISOString();
 
   const paymentId = 'pay-' + crypto.randomUUID().slice(0, 8);
-  const renewalAmount = BASE_MONTHLY_FEE; // Strictly PKR 2,500
 
   const payment: Payment = {
     id: paymentId,
@@ -211,11 +318,11 @@ export async function renewMembership(input: RenewalInput): Promise<{ member: Me
 }
 
 /**
- * Updates member contact details or notes.
+ * Updates member contact details, photo, or notes.
  */
 export async function updateMember(
   id: string,
-  updates: Partial<Pick<Member, 'full_name' | 'phone' | 'notes'>>
+  updates: Partial<Pick<Member, 'full_name' | 'phone' | 'notes' | 'photo_url'>>
 ): Promise<Member> {
   const member = await db.members.get(id);
   if (!member) {

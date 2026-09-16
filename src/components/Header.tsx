@@ -1,15 +1,17 @@
 import React from 'react';
-import { Dumbbell, RefreshCw, Sparkles } from 'lucide-react';
-import { resetDatabaseToSeed } from '../services/storage';
+import { Dumbbell, RefreshCw, Sparkles, Settings as SettingsIcon } from 'lucide-react';
+import { resetDatabaseToSeed, getGymSettings } from '../services/storage';
 
 interface HeaderProps {
   onResetSeed?: () => void;
   onOpenSplash?: () => void;
+  onOpenSettings?: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onResetSeed, onOpenSplash }) => {
+export const Header: React.FC<HeaderProps> = ({ onResetSeed, onOpenSplash, onOpenSettings }) => {
   const [isResetting, setIsResetting] = React.useState(false);
   const [isScrolled, setIsScrolled] = React.useState(false);
+  const settings = getGymSettings();
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -21,10 +23,10 @@ export const Header: React.FC<HeaderProps> = ({ onResetSeed, onOpenSplash }) => 
   }, []);
 
   const handleReset = async () => {
-    if (window.confirm('Reset demo database with sample members and payments?')) {
+    if (window.confirm('Merge sample demo data (keeps all your custom members)?')) {
       try {
         setIsResetting(true);
-        await resetDatabaseToSeed();
+        await resetDatabaseToSeed(true);
         onResetSeed?.();
       } finally {
         setIsResetting(false);
@@ -56,23 +58,33 @@ export const Header: React.FC<HeaderProps> = ({ onResetSeed, onOpenSplash }) => 
           <div>
             <div className="flex items-center space-x-2">
               <h1 className="text-base font-extrabold tracking-normal text-[#0F172A] leading-tight">
-                Monster Gym
+                {settings.gymName || "Monster's Gym"}
               </h1>
               <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#EBF1FF] text-[#1A3EEA] tracking-wide">
                 PRO
               </span>
             </div>
             <p className="text-xs font-medium text-[#64748B] mt-0.5 tracking-wide group-hover:text-[#0F172A] transition-colors">
-              Dastagir Kanth <span className="text-[#94A3B8]">• Owner</span>
+              {settings.ownerName || 'DASTGIR KANTH'} <span className="text-[#94A3B8]">• Owner</span>
             </p>
           </div>
         </div>
 
         <div className="flex items-center space-x-2">
+          {onOpenSettings && (
+            <button
+              onClick={onOpenSettings}
+              title="System Settings"
+              className="w-9 h-9 rounded-full bg-white border border-[#E9ECEF] text-[#64748B] hover:text-[#1A3EEA] hover:bg-[#EBF1FF] active:scale-95 transition-all flex items-center justify-center shadow-sm cursor-pointer"
+            >
+              <SettingsIcon className="w-4 h-4" />
+            </button>
+          )}
+
           <button
             onClick={handleReset}
             disabled={isResetting}
-            title="Reset to sample data"
+            title="Merge sample demo data"
             className="w-9 h-9 rounded-full bg-white border border-[#E9ECEF] text-[#64748B] hover:text-[#0F172A] active:scale-95 transition-all flex items-center justify-center shadow-sm cursor-pointer"
           >
             <RefreshCw className={`w-4 h-4 ${isResetting ? 'animate-spin text-[#1A3EEA]' : 'text-[#64748B]'}`} />
@@ -81,7 +93,7 @@ export const Header: React.FC<HeaderProps> = ({ onResetSeed, onOpenSplash }) => 
           {onOpenSplash && (
             <button
               onClick={onOpenSplash}
-              title="Show Entrance Intro"
+              title="Lock / Portal Entrance"
               className="w-9 h-9 rounded-full bg-[#111827] text-white hover:bg-black active:scale-95 transition-all flex items-center justify-center shadow-sm cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-white" />

@@ -1,6 +1,6 @@
 /**
- * Monster Gym Management System — Initial Seed Data
- * Tailored for Dastagir Kanth (Monster Gym)
+ * MONSTER'S GYM Management System — Initial Seed Data
+ * Tailored for DASTGIR KANTH (MONSTER'S GYM)
  * Relative dates generated to ensure instant demonstration of 48h expiring alerts,
  * active members, expired members, and multi-channel revenue breakdown.
  */

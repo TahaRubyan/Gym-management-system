@@ -1,11 +1,11 @@
 {
-  "name": "Monster Gym — Dastagir Kanth",
-  "short_name": "Monster Gym",
-  "description": "Mobile-first gym management system for Monster Gym",
+  "name": "MONSTER'S GYM — DASTGIR KANTH",
+  "short_name": "MONSTER'S GYM",
+  "description": "Mobile-first gym management system for MONSTER'S GYM",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0B0E14",
-  "theme_color": "#0B0E14",
+  "background_color": "#F4F6F9",
+  "theme_color": "#F4F6F9",
   "orientation": "portrait",
   "icons": [
     {

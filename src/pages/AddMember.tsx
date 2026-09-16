@@ -28,7 +28,8 @@ import {
   normalizePakistaniPhone,
   buildWhatsAppWelcomeUrl,
 } from '../utils/dateAndPhone';
-import { registerMemberWithPayment } from '../services/storage';
+import { registerMemberWithPayment, getGymSettings } from '../services/storage';
+import { LivePhotoCapture } from '../components/LivePhotoCapture';
 
 interface AddMemberProps {
   onSuccess: (memberName: string, totalAmount: number) => void;
@@ -36,14 +37,18 @@ interface AddMemberProps {
 }
 
 export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => {
+  const settings = getGymSettings();
+  const baseFee = settings.monthlyFee || BASE_MONTHLY_FEE;
+
   // Wizard Phase: 1 = Details, 2 = Amount & Payment, 'success' = Celebration
   const [phase, setPhase] = useState<1 | 2 | 'success'>(1);
 
   // Form Fields
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
+  const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
   const [joiningDate, setJoiningDate] = useState<string>(getTodayIso());
-  const [admissionFee, setAdmissionFee] = useState<string>('0');
+  const [admissionFee, setAdmissionFee] = useState<string>(String(settings.defaultAdmissionFee || 0));
   const [channel, setChannel] = useState<PaymentChannel>('CASH');
   const [transactionRef, setTransactionRef] = useState('');
   const [notes, setNotes] = useState('');
@@ -56,7 +61,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
 
   // Live Calculations
   const numericAdmissionFee = Math.max(0, parseInt(admissionFee, 10) || 0);
-  const totalMonth1Fee = numericAdmissionFee + BASE_MONTHLY_FEE;
+  const totalMonth1Fee = numericAdmissionFee + baseFee;
   const initialExpiryDate = calculateInitialExpiry(joiningDate);
 
   // Phone Validation Status
@@ -100,6 +105,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
         channel,
         transaction_ref: transactionRef.trim() || undefined,
         notes: notes.trim() || undefined,
+        photo_url: photoUrl,
       });
 
       setCreatedMember(newMember);
@@ -117,8 +123,9 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
   const handleResetForm = () => {
     setFullName('');
     setPhone('');
+    setPhotoUrl(undefined);
     setJoiningDate(getTodayIso());
-    setAdmissionFee('0');
+    setAdmissionFee(String(settings.defaultAdmissionFee || 0));
     setChannel('CASH');
     setTransactionRef('');
     setNotes('');
@@ -256,6 +263,12 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
               </p>
             </div>
 
+            {/* Live Member Photo Capture */}
+            <LivePhotoCapture
+              photoUrl={photoUrl}
+              onPhotoCaptured={setPhotoUrl}
+            />
+
             {/* Joining Date */}
             <div>
               <label className="block text-xs font-bold text-[#64748B] uppercase tracking-wider mb-2">
@@ -315,11 +328,24 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
           >
             {/* Member Summary Header */}
             <div className="p-3.5 bg-white border border-[#E9ECEF] rounded-2xl flex items-center justify-between shadow-apple-card">
-              <div>
-                <span className="text-[10px] font-mono uppercase text-[#64748B] font-bold block tracking-wider">
-                  NEW CUSTOMER
-                </span>
-                <span className="text-sm font-bold text-[#0F172A]">{fullName}</span>
+              <div className="flex items-center space-x-3">
+                {photoUrl ? (
+                  <img
+                    src={photoUrl}
+                    alt={fullName}
+                    className="w-10 h-10 rounded-2xl object-cover border border-[#E9ECEF] shadow-sm"
+                  />
+                ) : (
+                  <div className="w-10 h-10 rounded-2xl bg-[#EBF1FF] text-[#1A3EEA] font-bold text-sm flex items-center justify-center">
+                    {fullName.charAt(0).toUpperCase()}
+                  </div>
+                )}
+                <div>
+                  <span className="text-[10px] font-mono uppercase text-[#64748B] font-bold block tracking-wider">
+                    NEW CUSTOMER
+                  </span>
+                  <span className="text-sm font-bold text-[#0F172A]">{fullName}</span>
+                </div>
               </div>
               <span className="text-xs font-mono font-bold text-[#1A3EEA] bg-[#EBF1FF] px-2.5 py-1 rounded-full border border-[#1A3EEA]/20">
                 {formatDisplayPhone(phone)}
@@ -517,7 +543,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                 New Member Added!
               </h2>
               <p className="text-sm text-[#64748B] font-medium tracking-wide">
-                {createdMember.full_name} has been enrolled in Monster Gym.
+                {createdMember.full_name} has been enrolled in {settings.gymName || "MONSTER'S GYM"}.
               </p>
             </div>
 
@@ -529,11 +555,24 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
               className="p-5 sm:p-6 bg-white border border-[#E9ECEF] rounded-[28px] text-left space-y-3.5 shadow-apple-card"
             >
               <div className="flex items-center justify-between pb-3.5 border-b border-[#E9ECEF]">
-                <div>
-                  <h3 className="text-base font-bold text-[#0F172A] tracking-normal">{createdMember.full_name}</h3>
-                  <p className="text-xs font-mono text-[#64748B] mt-0.5 tracking-wider">
-                    {formatDisplayPhone(createdMember.phone)}
-                  </p>
+                <div className="flex items-center space-x-3">
+                  {createdMember.photo_url ? (
+                    <img
+                      src={createdMember.photo_url}
+                      alt={createdMember.full_name}
+                      className="w-12 h-12 rounded-2xl object-cover border border-[#E9ECEF] shadow-sm"
+                    />
+                  ) : (
+                    <div className="w-12 h-12 rounded-2xl bg-[#EBF1FF] text-[#1A3EEA] font-black text-base flex items-center justify-center">
+                      {createdMember.full_name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                  <div>
+                    <h3 className="text-base font-bold text-[#0F172A] tracking-normal">{createdMember.full_name}</h3>
+                    <p className="text-xs font-mono text-[#64748B] mt-0.5 tracking-wider">
+                      {formatDisplayPhone(createdMember.phone)}
+                    </p>
+                  </div>
                 </div>
                 <span className="px-3 py-1 rounded-full bg-[#EBF1FF] text-[#1A3EEA] border border-[#1A3EEA]/30 text-xs font-bold tracking-wide">
                   ACTIVE
@@ -557,7 +596,7 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
 
               <div className="flex items-center justify-between text-xs font-mono text-[#64748B] pt-2.5 border-t border-[#E9ECEF] tracking-wide">
                 <span>Channel: {channel}</span>
-                <span>Base Fee: PKR 2,500</span>
+                <span>Base Fee: {formatPKR(baseFee)}</span>
               </div>
             </motion.div>
 
@@ -574,7 +613,11 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
                   const url = buildWhatsAppWelcomeUrl(
                     createdMember.full_name,
                     createdMember.phone,
-                    createdMember.expiry_date
+                    createdMember.expiry_date,
+                    settings.welcomeTemplate,
+                    settings.gymName,
+                    settings.ownerName,
+                    baseFee
                   );
                   window.open(url, '_blank');
                 }}

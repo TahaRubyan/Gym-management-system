@@ -1,12 +1,26 @@
 /**
- * Monster Gym Management System — Utilities for Date and Phone Operations
- * Owner: Dastagir Kanth
+ * MONSTER'S GYM Management System — Utilities for Date and Phone Operations
+ * Owner: DASTGIR KANTH
  */
 
-import type { MembershipStatus } from '../types/gym.ts';
+import type { MembershipStatus, ExpiryAnchorMode } from '../types/gym.ts';
 
 export const BASE_MONTHLY_FEE = 2500;
 export const RENEWAL_PERIOD_DAYS = 30;
+
+/**
+ * Interpolates placeholders like {name}, {expiry}, {fee}, {gymName}, {ownerName}
+ */
+export function interpolateTemplate(
+  template: string,
+  variables: Record<string, string | number>
+): string {
+  let result = template;
+  for (const [key, value] of Object.entries(variables)) {
+    result = result.replace(new RegExp(`\\{${key}\\}`, 'g'), String(value));
+  }
+  return result;
+}
 
 /**
  * Normalizes a Pakistani phone number into standard international format for WhatsApp.
@@ -58,15 +72,36 @@ export function isValidPakistaniPhone(phone: string): boolean {
  * Generates the WhatsApp renewal reminder URL with clear spacing and emojis:
  * Target: https://wa.me/[CLEAN_PHONE]?text=[ENCODED_MESSAGE]
  */
-export function buildWhatsAppReminderUrl(fullName: string, phone: string, expiryDate: string): string {
+export function buildWhatsAppReminderUrl(
+  fullName: string,
+  phone: string,
+  expiryDate: string,
+  customTemplate?: string,
+  gymName: string = "MONSTER'S GYM",
+  ownerName: string = 'DASTGIR KANTH',
+  fee: number = BASE_MONTHLY_FEE
+): string {
   const cleanPhone = normalizePakistaniPhone(phone);
   const formattedExpiry = formatDisplayDate(expiryDate);
-  const message = `Assalam-o-Alaikum ${fullName.trim()}! 🏋️‍♂️
+  const formattedFee = fee.toLocaleString('en-PK');
 
-This is an official renewal reminder from *MONSTER GYM*.
+  let message: string;
+  if (customTemplate && customTemplate.trim()) {
+    message = interpolateTemplate(customTemplate, {
+      name: fullName.trim(),
+      phone: cleanPhone,
+      expiry: `${formattedExpiry} (${expiryDate})`,
+      fee: formattedFee,
+      gymName,
+      ownerName,
+    });
+  } else {
+    message = `Assalam-o-Alaikum ${fullName.trim()}! 🏋️‍♂️
+
+This is an official renewal reminder from *${gymName}*.
 
 📅 *Membership Expiry:* ${formattedExpiry} (${expiryDate})
-💰 *Monthly Fee:* PKR 2,500
+💰 *Monthly Fee:* PKR ${formattedFee}
 
 ✨ *Important Note:*
 Kindly renew your membership by your expiry date to enjoy uninterrupted gym floor, professional equipment, and locker access.
@@ -81,8 +116,9 @@ If you have already paid or have questions, feel free to reply to this message.
 Stay fit, stay strong! 💪🔥
 
 Warm Regards,
-*Dastagir Kanth*
-Owner & Founder, Monster Gym 👑`;
+*${ownerName}*
+Owner & Founder, ${gymName} 👑`;
+  }
 
   return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 }
@@ -90,17 +126,38 @@ Owner & Founder, Monster Gym 👑`;
 /**
  * Generates the WhatsApp welcome URL for newly enrolled members with clear spacing and emojis:
  */
-export function buildWhatsAppWelcomeUrl(fullName: string, phone: string, expiryDate: string): string {
+export function buildWhatsAppWelcomeUrl(
+  fullName: string,
+  phone: string,
+  expiryDate: string,
+  customTemplate?: string,
+  gymName: string = "MONSTER'S GYM",
+  ownerName: string = 'DASTGIR KANTH',
+  fee: number = BASE_MONTHLY_FEE
+): string {
   const cleanPhone = normalizePakistaniPhone(phone);
   const formattedExpiry = formatDisplayDate(expiryDate);
-  const message = `Assalam-o-Alaikum ${fullName.trim()}! 🏋️‍♂️🎉
+  const formattedFee = fee.toLocaleString('en-PK');
 
-Welcome to the *MONSTER GYM* family! Your membership has been successfully registered.
+  let message: string;
+  if (customTemplate && customTemplate.trim()) {
+    message = interpolateTemplate(customTemplate, {
+      name: fullName.trim(),
+      phone: cleanPhone,
+      expiry: formattedExpiry,
+      fee: formattedFee,
+      gymName,
+      ownerName,
+    });
+  } else {
+    message = `Assalam-o-Alaikum ${fullName.trim()}! 🏋️‍♂️🎉
+
+Welcome to the *${gymName}* family! Your membership has been successfully registered.
 
 📋 *Membership Pass Details:*
 • 👤 *Member Name:* ${fullName.trim()}
 • 📅 *Pass Valid Until:* ${formattedExpiry}
-• 💰 *Monthly Renewal Fee:* PKR 2,500
+• 💰 *Monthly Renewal Fee:* PKR ${formattedFee}
 
 ✨ *Gym Facilities & Guidelines:*
 • 🏋️ Full access to gym floor & heavy workout stations
@@ -110,8 +167,9 @@ Welcome to the *MONSTER GYM* family! Your membership has been successfully regis
 We are excited to partner with you on your fitness transformation. Let's crush your goals together! 💪🔥
 
 Warm Regards,
-*Dastagir Kanth*
-Owner & Head Coach, Monster Gym 👑`;
+*${ownerName}*
+Owner & Head Coach, ${gymName} 👑`;
+  }
 
   return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
 }
@@ -170,19 +228,33 @@ export function checkMembershipStatus(expiryDateIso: string): {
 }
 
 /**
- * Computes the new expiry date after renewal following the exact business rules:
+ * Computes the new expiry date after renewal following the business rules:
  * - Each payment extends expiry by exactly 30 calendar days.
- * - If membership is already expired when renewed, new expiry = Today + 30 calendar days.
+ * - If membership is expired, anchorMode controls whether renewal anchors to payment date ('CURRENT_DATE')
+ *   or extends from original expiry ('PREVIOUS_EXPIRY').
  * - If membership is currently active or expiring soon, new expiry = Current Expiry + 30 calendar days.
  */
-export function calculateRenewalExpiry(currentExpiryIso: string, renewalDateIso: string = getTodayIso()): string {
+export function calculateRenewalExpiry(
+  currentExpiryIso: string,
+  renewalDateIso: string = getTodayIso(),
+  anchorMode: ExpiryAnchorMode = 'CURRENT_DATE'
+): string {
   const renewalBaseDate = parseDateString(renewalDateIso);
   const currentExpiry = parseDateString(currentExpiryIso);
 
-  // If already expired relative to renewal date, anchor from renewal date
-  const anchorDate = currentExpiry.getTime() < renewalBaseDate.getTime()
-    ? new Date(renewalBaseDate)
-    : new Date(currentExpiry);
+  let anchorDate: Date;
+  if (currentExpiry.getTime() < renewalBaseDate.getTime()) {
+    // Expired
+    if (anchorMode === 'PREVIOUS_EXPIRY') {
+      anchorDate = new Date(currentExpiry);
+    } else {
+      // Default: anchor from renewal payment date (e.g. today)
+      anchorDate = new Date(renewalBaseDate);
+    }
+  } else {
+    // Active or expiring soon
+    anchorDate = new Date(currentExpiry);
+  }
 
   // Add exactly 30 calendar days
   anchorDate.setDate(anchorDate.getDate() + RENEWAL_PERIOD_DAYS);

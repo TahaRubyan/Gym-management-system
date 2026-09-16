@@ -14,6 +14,7 @@ import { Dashboard } from './pages/Dashboard';
 import { MembersList } from './pages/MembersList';
 import { AddMember } from './pages/AddMember';
 import { ExpiringMembers } from './pages/ExpiringMembers';
+import { Settings } from './pages/Settings';
 import { checkMembershipStatus, formatDisplayDate, formatPKR } from './utils/dateAndPhone';
 
 export const App: React.FC = () => {
@@ -149,7 +150,7 @@ export const App: React.FC = () => {
           <div className="w-6 h-6 rounded-full border-2 border-[#1A3EEA] border-t-transparent animate-spin" />
         </div>
         <h1 className="text-base font-extrabold text-[#0F172A] tracking-tight">
-          Monster Gym
+          MONSTER'S GYM
         </h1>
         <p className="text-xs text-[#64748B] mt-1 font-medium">Loading system...</p>
       </div>
@@ -180,9 +181,10 @@ export const App: React.FC = () => {
       {/* Top Header */}
       <Header
         onResetSeed={() => {
-          addToast('info', 'Database Reset', 'Monster Gym restored to initial demo data');
+          addToast('info', 'Demo Data Merged', 'Sample members merged without removing custom members');
         }}
         onOpenSplash={() => setShowSplash(true)}
+        onOpenSettings={() => setCurrentTab('settings')}
       />
 
       {/* Screen Views with Fluid Transitions */}
@@ -252,6 +254,21 @@ export const App: React.FC = () => {
                 onSelectMember={handleSelectMemberForDrawer}
                 onWhatsAppSent={handleWhatsAppSent}
                 sentReminderMemberIds={sentReminderMemberIds}
+              />
+            </motion.div>
+          )}
+
+          {currentTab === 'settings' && (
+            <motion.div
+              key="tab-settings"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.25 }}
+            >
+              <Settings
+                onNavigate={setCurrentTab}
+                onToast={addToast}
               />
             </motion.div>
           )}

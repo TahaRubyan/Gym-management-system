@@ -43,7 +43,8 @@ const sampleUrl = buildWhatsAppReminderUrl('Hamza Tariq', '03001234567', '2026-0
 assert(sampleUrl.startsWith('https://wa.me/923001234567?text='), 'Target URL prefix is correct');
 assert(sampleUrl.includes('Assalam-o-Alaikum%20Hamza%20Tariq!%20%F0%9F%8F%8B%EF%B8%8F%E2%80%8D%E2%99%82%EF%B8%8F'), 'Contains greeting and 🏋️‍♂️ emoji');
 assert(sampleUrl.includes('PKR%202%2C500'), 'Contains fee PKR 2,500');
-assert(sampleUrl.includes('Dastagir%20Kanth'), 'Contains Dastagir Kanth signature');
+assert(sampleUrl.includes('DASTGIR%20KANTH') || sampleUrl.includes('Dastgir%20Kanth'), 'Contains DASTGIR KANTH signature');
+assert(sampleUrl.includes("MONSTER'S%20GYM") || sampleUrl.includes('MONSTER%27S%20GYM'), "Contains MONSTER'S GYM");
 assert(sampleUrl.includes('%0A%0A'), 'Message contains multiple double-spaced line breaks');
 
 console.log('\n=== TEST 3: Fixed Fee & First Month Calculation ===');
@@ -85,9 +86,13 @@ console.log('\n=== TEST 5: Renewal Lifecycle & Boundary Logic ===');
 const renewalFromActive = calculateRenewalExpiry('2026-10-15', '2026-09-11');
 assert(renewalFromActive === '2026-11-14', 'Active renewal adds 30 calendar days to current expiry');
 
-// Expired member renewed: new expiry = Today + 30 calendar days
-const renewalFromExpired = calculateRenewalExpiry('2026-08-01', '2026-09-11');
-assert(renewalFromExpired === '2026-10-11', 'Expired renewal anchors from today + 30 calendar days');
+// Expired member renewed with CURRENT_DATE anchor: new expiry = Today + 30 calendar days
+const renewalFromExpiredCurrent = calculateRenewalExpiry('2026-08-01', '2026-09-11', 'CURRENT_DATE');
+assert(renewalFromExpiredCurrent === '2026-10-11', 'Expired renewal anchors from current date + 30 calendar days');
+
+// Expired member renewed with PREVIOUS_EXPIRY anchor: new expiry = Previous Expiry + 30 calendar days
+const renewalFromExpiredPrevious = calculateRenewalExpiry('2026-08-01', '2026-09-11', 'PREVIOUS_EXPIRY');
+assert(renewalFromExpiredPrevious === '2026-08-31', 'Expired renewal anchors from previous expiry + 30 calendar days');
 
 // Month boundaries across leap year (February in 2028 is a leap year)
 const leapYearExpiry = calculateRenewalExpiry('2028-02-15', '2028-02-10');

@@ -7,7 +7,6 @@ import {
   MessageSquare,
   ChevronRight,
 } from 'lucide-react';
-import { Member } from '../types/gym';
 import {
   checkMembershipStatus,
   formatDisplayDate,
@@ -15,6 +14,8 @@ import {
   getRelativeCountdownText,
   buildWhatsAppReminderUrl,
 } from '../utils/dateAndPhone';
+import { getGymSettings } from '../services/storage';
+import { Member } from '../types/gym';
 
 interface ExpiringMembersProps {
   members: Member[];
@@ -43,7 +44,16 @@ export const ExpiringMembers: React.FC<ExpiringMembersProps> = ({
 
   const handleSendReminder = (e: React.MouseEvent, member: Member) => {
     e.stopPropagation();
-    const url = buildWhatsAppReminderUrl(member.full_name, member.phone, member.expiry_date);
+    const settings = getGymSettings();
+    const url = buildWhatsAppReminderUrl(
+      member.full_name,
+      member.phone,
+      member.expiry_date,
+      settings.reminderTemplate,
+      settings.gymName,
+      settings.ownerName,
+      settings.monthlyFee
+    );
     window.open(url, '_blank');
     onWhatsAppSent(member);
   };
@@ -103,9 +113,17 @@ export const ExpiringMembers: React.FC<ExpiringMembersProps> = ({
                   {/* Top: Avatar + Name + Expiry badge */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3.5">
-                      <div className="w-11 h-11 rounded-full bg-[#EBF1FF] text-[#1A3EEA] flex items-center justify-center text-sm font-black shrink-0 tracking-wider">
-                        {member.full_name.charAt(0).toUpperCase()}
-                      </div>
+                      {member.photo_url ? (
+                        <img
+                          src={member.photo_url}
+                          alt={member.full_name}
+                          className="w-11 h-11 rounded-2xl object-cover border border-[#E9ECEF] shadow-sm shrink-0"
+                        />
+                      ) : (
+                        <div className="w-11 h-11 rounded-2xl bg-[#EBF1FF] text-[#1A3EEA] flex items-center justify-center text-sm font-black shrink-0 tracking-wider">
+                          {member.full_name.charAt(0).toUpperCase()}
+                        </div>
+                      )}
                       <div className="space-y-0.5">
                         <div className="flex items-center space-x-2">
                           <h3 className="text-base font-bold text-[#0F172A] group-hover:text-[#1A3EEA] transition-colors leading-snug tracking-normal">

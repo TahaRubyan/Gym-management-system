@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { X, Check, Calendar, CreditCard, User, AlertCircle, ArrowRight } from 'lucide-react';
-import { Member, PaymentChannel } from '../types/gym';
+import { X, Check, Calendar, CreditCard, User, AlertCircle, ArrowRight, Clock } from 'lucide-react';
+import { Member, PaymentChannel, ExpiryAnchorMode } from '../types/gym';
 import {
   BASE_MONTHLY_FEE,
   calculateRenewalExpiry,
+  checkMembershipStatus,
   formatDisplayDate,
   formatPKR,
   getTodayIso,
 } from '../utils/dateAndPhone';
-import { renewMembership } from '../services/storage';
+import { renewMembership, getGymSettings } from '../services/storage';
 
 interface LogFeeModalProps {
   isOpen: boolean;
@@ -29,6 +30,7 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
   const [channel, setChannel] = useState<PaymentChannel>('CASH');
   const [transactionRef, setTransactionRef] = useState<string>('');
   const [paymentDate, setPaymentDate] = useState<string>(getTodayIso());
+  const [anchorMode, setAnchorMode] = useState<ExpiryAnchorMode>('CURRENT_DATE');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,10 +45,14 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
   if (!isOpen) return null;
 
   const currentMember = members.find((m) => m.id === selectedMemberId) || preselectedMember;
+  const isExpired = currentMember ? checkMembershipStatus(currentMember.expiry_date).status === 'EXPIRED' : false;
 
   const projectedNewExpiry = currentMember
-    ? calculateRenewalExpiry(currentMember.expiry_date, paymentDate)
+    ? calculateRenewalExpiry(currentMember.expiry_date, paymentDate, anchorMode)
     : '';
+
+  const settings = getGymSettings();
+  const currentFee = settings.monthlyFee || BASE_MONTHLY_FEE;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -61,13 +67,14 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
 
       const result = await renewMembership({
         member_id: currentMember.id,
-        amount: BASE_MONTHLY_FEE,
+        amount: currentFee,
         channel,
         transaction_ref: transactionRef.trim() || undefined,
         paid_at: paymentDate,
+        anchorMode,
       });
 
-      onSuccess(result.member.full_name, result.member.expiry_date, BASE_MONTHLY_FEE);
+      onSuccess(result.member.full_name, result.member.expiry_date, currentFee);
       onClose();
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Failed to record fee renewal';
@@ -105,7 +112,7 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
               <h2 className="text-sm font-bold uppercase tracking-wider text-[#0F172A] leading-tight">
                 Log Monthly Fee
               </h2>
-              <p className="text-[11px] text-[#64748B]">30-Day Auto Extension • Monster Gym</p>
+              <p className="text-[11px] text-[#64748B]">30-Day Auto Extension • MONSTER'S GYM</p>
             </div>
           </div>
           <button
@@ -133,9 +140,17 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
             {preselectedMember ? (
               <div className="p-3 bg-[#F8FAFC] border border-[#E9ECEF] rounded-2xl flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="w-9 h-9 rounded-full bg-[#EBF1FF] text-[#1A3EEA] font-bold text-sm flex items-center justify-center">
-                    {preselectedMember.full_name.charAt(0).toUpperCase()}
-                  </div>
+                  {preselectedMember.photo_url ? (
+                    <img
+                      src={preselectedMember.photo_url}
+                      alt={preselectedMember.full_name}
+                      className="w-10 h-10 rounded-2xl object-cover border border-[#E9ECEF] shadow-sm"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 rounded-2xl bg-[#EBF1FF] text-[#1A3EEA] font-bold text-sm flex items-center justify-center">
+                      {preselectedMember.full_name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
                   <div>
                     <p className="text-sm font-bold text-[#0F172A]">{preselectedMember.full_name}</p>
                     <p className="text-xs text-[#64748B]">{preselectedMember.phone}</p>
@@ -165,6 +180,63 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
             )}
           </div>
 
+          {/* Overdue Payment Anchor Selector (Only shown if member is expired) */}
+          {isExpired && (
+            <div className="p-3.5 bg-amber-50/70 border border-amber-200 rounded-2xl space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1">
+                  <Clock className="w-3.5 h-3.5 text-amber-600" />
+                  OVERDUE RENEWAL ANCHOR
+                </span>
+                <span className="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded-full">
+                  Expired Member
+                </span>
+              </div>
+
+              <p className="text-xs text-amber-900 leading-snug">
+                Member arrived after pass expiration. Choose how to calculate the new 30-day period:
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => setAnchorMode('CURRENT_DATE')}
+                  className={`p-2.5 rounded-xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
+                    anchorMode === 'CURRENT_DATE'
+                      ? 'bg-white border-2 border-[#1A3EEA] text-[#0F172A] shadow-sm'
+                      : 'bg-white/50 border-[#E9ECEF] text-[#64748B] hover:border-[#1A3EEA]/30'
+                  }`}
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-xs font-bold text-[#0F172A]">Renew from Today</span>
+                    {anchorMode === 'CURRENT_DATE' && <Check className="w-3.5 h-3.5 text-[#1A3EEA]" />}
+                  </div>
+                  <span className="text-[10px] text-[#64748B] mt-1 font-mono">
+                    30 days from {formatDisplayDate(paymentDate)}
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setAnchorMode('PREVIOUS_EXPIRY')}
+                  className={`p-2.5 rounded-xl border text-left transition-all flex flex-col justify-between cursor-pointer ${
+                    anchorMode === 'PREVIOUS_EXPIRY'
+                      ? 'bg-white border-2 border-[#1A3EEA] text-[#0F172A] shadow-sm'
+                      : 'bg-white/50 border-[#E9ECEF] text-[#64748B] hover:border-[#1A3EEA]/30'
+                  }`}
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <span className="text-xs font-bold text-[#0F172A]">From Old Expiry</span>
+                    {anchorMode === 'PREVIOUS_EXPIRY' && <Check className="w-3.5 h-3.5 text-[#1A3EEA]" />}
+                  </div>
+                  <span className="text-[10px] text-[#64748B] mt-1 font-mono">
+                    30 days from {currentMember ? formatDisplayDate(currentMember.expiry_date) : ''}
+                  </span>
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Expiry Extension Preview Box */}
           {currentMember && (
             <div className="p-3.5 bg-[#F8FAFC] border border-[#E9ECEF] rounded-2xl">
@@ -192,7 +264,7 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
             </div>
           )}
 
-          {/* Amount Box (Fixed at PKR 2,500) */}
+          {/* Amount Box */}
           <div>
             <label className="block text-xs font-bold text-[#64748B] uppercase tracking-wider mb-1.5">
               Monthly Base Fee
@@ -201,11 +273,11 @@ export const LogFeeModal: React.FC<LogFeeModalProps> = ({
               <input
                 type="text"
                 readOnly
-                value={formatPKR(BASE_MONTHLY_FEE)}
+                value={formatPKR(currentFee)}
                 className="w-full h-[50px] bg-[#F8FAFC] border border-[#E9ECEF] rounded-2xl px-3.5 text-base font-black text-[#1A3EEA] tracking-wide cursor-not-allowed flex items-center"
               />
               <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold text-[#64748B] bg-white px-2 py-0.5 rounded-lg border border-[#E9ECEF]">
-                Fixed Rate
+                Standard Rate
               </span>
             </div>
           </div>

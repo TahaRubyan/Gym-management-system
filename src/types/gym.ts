@@ -1,6 +1,6 @@
 /**
- * Monster Gym Management System — Core Domain Types
- * Owner: Dastagir Kanth
+ * MONSTER'S GYM Management System — Core Domain Types
+ * Owner: DASTGIR KANTH
  */
 
 export type MembershipStatus = 'ACTIVE' | 'EXPIRING_SOON' | 'EXPIRED';
@@ -21,6 +21,7 @@ export interface Member {
   expiry_date: string; // YYYY-MM-DD
   status: MembershipStatus;
   notes?: string;
+  photo_url?: string; // Base64 data URL of live photo
   created_at: string; // ISO 8601 string
 }
 
@@ -75,7 +76,10 @@ export interface NewMemberInput {
   channel: PaymentChannel;
   transaction_ref?: string;
   notes?: string;
+  photo_url?: string;
 }
+
+export type ExpiryAnchorMode = 'CURRENT_DATE' | 'PREVIOUS_EXPIRY';
 
 export interface RenewalInput {
   member_id: string;
@@ -83,4 +87,15 @@ export interface RenewalInput {
   channel: PaymentChannel;
   transaction_ref?: string;
   paid_at?: string;
+  anchorMode?: ExpiryAnchorMode;
+}
+
+export interface GymSettings {
+  gymName: string;
+  ownerName: string;
+  securityPin: string; // 4 digits
+  monthlyFee: number;
+  defaultAdmissionFee: number;
+  reminderTemplate: string;
+  welcomeTemplate: string;
 }

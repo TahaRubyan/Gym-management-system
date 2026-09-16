@@ -1,9 +1,9 @@
 <div align="center">
 
-# 🏋️‍♂️ MONSTER GYM — ENTERPRISE MANAGEMENT SYSTEM
+# 🏋️‍♂️ MONSTER'S GYM — ENTERPRISE MANAGEMENT SYSTEM
 ### *High-Performance Mobile-First Progressive Web App (PWA) & Offline Operating System*
 
-**Tailored Exclusively for Dastagir Kanth (Founder & Sole Proprietor)**
+**Tailored Exclusively for DASTGIR KANTH (Founder & Sole Proprietor)**
 
 [![React 19](https://img.shields.io/badge/React-19.0.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -29,16 +29,17 @@
 
 ## ⚡ Executive Overview
 
-**Monster Gym Management System** is an ultra-luxury, mobile-first Progressive Web Application (PWA) architected specifically for gym owner **Dastagir Kanth**. Built to replace manual paper registers, it provides real-time financial telemetry, an institutional multi-channel revenue console, instant 48-hour expiration radars, and single-tap automated WhatsApp payment reminder dispatching tailored for Pakistani cellular networks.
+**MONSTER'S GYM Management System** is an ultra-luxury, mobile-first Progressive Web Application (PWA) architected specifically for gym owner **DASTGIR KANTH**. Built to replace manual paper registers, it provides real-time financial telemetry, an institutional multi-channel revenue console, instant 48-hour expiration radars, live member photo capture, overdue payment date anchoring, and customizable WhatsApp payment reminder dispatching tailored for Pakistani cellular networks.
 
 ### 🌟 Key Highlights
-- **100% Offline-First Persistence**: Powered by **Dexie.js (IndexedDB)** with `navigator.storage.persist()`. Data is saved permanently on the device and never evicted until the owner explicitly deletes records.
-- **Cinematic Welcome Splash Screen**: Executive intro featuring **MONSTER GYM**, dynamic React Bits `<RotatingText />` transition on **DASTAGIR KANTH**, and a pinned, high-contrast mobile **CONTINUE** button optimized for iOS Safari viewports.
-- **Eye-Friendly Professional Typography**: Powered by **Plus Jakarta Sans** with high legibility, clean numeral metrics, and 50px input ergonomics.
-- **Instant Test Members in 48-Hour Radar**: Pre-seeded with **TAHA RUBYAN** (`03481488937`) and **FARHAN BUTT** (`03177769001`) with automatic synchronization so the owner can test 1-tap WhatsApp notifications immediately.
-- **Zero-Lag State Synchronicity**: Dexie reactive queries automatically refresh metrics, countdowns, and roster badges upon every mutation with zero hallucination.
+- **100% Offline-First Persistence**: Powered by **Dexie.js (IndexedDB)** with `navigator.storage.persist()`. Custom data is permanently preserved and safely merged with test data without deletion.
+- **4-Digit Security Entrance PIN**: Owner protection with numeric keypad, error shake animation, and customizable PIN (default `1234`) configured in Settings.
+- **Cinematic Welcome Splash Screen**: Executive entrance featuring **MONSTER'S GYM**, dynamic React Bits `<RotatingText />` on **DASTGIR KANTH**, and smooth transition into PIN verification.
+- **Live Member Photo Capture**: Built-in webcam viewfinder with center crop and mobile camera fallback. Member photos appear directly on member cards, rosters, and drawers for effortless visual tracing.
+- **Overdue Payment Date Anchoring**: When an expired member renews, the owner can flexibly choose between **"Renew from Today (Payment Date + 30 Days)"** or **"From Old Expiry (Carry Forward)"**.
+- **Dedicated Settings Console**: Adjust monthly fee rates, default admission fees, gym & owner identity, customizable WhatsApp message templates, and non-destructive demo data merging.
+- **Instant Test Members in 48-Hour Radar**: Pre-seeded with **TAHA RUBYAN** (`03481488937`) and **FARHAN BUTT** (`03177769001`) for immediate 1-tap WhatsApp testing.
 - **iOS WebKit Standalone Optimization**: Native iPhone app feel with safe-area padding (`env(safe-area-inset-top)` / `env(safe-area-inset-bottom)`), `overscroll-behavior-y: none`, and numeric/tel keypads.
-- **Enriched Automated WhatsApp Dispatch**: Automatically normalizes Pakistani mobile numbers (`0300...` → `92300...`) and generates pre-filled official fee collection alerts with payment channels (Cash, EasyPaisa, JazzCash).
 
 ---
 
@@ -48,24 +49,27 @@
 flowchart TD
     subgraph Client["📱 iOS Safari / PWA Standalone"]
         UI["Executive UI Layer (React 19 + Motion)"]
-        Splash["Welcome Splash (React Bits RotatingText on Dastagir Kanth)"]
+        Splash["Welcome Splash & PIN Lock (React Bits RotatingText on Dastgir Kanth)"]
         Dashboard["Fintech Revenue Telemetry Console"]
-        Members["Active Roster & Search"]
+        Members["Active Roster & Search (with Live Member Photos)"]
         Expiring["48-Hour Urgency Radar (Taha Rubyan & Farhan Butt)"]
+        Settings["System Settings & Customizer"]
         WA["1-Tap WhatsApp Reminder Engine"]
     end
 
     subgraph Storage["💾 Persistent Local Storage Layer"]
         Dexie["Dexie.js IndexedDB Database"]
-        MembersTable[("members (id, full_name, phone, expiry_date, status)")]
+        MembersTable[("members (id, full_name, phone, expiry_date, photo_url, status)")]
         PaymentsTable[("payments (id, member_id, amount, fee_type, channel)")]
         RemindersTable[("reminders (id, member_id, sent_at, expiry_date)")]
+        LocalStorage[("localStorage (GymSettings & Security PIN)")]
     end
 
-    Splash -->|Enter Console| Dashboard
+    Splash -->|Enter 4-Digit PIN| Dashboard
     Dashboard --> UI
     Members --> UI
     Expiring --> WA
+    Settings --> LocalStorage
     WA -->|Deep Link (wa.me/923...)| WhatsAppApp["💬 WhatsApp Native Client"]
     UI <-->|Reactive Live Queries| Dexie
     Dexie --> MembersTable
@@ -79,13 +83,15 @@ flowchart TD
 
 | Business Rule | Parameter | Specification & Logic |
 |---|---|---|
-| **Admission Fee** | `admission_fee` | Variable numeric entered at registration (defaults to `0` if promotional). Assessed **exclusively on Month 1**. |
-| **Base Monthly Fee** | `monthly_fee` | Strictly fixed at **PKR 2,500 / month**. |
-| **Month 1 Collection** | Total Due | `Admission Fee + PKR 2,500` (e.g. `1,500 + 2,500 = PKR 4,000`). |
-| **Subsequent Renewals** | Total Due | Strictly **PKR 2,500**. |
+| **Security PIN** | `securityPin` | 4-digit PIN (default `1234`), required on login, changeable in Settings. |
+| **Admission Fee** | `admission_fee` | Variable numeric entered at registration (defaults to Settings value). Assessed **exclusively on Month 1**. |
+| **Base Monthly Fee** | `monthly_fee` | Defaults to **PKR 2,500 / month**, configurable in Settings. |
+| **Month 1 Collection** | Total Due | `Admission Fee + Monthly Fee` (e.g. `1,000 + 2,500 = PKR 3,500`). |
+| **Subsequent Renewals** | Total Due | Standard Monthly Fee (default **PKR 2,500**). |
 | **Renewal Extension** | `expiry_date` | Each payment extends validity by **strictly 30 calendar days**. |
-| **Expired Renewal Rule** | Anchor Date | If already expired when renewed: `New Expiry = Today + 30 Days`. If active: `Current Expiry + 30 Days`. |
+| **Overdue Anchor Option** | Anchor Mode | Expired members can be renewed from **Current Payment Date** (`Today + 30 Days`) or **Previous Expiry** (`Old Expiry + 30 Days`). |
 | **48-Hour Threshold** | `EXPIRING_SOON` | Member is flagged if: `expiry_date >= Today AND expiry_date <= Today + 2 Days`. |
+| **Live Photo Capture** | `photo_url` | 320x320 JPEG captured via webcam or mobile upload, displayed on member cards. |
 | **Payment Channels** | Supported | `CASH`, `EASYPAISA`, `JAZZCASH`, `BANK_TRANSFER` (Raast / IBFT). |
 
 ---
@@ -102,7 +108,7 @@ The system formats Pakistani telephone numbers and generates instant deep-links 
 ```text
 Assalam-o-Alaikum [Member Name]! 🏋️‍♂️
 
-This is an official renewal reminder from *MONSTER GYM*.
+This is an official renewal reminder from *MONSTER'S GYM*.
 
 📅 *Membership Expiry:* [Formatted Date] ([YYYY-MM-DD])
 💰 *Monthly Fee:* PKR 2,500
@@ -120,15 +126,15 @@ If you have already paid or have questions, feel free to reply to this message.
 Stay fit, stay strong! 💪🔥
 
 Warm Regards,
-*Dastagir Kanth*
-Owner & Founder, Monster Gym 👑
+*DASTGIR KANTH*
+Owner & Founder, MONSTER'S GYM 👑
 ```
 
 ### Official WhatsApp Welcome Message Template
 ```text
 Assalam-o-Alaikum [Member Name]! 🏋️‍♂️🎉
 
-Welcome to the *MONSTER GYM* family! Your membership has been successfully registered.
+Welcome to the *MONSTER'S GYM* family! Your membership has been successfully registered.
 
 📋 *Membership Pass Details:*
 • 👤 *Member Name:* [Member Name]
@@ -143,8 +149,8 @@ Welcome to the *MONSTER GYM* family! Your membership has been successfully regis
 We are excited to partner with you on your fitness transformation. Let's crush your goals together! 💪🔥
 
 Warm Regards,
-*Dastagir Kanth*
-Owner & Head Coach, Monster Gym 👑
+*DASTGIR KANTH*
+Owner & Head Coach, MONSTER'S GYM 👑
 ```
 
 ---

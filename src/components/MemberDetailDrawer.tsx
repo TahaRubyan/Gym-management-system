@@ -19,7 +19,8 @@ import {
   buildWhatsAppReminderUrl,
   getRelativeCountdownText,
 } from '../utils/dateAndPhone';
-import { db, updateMember, deleteMember } from '../services/storage';
+import { db, updateMember, deleteMember, getGymSettings } from '../services/storage';
+import { LivePhotoCapture } from './LivePhotoCapture';
 
 interface MemberDetailDrawerProps {
   member: Member | null;
@@ -43,6 +44,7 @@ export const MemberDetailDrawer: React.FC<MemberDetailDrawerProps> = ({
   const [editName, setEditName] = useState('');
   const [editPhone, setEditPhone] = useState('');
   const [editNotes, setEditNotes] = useState('');
+  const [editPhotoUrl, setEditPhotoUrl] = useState<string | undefined>(undefined);
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
@@ -50,6 +52,7 @@ export const MemberDetailDrawer: React.FC<MemberDetailDrawerProps> = ({
       setEditName(member.full_name);
       setEditPhone(member.phone);
       setEditNotes(member.notes || '');
+      setEditPhotoUrl(member.photo_url);
       setIsEditing(false);
 
       // Load payment history
@@ -78,6 +81,7 @@ export const MemberDetailDrawer: React.FC<MemberDetailDrawerProps> = ({
         full_name: editName.trim(),
         phone: editPhone.trim(),
         notes: editNotes.trim() || undefined,
+        photo_url: editPhotoUrl,
       });
       setIsEditing(false);
       onMemberUpdated();
@@ -87,9 +91,10 @@ export const MemberDetailDrawer: React.FC<MemberDetailDrawerProps> = ({
   };
 
   const handleDelete = async () => {
+    const settings = getGymSettings();
     if (
       window.confirm(
-        `Are you sure you want to remove ${member.full_name} from Monster Gym? All payment history will be permanently deleted.`
+        `Are you sure you want to remove ${member.full_name} from ${settings.gymName || "MONSTER'S GYM"}? All payment history will be permanently deleted.`
       )
     ) {
       await deleteMember(member.id);
@@ -99,7 +104,16 @@ export const MemberDetailDrawer: React.FC<MemberDetailDrawerProps> = ({
   };
 
   const handleWhatsApp = () => {
-    const url = buildWhatsAppReminderUrl(member.full_name, member.phone, member.expiry_date);
+    const settings = getGymSettings();
+    const url = buildWhatsAppReminderUrl(
+      member.full_name,
+      member.phone,
+      member.expiry_date,
+      settings.reminderTemplate,
+      settings.gymName,
+      settings.ownerName,
+      settings.monthlyFee
+    );
     window.open(url, '_blank');
   };
 
@@ -117,9 +131,17 @@ export const MemberDetailDrawer: React.FC<MemberDetailDrawerProps> = ({
         {/* Header */}
         <div className="px-5 py-3.5 border-b border-[#E9ECEF] flex items-center justify-between bg-white">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full bg-[#EBF1FF] text-[#1A3EEA] font-black text-base flex items-center justify-center">
-              {member.full_name.charAt(0).toUpperCase()}
-            </div>
+            {member.photo_url ? (
+              <img
+                src={member.photo_url}
+                alt={member.full_name}
+                className="w-11 h-11 rounded-2xl object-cover border border-[#E9ECEF] shadow-sm"
+              />
+            ) : (
+              <div className="w-11 h-11 rounded-2xl bg-[#EBF1FF] text-[#1A3EEA] font-black text-base flex items-center justify-center">
+                {member.full_name.charAt(0).toUpperCase()}
+              </div>
+            )}
             <div>
               <h2 className="text-base font-bold text-[#0F172A] leading-tight">{member.full_name}</h2>
               <p className="text-xs text-[#64748B] font-medium">{formatDisplayPhone(member.phone)}</p>
@@ -169,6 +191,13 @@ export const MemberDetailDrawer: React.FC<MemberDetailDrawerProps> = ({
                   className="w-full h-11 bg-white border border-[#E9ECEF] rounded-xl px-3 text-sm text-[#0F172A] focus:outline-none focus:border-[#1A3EEA] font-mono"
                 />
               </div>
+
+              {/* Edit Live Photo */}
+              <LivePhotoCapture
+                photoUrl={editPhotoUrl}
+                onPhotoCaptured={setEditPhotoUrl}
+              />
+
               <div>
                 <label className="text-[11px] text-[#64748B] font-semibold block mb-1">Notes / Locker</label>
                 <input

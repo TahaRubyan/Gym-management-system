@@ -1,7 +1,7 @@
 import React from 'react';
-import { TrendingUp, Users, Plus, ClockAlert } from 'lucide-react';
+import { TrendingUp, Users, Plus, ClockAlert, Settings as SettingsIcon } from 'lucide-react';
 
-export type NavTab = 'dashboard' | 'members' | 'add-member' | 'expiring';
+export type NavTab = 'dashboard' | 'members' | 'add-member' | 'expiring' | 'settings';
 
 interface BottomNavProps {
   currentTab: NavTab;
@@ -16,11 +16,11 @@ export const BottomNav: React.FC<BottomNavProps> = ({
 }) => {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 px-3 pb-[env(safe-area-inset-bottom,12px)] pt-2 pointer-events-none select-none">
-      <nav className="max-w-md mx-auto pointer-events-auto bg-white/95 backdrop-blur-2xl border border-[#E9ECEF] rounded-2xl shadow-apple-nav px-3 py-1.5 flex items-center justify-between">
+      <nav className="max-w-md mx-auto pointer-events-auto bg-white/95 backdrop-blur-2xl border border-[#E9ECEF] rounded-2xl shadow-apple-nav px-2 py-1.5 flex items-center justify-between">
         {/* Tab 1: Revenue / Dashboard */}
         <button
           onClick={() => onTabChange('dashboard')}
-          className={`flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition-all duration-200 active:scale-95 ${
+          className={`flex-1 flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-all duration-200 active:scale-95 ${
             currentTab === 'dashboard'
               ? 'text-[#1A3EEA]'
               : 'text-[#94A3B8] hover:text-[#0F172A]'
@@ -43,7 +43,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
         {/* Tab 2: Members Directory */}
         <button
           onClick={() => onTabChange('members')}
-          className={`flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition-all duration-200 active:scale-95 ${
+          className={`flex-1 flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-all duration-200 active:scale-95 ${
             currentTab === 'members'
               ? 'text-[#1A3EEA]'
               : 'text-[#94A3B8] hover:text-[#0F172A]'
@@ -85,7 +85,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
         {/* Tab 4: Expiring Alert List */}
         <button
           onClick={() => onTabChange('expiring')}
-          className={`flex-1 flex flex-col items-center justify-center py-1.5 px-2 rounded-xl transition-all duration-200 active:scale-95 relative ${
+          className={`flex-1 flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-all duration-200 active:scale-95 relative ${
             currentTab === 'expiring'
               ? 'text-[#1A3EEA]'
               : 'text-[#94A3B8] hover:text-[#0F172A]'
@@ -99,7 +99,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
               }`}
             />
             {expiringCount > 0 && (
-              <span className="absolute -top-1 -right-2.5 min-w-[18px] h-[18px] px-1 bg-[#1A3EEA] text-white text-[10px] font-bold rounded-full flex items-center justify-center ring-2 ring-white animate-pulse">
+              <span className="absolute -top-1 -right-2 min-w-[17px] h-[17px] px-1 bg-[#1A3EEA] text-white text-[9px] font-bold rounded-full flex items-center justify-center ring-2 ring-white animate-pulse">
                 {expiringCount > 9 ? '9+' : expiringCount}
               </span>
             )}
@@ -107,7 +107,30 @@ export const BottomNav: React.FC<BottomNavProps> = ({
               <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1 bg-[#1A3EEA] rounded-full shadow-sm" />
             )}
           </div>
-          <span className="text-[10px] font-bold mt-1 tracking-wide">Expiring</span>
+          <span className="text-[10px] font-bold mt-1 tracking-wide">Alerts</span>
+        </button>
+
+        {/* Tab 5: Settings */}
+        <button
+          onClick={() => onTabChange('settings')}
+          className={`flex-1 flex flex-col items-center justify-center py-1.5 px-1 rounded-xl transition-all duration-200 active:scale-95 ${
+            currentTab === 'settings'
+              ? 'text-[#1A3EEA]'
+              : 'text-[#94A3B8] hover:text-[#0F172A]'
+          }`}
+          aria-label="Settings"
+        >
+          <div className="relative">
+            <SettingsIcon
+              className={`w-5 h-5 transition-transform duration-200 ${
+                currentTab === 'settings' ? 'scale-110 text-[#1A3EEA]' : ''
+              }`}
+            />
+            {currentTab === 'settings' && (
+              <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1 bg-[#1A3EEA] rounded-full shadow-sm" />
+            )}
+          </div>
+          <span className="text-[10px] font-bold mt-1 tracking-wide">Settings</span>
         </button>
       </nav>
     </div>
