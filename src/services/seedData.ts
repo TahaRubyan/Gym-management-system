@@ -5,8 +5,8 @@
  * active members, expired members, and multi-channel revenue breakdown.
  */
 
-import { Member, Payment, ReminderLog } from '../types/gym';
-import { formatDateIso, getTodayIso } from '../utils/dateAndPhone';
+import type { Member, Payment, ReminderLog } from '../types/gym.ts';
+import { formatDateIso, getTodayIso } from '../utils/dateAndPhone.ts';
 
 function createDateWithOffset(daysOffset: number): string {
   const date = new Date();
@@ -58,7 +58,7 @@ export function generateInitialSeedData(): {
       monthly_fee: 2500,
       expiry_date: today, // Expires TODAY
       status: 'EXPIRING_SOON',
-      notes: 'Morning heavy lifting group • Locker #08',
+      notes: 'Morning heavy lifting group',
       created_at: createDateWithOffset(-30) + 'T08:00:00.000Z',
     },
     {
@@ -70,7 +70,7 @@ export function generateInitialSeedData(): {
       monthly_fee: 2500,
       expiry_date: createDateWithOffset(1), // Expires Tomorrow
       status: 'EXPIRING_SOON',
-      notes: 'Locker #14 • Evening workout regular',
+      notes: 'Evening workout regular',
       created_at: createDateWithOffset(-29) + 'T10:30:00.000Z',
     },
     {
@@ -108,7 +108,7 @@ export function generateInitialSeedData(): {
       monthly_fee: 2500,
       expiry_date: createDateWithOffset(10), // Active (10 days left)
       status: 'ACTIVE',
-      notes: 'Locker #05 • Renewed via JazzCash',
+      notes: 'Renewed via JazzCash',
       created_at: createDateWithOffset(-50) + 'T11:00:00.000Z',
     },
     {
@@ -120,7 +120,7 @@ export function generateInitialSeedData(): {
       monthly_fee: 2500,
       expiry_date: createDateWithOffset(15), // Active (15 days left)
       status: 'ACTIVE',
-      notes: 'VIP student package • Locker #21',
+      notes: 'VIP student package',
       created_at: createDateWithOffset(-15) + 'T17:45:00.000Z',
     },
     {
@@ -156,7 +156,7 @@ export function generateInitialSeedData(): {
       monthly_fee: 2500,
       expiry_date: createDateWithOffset(16), // Active (16 days left)
       status: 'ACTIVE',
-      notes: 'Locker #19 • EasyPaisa regular',
+      notes: 'EasyPaisa regular',
       created_at: createDateWithOffset(-14) + 'T16:30:00.000Z',
     },
     {
@@ -180,7 +180,7 @@ export function generateInitialSeedData(): {
       monthly_fee: 2500,
       expiry_date: createDateWithOffset(7), // Active (7 days left)
       status: 'ACTIVE',
-      notes: 'Morning shift • Locker #03',
+      notes: 'Morning shift',
       created_at: createDateWithOffset(-23) + 'T07:30:00.000Z',
     },
 
@@ -218,7 +218,7 @@ export function generateInitialSeedData(): {
       monthly_fee: 2500,
       expiry_date: createDateWithOffset(-15), // Expired 15 days ago
       status: 'EXPIRED',
-      notes: 'Locker key pending return',
+      notes: 'Membership overdue follow up',
       created_at: createDateWithOffset(-55) + 'T15:20:00.000Z',
     },
   ];

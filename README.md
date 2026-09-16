@@ -108,49 +108,29 @@ The system formats Pakistani telephone numbers and generates instant deep-links 
 ```text
 Assalam-o-Alaikum [Member Name]! 🏋️‍♂️
 
-This is an official renewal reminder from *MONSTER'S GYM*.
+Reminder from *MONSTER'S GYM*:
+📅 *Expiry:* [Formatted Date] ([YYYY-MM-DD])
+💰 *Fee:* PKR 2,500
 
-📅 *Membership Expiry:* [Formatted Date] ([YYYY-MM-DD])
-💰 *Monthly Fee:* PKR 2,500
+Please renew your monthly pass on time.
+• Cash / EasyPaisa / JazzCash
 
-✨ *Important Note:*
-Kindly renew your membership by your expiry date to enjoy uninterrupted gym floor, professional equipment, and locker access.
-
-💳 *Accepted Payment Methods:*
-• 💵 Cash at Front Desk
-• 📱 EasyPaisa
-• 📲 JazzCash
-
-If you have already paid or have questions, feel free to reply to this message.
-
-Stay fit, stay strong! 💪🔥
-
-Warm Regards,
+Stay strong! 💪
 *DASTGIR KANTH*
-Owner & Founder, MONSTER'S GYM 👑
 ```
 
 ### Official WhatsApp Welcome Message Template
 ```text
 Assalam-o-Alaikum [Member Name]! 🏋️‍♂️🎉
 
-Welcome to the *MONSTER'S GYM* family! Your membership has been successfully registered.
+Welcome to *MONSTER'S GYM*! Your pass is active.
+📅 *Valid Until:* [Formatted Date]
+💰 *Monthly Fee:* PKR 2,500
 
-📋 *Membership Pass Details:*
-• 👤 *Member Name:* [Member Name]
-• 📅 *Pass Valid Until:* [Formatted Date]
-• 💰 *Monthly Renewal Fee:* PKR 2,500
-
-✨ *Gym Facilities & Guidelines:*
-• 🏋️ Full access to gym floor & heavy workout stations
-• 🔒 Safe locker facility available
-• ⏱️ Training hours: Monday to Saturday
-
-We are excited to partner with you on your fitness transformation. Let's crush your goals together! 💪🔥
+Training hours: Mon – Sat. Let's crush your goals! 💪🔥
 
 Warm Regards,
 *DASTGIR KANTH*
-Owner & Head Coach, MONSTER'S GYM 👑
 ```
 
 ---
@@ -193,7 +173,7 @@ Owner & Head Coach, MONSTER'S GYM 👑
 - Direct "Renew 2.5K" button opening the fee logger pre-filled.
 
 ### 5. Phased Member Registration & Celebration Wizard (`/members/new`)
-- **Phase 1 (Customer Details)**: Full name, Pakistani mobile number (with real-time validation), joining date, and optional notes/locker ID.
+- **Phase 1 (Customer Details)**: Full name, Pakistani mobile number (with real-time validation), joining date, and optional notes.
 - **Phase 2 (Amount & Channel)**: Strictly fixed monthly base fee of PKR 2,500 + variable admission fee with live Month 1 calculation (`Admission + PKR 2,500`), 30-day projection, and multi-channel selector.
 - **Celebration Phase**: Fluid spring animation upon enrollment featuring pulsing verification badge in electric blue, confirmation card, one-tap WhatsApp welcome trigger, and direct roster navigation.
 

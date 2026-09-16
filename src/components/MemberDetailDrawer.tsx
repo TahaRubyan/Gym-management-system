@@ -199,12 +199,12 @@ export const MemberDetailDrawer: React.FC<MemberDetailDrawerProps> = ({
               />
 
               <div>
-                <label className="text-[11px] text-[#64748B] font-semibold block mb-1">Notes / Locker</label>
+                <label className="text-[11px] text-[#64748B] font-semibold block mb-1">Notes</label>
                 <input
                   type="text"
                   value={editNotes}
                   onChange={(e) => setEditNotes(e.target.value)}
-                  placeholder="e.g. Locker #22"
+                  placeholder="e.g. Morning schedule"
                   className="w-full h-11 bg-white border border-[#E9ECEF] rounded-xl px-3 text-sm text-[#0F172A] focus:outline-none focus:border-[#1A3EEA]"
                 />
               </div>

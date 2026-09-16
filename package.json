@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "test": "node --experimental-strip-types test/verify_business_rules.mjs"
+    "test": "node --experimental-strip-types test/run_all_tests.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

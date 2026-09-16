@@ -5,7 +5,7 @@
  */
 
 import Dexie, { type EntityTable } from 'dexie';
-import {
+import type {
   Member,
   Payment,
   ReminderLog,
@@ -16,15 +16,15 @@ import {
   ChannelStat,
   EnrichedPayment,
   GymSettings,
-} from '../types/gym';
+} from '../types/gym.ts';
 import {
   BASE_MONTHLY_FEE,
   calculateInitialExpiry,
   calculateRenewalExpiry,
   checkMembershipStatus,
   getTodayIso,
-} from '../utils/dateAndPhone';
-import { generateInitialSeedData } from './seedData';
+} from '../utils/dateAndPhone.ts';
+import { generateInitialSeedData } from './seedData.ts';
 
 export const DEFAULT_SETTINGS: GymSettings = {
   gymName: "MONSTER'S GYM",
@@ -34,45 +34,25 @@ export const DEFAULT_SETTINGS: GymSettings = {
   defaultAdmissionFee: 1000,
   reminderTemplate: `Assalam-o-Alaikum {name}! 🏋️‍♂️
 
-This is an official renewal reminder from *{gymName}*.
+Reminder from *{gymName}*:
+📅 *Expiry:* {expiry}
+💰 *Fee:* PKR {fee}
 
-📅 *Membership Expiry:* {expiry}
-💰 *Monthly Fee:* PKR {fee}
+Please renew your monthly pass on time.
+• Cash / EasyPaisa / JazzCash
 
-✨ *Important Note:*
-Kindly renew your membership by your expiry date to enjoy uninterrupted gym floor, professional equipment, and locker access.
-
-💳 *Accepted Payment Methods:*
-• 💵 Cash at Front Desk
-• 📱 EasyPaisa
-• 📲 JazzCash
-
-If you have already paid or have questions, feel free to reply to this message.
-
-Stay fit, stay strong! 💪🔥
-
-Warm Regards,
-*{ownerName}*
-Owner & Founder, {gymName} 👑`,
+Stay strong! 💪
+*{ownerName}*`,
   welcomeTemplate: `Assalam-o-Alaikum {name}! 🏋️‍♂️🎉
 
-Welcome to the *{gymName}* family! Your membership has been successfully registered.
+Welcome to *{gymName}*! Your pass is active.
+📅 *Valid Until:* {expiry}
+💰 *Monthly Fee:* PKR {fee}
 
-📋 *Membership Pass Details:*
-• 👤 *Member Name:* {name}
-• 📅 *Pass Valid Until:* {expiry}
-• 💰 *Monthly Renewal Fee:* PKR {fee}
-
-✨ *Gym Facilities & Guidelines:*
-• 🏋️ Full access to gym floor & heavy workout stations
-• 🔒 Safe locker facility available
-• ⏱️ Training hours: Monday to Saturday
-
-We are excited to partner with you on your fitness transformation. Let's crush your goals together! 💪🔥
+Training hours: Mon – Sat. Let's crush your goals! 💪🔥
 
 Warm Regards,
-*{ownerName}*
-Owner & Head Coach, {gymName} 👑`,
+*{ownerName}*`,
 };
 
 const SETTINGS_STORAGE_KEY = 'monsters_gym_settings_v1';

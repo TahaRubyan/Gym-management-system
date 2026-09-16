@@ -81,7 +81,7 @@ To deliver a native app feel on iOS Safari:
   * **Admission Fee** (Number, e.g., `1500`, Default: `0`)
   * **Monthly Fee** (Number, Readonly/Default: `2500`)
   * **Payment Method** (Selectable Chips: `Cash`, `EasyPaisa`, `JazzCash`, `Bank Transfer`)
-  * **Notes / Locker ID** (Optional Text)
+  * **Notes** (Optional Text)
 * **Actions on Submit:**
   * Generates member profile record.
   * Creates initial payment entry totaling `Admission Fee + 2500`.

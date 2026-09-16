@@ -98,26 +98,15 @@ export function buildWhatsAppReminderUrl(
   } else {
     message = `Assalam-o-Alaikum ${fullName.trim()}! 🏋️‍♂️
 
-This is an official renewal reminder from *${gymName}*.
+Reminder from *${gymName}*:
+📅 *Expiry:* ${formattedExpiry} (${expiryDate})
+💰 *Fee:* PKR ${formattedFee}
 
-📅 *Membership Expiry:* ${formattedExpiry} (${expiryDate})
-💰 *Monthly Fee:* PKR ${formattedFee}
+Please renew your monthly pass on time.
+• Cash / EasyPaisa / JazzCash
 
-✨ *Important Note:*
-Kindly renew your membership by your expiry date to enjoy uninterrupted gym floor, professional equipment, and locker access.
-
-💳 *Accepted Payment Methods:*
-• 💵 Cash at Front Desk
-• 📱 EasyPaisa
-• 📲 JazzCash
-
-If you have already paid or have questions, feel free to reply to this message.
-
-Stay fit, stay strong! 💪🔥
-
-Warm Regards,
-*${ownerName}*
-Owner & Founder, ${gymName} 👑`;
+Stay strong! 💪
+*${ownerName}*`;
   }
 
   return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
@@ -152,23 +141,14 @@ export function buildWhatsAppWelcomeUrl(
   } else {
     message = `Assalam-o-Alaikum ${fullName.trim()}! 🏋️‍♂️🎉
 
-Welcome to the *${gymName}* family! Your membership has been successfully registered.
+Welcome to *${gymName}*! Your pass is active.
+📅 *Valid Until:* ${formattedExpiry}
+💰 *Monthly Fee:* PKR ${formattedFee}
 
-📋 *Membership Pass Details:*
-• 👤 *Member Name:* ${fullName.trim()}
-• 📅 *Pass Valid Until:* ${formattedExpiry}
-• 💰 *Monthly Renewal Fee:* PKR ${formattedFee}
-
-✨ *Gym Facilities & Guidelines:*
-• 🏋️ Full access to gym floor & heavy workout stations
-• 🔒 Safe locker facility available
-• ⏱️ Training hours: Monday to Saturday
-
-We are excited to partner with you on your fitness transformation. Let's crush your goals together! 💪🔥
+Training hours: Mon – Sat. Let's crush your goals! 💪🔥
 
 Warm Regards,
-*${ownerName}*
-Owner & Head Coach, ${gymName} 👑`;
+*${ownerName}*`;
   }
 
   return `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;

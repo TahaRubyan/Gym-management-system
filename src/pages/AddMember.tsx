@@ -285,15 +285,15 @@ export const AddMember: React.FC<AddMemberProps> = ({ onSuccess, onCancel }) => 
               </div>
             </div>
 
-            {/* Notes / Locker ID */}
+            {/* Notes */}
             <div>
               <label className="block text-xs font-bold text-[#64748B] uppercase tracking-wider mb-2">
-                Notes / Locker ID <span className="text-[#94A3B8] font-normal">(Optional)</span>
+                Notes <span className="text-[#94A3B8] font-normal">(Optional)</span>
               </label>
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="e.g. Locker #18 • Morning schedule"
+                  placeholder="e.g. Morning schedule • Weight training"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   className="w-full h-[52px] bg-white border border-[#E9ECEF] focus:border-[#1A3EEA] rounded-2xl pl-12 pr-4 text-sm text-[#0F172A] placeholder-[#94A3B8] focus:outline-none shadow-apple-card font-sans tracking-wide"
